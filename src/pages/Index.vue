@@ -118,48 +118,201 @@ export default {
       },
       `
       var query2 = `query {
-        spaces {
-          apps {
-            chart, 
-            config, 
-            containers {
-              command,
-              cpu,
-              devmode,
-              disk,
-              endpoints,
-              environment,
-              error,
-              id,
-              image,
-              memory,
-              name,
-              port,
-              replicas,
-              status,
-              volumes {
+        spaces {id}
+      }`
+      this.loginClient.request(query).then(data => {
+        console.log(data)
+        this.loginClient.request(query2).then(data1 => {
+          // getting all spaces ids
+          console.log(data1)
+          for (let i = 0; i < data1.spaces.length; i++) {
+            console.log(data1.spaces[i].id)
+            this.loginClient.request(this.query3(data1.spaces[i].id)).then(data => {
+              console.log(data)
+              if (i === data1.spaces.length - 1) {
+                this.$q.loading.hide()
+                // and login user to dashboard
+              }
+              // successfully can login now.
+            }).catch((e) => {
+              console.log(e)
+              this.$q.loading.hide()
+              this.errorAtReq()
+            })
+          }
+          // successfully can login now.
+        }).catch((e) => {
+          console.log(e)
+          this.$q.loading.hide()
+          this.errorAtReq()
+        })
+        // successfully can login now.
+      }).catch((e) => {
+        this.$q.loading.hide()
+        this.errorAtReq()
+      })
+    },
+    errorAtReq () {
+      this.$q.notify({
+        message: 'Error #1: Your token expires please try login again. If this error comes again after login, then report it at okteto support.',
+        icon: 'fa fa-exclamation-triangle',
+        timeout: 10000,
+        position: 'top'
+      })
+      this.$q.localStorage.remove('auth')
+    },
+    setupLoginClient () {
+      this.loginClient = new GraphQLClient('https://cloud.okteto.com/graphql', {
+        headers: {
+          Authorization: 'Bearer ' + this.$q.localStorage.getItem('auth').token
+        }
+      })
+    },
+    query3 (spaceID) {
+      var query = `query {
+          space (id: "${spaceID}") {
+            apps {
+              chart, 
+              config, 
+              containers {
+                command,
+                cpu,
+                devmode,
+                disk,
+                endpoints,
+                environment,
+                error,
                 id,
+                image,
+                memory,
                 name,
-                size,
-                status
+                port,
+                replicas,
+                status,
+                volumes {
+                  id,
+                  name,
+                  size,
+                  status
+                }
+              }, 
+              deployments {
+                cpu,
+                devmode,
+                disk,
+                endpoints,
+                error,
+                id,
+                memory,
+                name,
+                status,
+                volumes {
+                  id,
+                  name,
+                  size,
+                  status
+                }
+              }, 
+              devs {
+                cpu,
+                disk,
+                endpoints,
+                error,
+                id,
+                memory,
+                name,
+                status,
+                volumes {
+                  id,
+                  name,
+                  size,
+                  status
+                }
+              }, 
+              functions {
+                cpu,
+                devmode,
+                disk,
+                endpoints,
+                error,
+                id,
+                memory,
+                name,
+                status,
+                volumes {
+                  id,
+                  name,
+                  size,
+                  status
+                }
+              }, 
+              id, 
+              name, 
+              output, 
+              repo, 
+              statefulsets {
+                cpu,
+                disk,
+                endpoints,
+                error,
+                id,
+                memory,
+                name,
+                status,
+                volumes {
+                  id,
+                  name,
+                  size,
+                  status
+                }
+              }, 
+              status, 
+              version, 
+              volumes {
+                  id,
+                  name,
+                  size,
+                  status
               }
             }, 
-            deployments {
-              cpu,
-              devmode,
-              disk,
-              endpoints,
-              error,
-              id,
-              memory,
-              name,
-              status,
-              volumes {
+            containers {
+                command,
+                cpu,
+                devmode,
+                disk,
+                endpoints,
+                environment,
+                error,
                 id,
+                image,
+                memory,
                 name,
-                size,
-                status
-              }
+                port,
+                replicas,
+                status,
+                volumes {
+                  id,
+                  name,
+                  size,
+                  status
+                }
+            }, 
+            deployments {
+                cpu,
+                devmode,
+                disk,
+                endpoints,
+                error,
+                id,
+                memory,
+                name,
+                status,
+                volumes {
+                  id,
+                  name,
+                  size,
+                  status
+                }
             }, 
             devs {
               cpu,
@@ -195,9 +348,40 @@ export default {
               }
             }, 
             id, 
-            name, 
-            output, 
-            repo, 
+            invited {
+              avatar,
+              email,
+              githubID,
+              id,
+              name,
+              owner
+            }, 
+            members {
+              avatar,
+              email,
+              githubID,
+              id,
+              name,
+              owner
+            },
+            quotas {
+              hard {
+                limitsCPU,
+                limitsMemory,
+                limitsStorage,
+                requestsCPU,
+                requestsMemory,
+                requestsStorage
+              },
+              used {
+                limitsCPU,
+                limitsMemory,
+                limitsStorage,
+                requestsCPU,
+                requestsMemory,
+                requestsStorage
+              }
+            }, 
             statefulsets {
               cpu,
               disk,
@@ -214,180 +398,15 @@ export default {
                 status
               }
             }, 
-            status, 
-            version, 
-            volumes {
-                id,
-                name,
-                size,
-                status
-            }
-          }, 
-          containers {
-              command,
-              cpu,
-              devmode,
-              disk,
-              endpoints,
-              environment,
-              error,
-              id,
-              image,
-              memory,
-              name,
-              port,
-              replicas,
-              status,
-              volumes {
-                id,
-                name,
-                size,
-                status
-              }
-          }, 
-          deployments {
-              cpu,
-              devmode,
-              disk,
-              endpoints,
-              error,
-              id,
-              memory,
-              name,
-              status,
-              volumes {
-                id,
-                name,
-                size,
-                status
-              }
-          }, 
-          devs {
-            cpu,
-            disk,
-            endpoints,
-            error,
-            id,
-            memory,
-            name,
-            status,
             volumes {
               id,
               name,
               size,
               status
             }
-          }, 
-          functions {
-            cpu,
-            devmode,
-            disk,
-            endpoints,
-            error,
-            id,
-            memory,
-            name,
-            status,
-            volumes {
-              id,
-              name,
-              size,
-              status
-            }
-          }, 
-          id, 
-          invited {
-            avatar,
-            email,
-            githubID,
-            id,
-            name,
-            owner
-          }, 
-          members {
-            avatar,
-            email,
-            githubID,
-            id,
-            name,
-            owner
-          },
-          quotas {
-            hard {
-              limitsCPU,
-              limitsMemory,
-              limitsStorage,
-              requestsCPU,
-              requestsMemory,
-              requestsStorage
-            },
-            used {
-              limitsCPU,
-              limitsMemory,
-              limitsStorage,
-              requestsCPU,
-              requestsMemory,
-              requestsStorage
-            }
-          }, 
-          statefulsets {
-            cpu,
-            disk,
-            endpoints,
-            error,
-            id,
-            memory,
-            name,
-            status,
-            volumes {
-              id,
-              name,
-              size,
-              status
-            }
-          }, 
-          volumes {
-            id,
-            name,
-            size,
-            status
           }
-        }
-      }
-      `
-      this.loginClient.request(query).then(data => {
-        console.log(data)
-        this.$q.loading.hide()
-        // successfully can login now.
-      }).catch((e) => {
-        this.$q.loading.hide()
-        this.errorAtReq()
-      })
-      this.loginClient.request(query2).then(data => {
-        console.log(data)
-        this.$q.loading.hide()
-        // successfully can login now.
-      }).catch((e) => {
-        console.log(e)
-        this.$q.loading.hide()
-        this.errorAtReq()
-      })
-    },
-    errorAtReq () {
-      this.$q.notify({
-        message: 'Error #1: Your token expires please try login again. If this error comes again after login, then report it at okteto support.',
-        icon: 'fa fa-exclamation-triangle',
-        timeout: 10000,
-        position: 'top'
-      })
-      this.$q.localStorage.remove('auth')
-    },
-    setupLoginClient () {
-      this.loginClient = new GraphQLClient('https://cloud.okteto.com/graphql', {
-        headers: {
-          Authorization: 'Bearer ' + this.$q.localStorage.getItem('auth').token
-        }
-      })
+        } `
+      return query
     }
   },
   mounted () {
