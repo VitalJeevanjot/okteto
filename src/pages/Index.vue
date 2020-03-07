@@ -114,22 +114,255 @@ export default {
     },
     processRequest () {
       var query = `query {
-            user {email}
-      }`
+        user {avatar, buildkit, email, githubID, id, name, namespace, new, onboarded, registry}
+      },
+      `
+      var query2 = `query {
+        spaces {
+          apps {
+            chart, 
+            config, 
+            containers {
+              command,
+              cpu,
+              devmode,
+              disk,
+              endpoints,
+              environment,
+              error,
+              id,
+              image,
+              memory,
+              name,
+              port,
+              replicas,
+              status,
+              volumes {
+                id,
+                name,
+                size,
+                status
+              }
+            }, 
+            deployments {
+              cpu,
+              devmode,
+              disk,
+              endpoints,
+              error,
+              id,
+              memory,
+              name,
+              status,
+              volumes {
+                id,
+                name,
+                size,
+                status
+              }
+            }, 
+            devs {
+              cpu,
+              disk,
+              endpoints,
+              error,
+              id,
+              memory,
+              name,
+              status,
+              volumes {
+                id,
+                name,
+                size,
+                status
+              }
+            }, 
+            functions {
+              cpu,
+              devmode,
+              disk,
+              endpoints,
+              error,
+              id,
+              memory,
+              name,
+              status,
+              volumes {
+                id,
+                name,
+                size,
+                status
+              }
+            }, 
+            id, 
+            name, 
+            output, 
+            repo, 
+            statefulsets {
+              cpu,
+              disk,
+              endpoints,
+              error,
+              id,
+              memory,
+              name,
+              status,
+              volumes {
+                id,
+                name,
+                size,
+                status
+              }
+            }, 
+            status, 
+            version, 
+            volumes {
+                id,
+                name,
+                size,
+                status
+            }
+          }, 
+          containers {
+              command,
+              cpu,
+              devmode,
+              disk,
+              endpoints,
+              environment,
+              error,
+              id,
+              image,
+              memory,
+              name,
+              port,
+              replicas,
+              status,
+              volumes {
+                id,
+                name,
+                size,
+                status
+              }
+          }, 
+          deployments {
+              cpu,
+              devmode,
+              disk,
+              endpoints,
+              error,
+              id,
+              memory,
+              name,
+              status,
+              volumes {
+                id,
+                name,
+                size,
+                status
+              }
+          }, 
+          devs {
+            cpu,
+            disk,
+            endpoints,
+            error,
+            id,
+            memory,
+            name,
+            status,
+            volumes {
+              id,
+              name,
+              size,
+              status
+            }
+          }, 
+          functions {
+            cpu,
+            devmode,
+            disk,
+            endpoints,
+            error,
+            id,
+            memory,
+            name,
+            status,
+            volumes {
+              id,
+              name,
+              size,
+              status
+            }
+          }, 
+          id, 
+          invited {
+            avatar,
+            email,
+            githubID,
+            id,
+            name,
+            owner
+          }, 
+          members {
+            avatar,
+            email,
+            githubID,
+            id,
+            name,
+            owner
+          },
+          quotas, 
+          statefulsets {
+            cpu,
+            disk,
+            endpoints,
+            error,
+            id,
+            memory,
+            name,
+            status,
+            volumes {
+              id,
+              name,
+              size,
+              status
+            }
+          }, 
+          volumes {
+            id,
+            name,
+            size,
+            status
+          }
+      },
+      `
       this.loginClient.request(query).then(data => {
         console.log(data)
         this.$q.loading.hide()
         // successfully can login now.
       }).catch((e) => {
-        this.$q.notify({
-          message: 'Error #1: Your token expires please try login again. If this error comes again after login, then report it at okteto support.',
-          icon: 'fa fa-exclamation-triangle',
-          timeout: 10000,
-          position: 'top'
-        })
-        this.$q.localStorage.remove('auth')
         this.$q.loading.hide()
+        this.errorAtReq()
       })
+      this.loginClient.request(query2).then(data => {
+        console.log(data)
+        this.$q.loading.hide()
+        // successfully can login now.
+      }).catch((e) => {
+        console.log(e)
+        this.$q.loading.hide()
+        this.errorAtReq()
+      })
+    },
+    errorAtReq () {
+      this.$q.notify({
+        message: 'Error #1: Your token expires please try login again. If this error comes again after login, then report it at okteto support.',
+        icon: 'fa fa-exclamation-triangle',
+        timeout: 10000,
+        position: 'top'
+      })
+      this.$q.localStorage.remove('auth')
     },
     setupLoginClient () {
       this.loginClient = new GraphQLClient('https://cloud.okteto.com/graphql', {
