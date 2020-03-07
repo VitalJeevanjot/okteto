@@ -312,7 +312,24 @@ export default {
             name,
             owner
           },
-          quotas, 
+          quotas {
+            hard {
+              limitsCPU,
+              limitsMemory,
+              limitsStorage,
+              requestsCPU,
+              requestsMemory,
+              requestsStorage
+            },
+            used {
+              limitsCPU,
+              limitsMemory,
+              limitsStorage,
+              requestsCPU,
+              requestsMemory,
+              requestsStorage
+            }
+          }, 
           statefulsets {
             cpu,
             disk,
@@ -335,7 +352,8 @@ export default {
             size,
             status
           }
-      },
+        }
+      }
       `
       this.loginClient.request(query).then(data => {
         console.log(data)
