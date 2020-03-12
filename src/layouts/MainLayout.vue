@@ -12,12 +12,13 @@
 <script>
 import { colors } from 'quasar'
 colors.setBrand('primary', '#232935')
+colors.setBrand('secondary', '#1E222B')
+colors.setBrand('warning', '#808ca9')
+colors.setBrand('positive', '#04A29E')
 export default {
   name: 'MainLayout',
   data () {
-    return {
-      leftDrawerOpen: false
-    }
+    return {}
   }
 }
 </script>

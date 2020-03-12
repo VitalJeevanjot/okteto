@@ -10,13 +10,18 @@
       <p
         class="text-white text-h4 heading-bold"
         style="text-align: center; max-width: 500px"
-      >Kubernetes for Developers</p>
+      >
+        Kubernetes for Developers
+      </p>
     </div>
     <div class="row justify-center">
       <p
         class="text-white text-body1"
         style="text-align:center; max-width: 400px;"
-      >Login with Github, download your credentials, and get full access to your Kubernetes namespace.</p>
+      >
+        Login with Github, download your credentials, and get full access to
+        your Kubernetes namespace.
+      </p>
     </div>
     <div class="justify-center row q-pt-xs">
       <q-btn
@@ -46,7 +51,8 @@
           href="https://okteto.com/legal"
           style="text-decoration: none; color:#00D1CA"
         >
-          Privacy Policy</a>.</p>
+          Privacy Policy</a>.
+      </p>
     </div>
   </q-page>
 </template>
@@ -65,12 +71,19 @@ export default {
   },
   methods: {
     authorizeUser () {
-      this.authBrowser = window.cordova.InAppBrowser.open('https://github.com/login/oauth/authorize?client_id=47867be52b46a2d9d302', '_blank', 'location=no,clearcache=yes,clearsessioncache=yes')
+      this.authBrowser = window.cordova.InAppBrowser.open(
+        'https://github.com/login/oauth/authorize?client_id=47867be52b46a2d9d302',
+        '_blank',
+        'location=no,clearcache=yes,clearsessioncache=yes'
+      )
       this.authBrowser.addEventListener('loadstop', this.urlLoading)
     },
     urlLoading (event) {
       var parsedURL = this.$parseUrl(event.url, true)
-      if (parsedURL.host === 'cloud.okteto.com' || parsedURL.hostname === 'cloud.okteto.com') {
+      if (
+        parsedURL.host === 'cloud.okteto.com' ||
+        parsedURL.hostname === 'cloud.okteto.com'
+      ) {
         const variables = {
           codeRetrieved: parsedURL.query.code
         }
@@ -80,28 +93,30 @@ export default {
               id, githubID, namespace, avatar, name, email, token
             }
           }`
-        this.$greq('https://cloud.okteto.com/graphql', query).then(data => {
-          console.log(data.auth.token)
-          try {
-            this.$q.localStorage.set('auth', data.auth)
-          } catch (e) {
+        this.$greq('https://cloud.okteto.com/graphql', query)
+          .then(data => {
+            console.log(data.auth.token)
+            try {
+              this.$q.localStorage.set('auth', data.auth)
+            } catch (e) {
+              this.$q.notify({
+                message: 'Your credentails not saved because of error:' + e,
+                icon: 'fa fa-exclamation-triangle'
+              })
+              // data wasn't successfully saved due to
+              // a Web Storage API error
+            }
+            this.authBrowser.close()
+            this.setupLoginClient()
+            this.showLoading()
+            this.processRequest()
+          })
+          .catch(e => {
             this.$q.notify({
-              message: 'Your credentails not saved because of error:' + e,
+              message: 'Error #2: Please Report at Okteto Support.',
               icon: 'fa fa-exclamation-triangle'
             })
-            // data wasn't successfully saved due to
-            // a Web Storage API error
-          }
-          this.authBrowser.close()
-          this.setupLoginClient()
-          this.showLoading()
-          this.processRequest()
-        }).catch(e => {
-          this.$q.notify({
-            message: 'Error #2: Please Report at Okteto Support.',
-            icon: 'fa fa-exclamation-triangle'
           })
-        })
       }
     },
     showLoading () {
@@ -120,41 +135,55 @@ export default {
       var query2 = `query {
         spaces {id}
       }`
-      this.loginClient.request(query).then(data => {
-        console.log(data)
-        this.loginClient.request(query2).then(data1 => {
-          // getting all spaces ids
-          console.log(data1)
-          for (let i = 0; i < data1.spaces.length; i++) {
-            console.log(data1.spaces[i].id)
-            this.loginClient.request(this.query3(data1.spaces[i].id)).then(data => {
-              console.log(data)
-              if (i === data1.spaces.length - 1) {
-                this.$q.loading.hide()
-                // and login user to dashboard
+      this.loginClient
+        .request(query)
+        .then(data => {
+          console.log(data)
+          this.loginClient
+            .request(query2)
+            .then(data1 => {
+              // getting all spaces ids
+              console.log(data1)
+              var allSpacesData = []
+              for (let i = 0; i < data1.spaces.length; i++) {
+                this.loginClient
+                  .request(this.query3(data1.spaces[i].id))
+                  .then(data => {
+                    console.log(data)
+                    allSpacesData.push(data.space)
+                    if (i === data1.spaces.length - 1) {
+                      console.log(allSpacesData)
+                      this.$q.loading.hide()
+                      this.$q.localStorage.set('spaces', allSpacesData)
+                      this.$router.push('dashboard')
+                      // and login user to dashboard
+                    }
+                    // successfully can login now.
+                  })
+                  .catch(e => {
+                    console.log(e)
+                    this.$q.loading.hide()
+                    this.errorAtReq()
+                  })
               }
               // successfully can login now.
-            }).catch((e) => {
+            })
+            .catch(e => {
               console.log(e)
               this.$q.loading.hide()
               this.errorAtReq()
             })
-          }
           // successfully can login now.
-        }).catch((e) => {
-          console.log(e)
+        })
+        .catch(e => {
           this.$q.loading.hide()
           this.errorAtReq()
         })
-        // successfully can login now.
-      }).catch((e) => {
-        this.$q.loading.hide()
-        this.errorAtReq()
-      })
     },
     errorAtReq () {
       this.$q.notify({
-        message: 'Error #1: Your token expires please try login again. If this error comes again after login, then report it at okteto support.',
+        message:
+          'Error #1: Your token expires please try login again. If this error comes again after login, then report it at okteto support.',
         icon: 'fa fa-exclamation-triangle',
         timeout: 10000,
         position: 'top'
