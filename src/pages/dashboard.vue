@@ -57,6 +57,7 @@
           v-ripple
           v-for="space in spaces"
           :key="space.id"
+          @click="openNamespace(space.id)"
         >
 
           <q-item-section>
@@ -90,8 +91,8 @@
             >
               <div class="absolute-full flex flex-center">
                 <q-badge
-                  color="secondary"
-                  text-color="white"
+                  color="white"
+                  text-color="black"
                   :label="'Memory: ' + $byteSize(parseInt(space.quotas.used.limitsMemory), { units: 'iec' })"
                 />
               </div>
@@ -105,8 +106,8 @@
             >
               <div class="absolute-full flex flex-center">
                 <q-badge
-                  color="white"
-                  text-color="black"
+                  color="secondary"
+                  text-color="white"
                   :label="'CPU: ' + space.quotas.used.limitsCPU / 1000"
                 />
               </div>
@@ -140,7 +141,9 @@ export default {
   },
   methods: {
     createNameSpace () {
-
+    },
+    openNamespace (id) {
+      console.log(id)
     }
 
   },
