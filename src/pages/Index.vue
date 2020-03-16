@@ -448,12 +448,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.terms-regular {
-  font-family: heebo-regular;
-}
-.heading-bold {
-  font-family: heebo-bold;
-}
-</style>

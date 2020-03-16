@@ -27,37 +27,92 @@
     <div class="text-warning row justify-center text-h6">
       <p class="heading-bold">Namespaces ({{spaces.length}})</p>
     </div>
-    <div
-      v-for="space in spaces"
-      :key="space.id"
-      class="q-pa-sm row justify-center"
-    >
-      <q-btn
-        push
-        class="q-mr-sm"
-        color="secondary"
-        round
-        text-color="white"
-        icon="las la-trash"
-        style="width: 50px; height: 50px"
-      />
-      <q-btn
-        push
-        color="white"
-        text-color="secondary"
-        :label="space.id"
-        style="width: 260px;"
+    <div class="q-pa-sm row justify-center">
+      <q-list
+        padding
+        class="rounded-borders bg-white"
+        style="max-width: 550px; min-width: 310px"
       >
-        <q-badge
-          color="positive"
-          floating
-        >{{space.apps.length}}</q-badge>
-        <q-badge
-          color="blue"
-          floating
-          class="q-mr-lg"
-        >{{space.deployments.length}}</q-badge>
-      </q-btn>
+
+        <q-item
+          clickable
+          v-ripple
+          v-for="space in spaces"
+          :key="space.id"
+        >
+          <q-item-section
+            avatar
+            top
+          >
+            <q-avatar
+              color="secondary"
+              text-color="white"
+            >
+              <img :src="space.members[0].avatar">
+            </q-avatar>
+
+          </q-item-section>
+
+          <q-item-section>
+            <q-item-label lines="1">{{space.id}}</q-item-label>
+            <q-item-label class="text-grey-8">Used Quota:</q-item-label>
+            <q-linear-progress
+              size="20px"
+              :value="space.quotas.used.limitsStorage/space.quotas.hard.limitsStorage"
+              class="bg-grey-3 q-mt-sm"
+              color="positive"
+              rounded
+            >
+              <div class="absolute-full flex flex-center">
+                <q-badge
+                  color="white"
+                  text-color="black"
+                  :label="'Disk: ' + $byteSize(parseInt(space.quotas.used.limitsStorage), { units: 'iec' })"
+                />
+              </div>
+            </q-linear-progress>
+            <q-linear-progress
+              size="20px"
+              :value="space.quotas.used.limitsMemory/space.quotas.hard.limitsMemory"
+              class="bg-grey-3 q-mt-sm"
+              color="positive"
+              rounded
+            >
+              <div class="absolute-full flex flex-center">
+                <q-badge
+                  color="white"
+                  text-color="black"
+                  :label="'Memory: ' + $byteSize(parseInt(space.quotas.used.limitsMemory), { units: 'iec' })"
+                />
+              </div>
+            </q-linear-progress>
+            <q-linear-progress
+              size="20px"
+              :value="space.quotas.used.limitsCPU/space.quotas.hard.limitsCPU"
+              class="bg-grey-3 q-mt-sm"
+              color="positive"
+              rounded
+            >
+              <div class="absolute-full flex flex-center">
+                <q-badge
+                  color="white"
+                  text-color="black"
+                  :label="'CPU: ' + space.quotas.used.limitsCPU / 1000"
+                />
+              </div>
+            </q-linear-progress>
+          </q-item-section>
+
+          <q-item-section side>
+            <q-badge color="positive">{{space.apps.length}}</q-badge>
+            <q-badge
+              color="blue"
+              class="q-mt-sm"
+            >{{space.deployments.length}}</q-badge>
+          </q-item-section>
+        </q-item>
+      </q-list>
+
     </div>
 
   </q-page>
@@ -80,15 +135,7 @@ export default {
     console.log(this.spaces)
     console.log(this.$q.localStorage.getItem('auth'))
     this.avatar = this.$q.localStorage.getItem('auth').avatar
+    console.log(this.$byteSize(13958643712, { units: 'iec' }))
   }
 }
 </script>
-
-<style>
-.terms-regular {
-  font-family: heebo-regular;
-}
-.heading-bold {
-  font-family: heebo-bold;
-}
-</style>

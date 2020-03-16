@@ -14,6 +14,7 @@
   "dependencies": {
     "@quasar/extras": "^1.0.0",
     "axios": "^0.18.1",
+    "byte-size": "^6.2.0",
     "graphql-request": "^1.8.2",
     "quasar": "^1.0.0",
     "url-parse": "^1.4.7"
