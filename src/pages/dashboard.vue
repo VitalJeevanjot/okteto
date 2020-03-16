@@ -48,15 +48,15 @@
     <div class="q-pa-sm row justify-center">
       <q-list
         padding
-        class="rounded-borders bg-secondary"
+        v-for="space in spaces"
+        :key="space.id"
+        class="rounded-borders bg-secondary q-ma-sm"
         style="max-width: 600px; min-width: 310px; width: 90vw"
       >
 
         <q-item
           clickable
           v-ripple
-          v-for="space in spaces"
-          :key="space.id"
           @click="openNamespace(space.id)"
         >
 
@@ -70,7 +70,7 @@
             <q-linear-progress
               size="20px"
               :value="space.quotas.used.limitsStorage/space.quotas.hard.limitsStorage"
-              class="bg-grey-3 q-mt-sm"
+              class="bg-info q-mt-sm"
               color="positive"
               rounded
             >
@@ -78,6 +78,7 @@
                 <q-badge
                   color="white"
                   text-color="black"
+                  style="opacity: 0.6;"
                   :label="'Disk: ' + $byteSize(parseInt(space.quotas.used.limitsStorage), { units: 'iec' })"
                 />
               </div>
@@ -85,7 +86,7 @@
             <q-linear-progress
               size="20px"
               :value="space.quotas.used.limitsMemory/space.quotas.hard.limitsMemory"
-              class="bg-grey-3 q-mt-sm"
+              class="bg-info q-mt-sm"
               color="positive"
               rounded
             >
@@ -93,6 +94,7 @@
                 <q-badge
                   color="white"
                   text-color="black"
+                  style="opacity: 0.6;"
                   :label="'Memory: ' + $byteSize(parseInt(space.quotas.used.limitsMemory), { units: 'iec' })"
                 />
               </div>
@@ -100,7 +102,7 @@
             <q-linear-progress
               size="20px"
               :value="space.quotas.used.limitsCPU/space.quotas.hard.limitsCPU"
-              class="bg-grey-3 q-mt-sm"
+              class="bg-info q-mt-sm"
               color="positive"
               rounded
             >
@@ -108,6 +110,7 @@
                 <q-badge
                   color="secondary"
                   text-color="white"
+                  style="opacity: 0.6;"
                   :label="'CPU: ' + space.quotas.used.limitsCPU / 1000"
                 />
               </div>
@@ -117,7 +120,7 @@
           <q-item-section side>
             <q-badge color="positive">{{space.apps.length}}</q-badge>
             <q-badge
-              color="blue"
+              color="info"
               class="q-mt-sm"
             >{{space.deployments.length}}</q-badge>
           </q-item-section>
@@ -144,6 +147,7 @@ export default {
     },
     openNamespace (id) {
       console.log(id)
+      this.$router.push('namespace/' + id)
     }
 
   },

@@ -196,6 +196,7 @@ export default {
           Authorization: 'Bearer ' + this.$q.localStorage.getItem('auth').token
         }
       })
+      window.loginClient = this.loginClient
     },
     query3 (spaceID) {
       var query = `query {
@@ -443,7 +444,10 @@ export default {
       this.setupLoginClient()
       this.showLoading()
       this.processRequest()
-      // Setting auth header
+      // Setting global variable
+      window.spaceQuery = this.query3
+      window.showLoading = this.showLoading
+      console.log('Mounted Index.vue')
     }
   }
 }

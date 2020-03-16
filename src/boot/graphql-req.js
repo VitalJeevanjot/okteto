@@ -4,4 +4,5 @@ import { request } from 'graphql-request'
 export default async ({ Vue }) => {
   // something to do
   Vue.prototype.$greq = request
+  Vue.prototype.$loginClient = null
 }
