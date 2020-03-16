@@ -90,8 +90,8 @@
             >
               <div class="absolute-full flex flex-center">
                 <q-badge
-                  color="white"
-                  text-color="black"
+                  color="secondary"
+                  text-color="white"
                   :label="'Memory: ' + $byteSize(parseInt(space.quotas.used.limitsMemory), { units: 'iec' })"
                 />
               </div>
