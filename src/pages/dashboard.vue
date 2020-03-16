@@ -19,7 +19,21 @@
         color="secondary"
         text-color="white"
         icon="las la-plus"
-      />
+      >
+        <q-popup-edit
+          buttons
+          v-model="namespaceNewName"
+          title="Name"
+          @save="createNameSpace"
+        >
+          <q-input
+            v-model="namespaceNewName"
+            dense
+            autofocus
+            counter
+          />
+        </q-popup-edit>
+      </q-btn>
     </q-toolbar>
 
     <!-- namespaces -->
@@ -124,10 +138,14 @@ export default {
   data () {
     return {
       spaces: [],
-      avatar: ''
+      avatar: '',
+      namespaceNewName: ''
     }
   },
   methods: {
+    createNameSpace () {
+
+    }
 
   },
   mounted () {
