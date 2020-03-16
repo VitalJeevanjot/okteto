@@ -23,10 +23,14 @@
         <q-popup-edit
           buttons
           v-model="namespaceNewName"
+          content-class="bg-negative text-white"
+          color="white"
           title="Name"
           @save="createNameSpace"
         >
           <q-input
+            dark
+            color="white"
             v-model="namespaceNewName"
             dense
             autofocus
@@ -44,8 +48,8 @@
     <div class="q-pa-sm row justify-center">
       <q-list
         padding
-        class="rounded-borders bg-white"
-        style="max-width: 550px; min-width: 310px"
+        class="rounded-borders bg-secondary"
+        style="max-width: 600px; min-width: 310px; width: 90vw"
       >
 
         <q-item
@@ -54,22 +58,14 @@
           v-for="space in spaces"
           :key="space.id"
         >
-          <q-item-section
-            avatar
-            top
-          >
-            <q-avatar
-              color="secondary"
-              text-color="white"
-            >
-              <img :src="space.members[0].avatar">
-            </q-avatar>
-
-          </q-item-section>
 
           <q-item-section>
-            <q-item-label lines="1">{{space.id}}</q-item-label>
-            <q-item-label class="text-grey-8">Used Quota:</q-item-label>
+            <q-item-label
+              lines="1"
+              align="center"
+              class="text-h6 text-white"
+            >{{space.id}}</q-item-label>
+            <q-item-label class="text-grey-7 text-overline">Quota Used:</q-item-label>
             <q-linear-progress
               size="20px"
               :value="space.quotas.used.limitsStorage/space.quotas.hard.limitsStorage"

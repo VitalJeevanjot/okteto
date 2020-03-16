@@ -22,6 +22,6 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <allow-navigation href="about:*" />
-    <engine name="android" spec="^8.1.0" />
     <allow-navigation href="http://169.254.80.80:8080" />
+    <engine name="android" spec="^8.1.0" />
 </widget>

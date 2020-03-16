@@ -15,6 +15,7 @@ colors.setBrand('primary', '#232935')
 colors.setBrand('secondary', '#1E222B')
 colors.setBrand('warning', '#808ca9')
 colors.setBrand('positive', '#04A29E')
+colors.setBrand('negative', '#16191F')
 export default {
   name: 'MainLayout',
   data () {
