@@ -22,32 +22,63 @@
       </q-btn>
     </q-toolbar>
     <!-- content -->
-    <q-list class="rounded-borders q-pt-md">
-      <q-expansion-item class="bg-secondary">
+    <q-list
+      class="rounded-borders q-pt-md"
+      v-for="app in spaceData.apps"
+      :key="app.id"
+    >
+      <q-expansion-item
+        class="bg-secondary"
+        group="allApps"
+        expand-icon-class="text-white"
+        style="border-radius: 30px"
+        expand-icon="las la-angle-down"
+        switch-toggle-side
+        expand-icon-toggle
+      >
         <template v-slot:header>
-          <q-item-section avatar>
-            <q-avatar
-              icon="bluetooth"
-              color="primary"
-              text-color="white"
-            />
-          </q-item-section>
 
           <q-item-section class="text-white text-subtitle2">
-            Bluetooth technology
+            <div class="row text-warning text-caption">
+              Application
+            </div>
+            <div class="row">
+              {{app.chart}}
+            </div>
           </q-item-section>
 
           <q-item-section side>
-            <div class="row items-center">
+            <div
+              class="row items-center"
+              v-if="app.status == 'running'"
+            >
 
-              <q-badge align="middle">app v1.0.0</q-badge>
+              <q-badge class="text-positive">Running</q-badge>
             </div>
+            <div
+              class="row items-center"
+              v-if="app.status != 'running'"
+            >
+
+              <q-badge class="text-red">{{app.status}}</q-badge>
+            </div>
+          </q-item-section>
+          <q-item-section side>
+            <q-btn
+              push
+              round
+              color="
+                primary"
+              text-color="white"
+              icon="las la-ellipsis-v"
+            >
+            </q-btn>
           </q-item-section>
         </template>
 
         <q-card>
           <q-card-section>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, eius reprehenderit eos corrupti
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit.Quidem, eius reprehenderit eos corrupti
             commodi magni quaerat ex numquam, dolorum officiis modi facere maiores architecto suscipit iste
             eveniet doloribus ullam aliquid.
           </q-card-section>
@@ -81,7 +112,7 @@ export default {
     window.loginClient.request(window.spaceQuery(this.$route.params.id))
       .then(data => {
         console.log(data)
-        this.spaceData = data
+        this.spaceData = data.space
         this.$q.loading.hide()
       }).catch((e) => {
         console.log(e)
