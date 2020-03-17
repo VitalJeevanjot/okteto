@@ -66,63 +66,51 @@
               align="center"
               class="text-h6 text-white"
             >{{space.id}}</q-item-label>
-            <q-item-label class="text-grey-7 text-overline">Quota Used:</q-item-label>
+            <div>
+              <q-badge
+                color="info"
+                text-color="white"
+                class="q-mt-sm text-subtitle2"
+                :label="'Disk: ' + $byteSize(parseInt(space.quotas.used.limitsStorage), { units: 'iec' }).value + '/' + $byteSize(parseInt(space.quotas.hard.limitsStorage), { units: 'iec' })"
+              />
+            </div>
             <q-linear-progress
-              size="20px"
               :value="space.quotas.used.limitsStorage/space.quotas.hard.limitsStorage"
-              class="bg-info q-mt-sm"
+              class="bg-info q-mt-xs"
               color="positive"
               rounded
             >
-              <div class="absolute-full flex flex-center">
-                <q-badge
-                  color="white"
-                  text-color="black"
-                  style="opacity: 0.6;"
-                  :label="'Disk: ' + $byteSize(parseInt(space.quotas.used.limitsStorage), { units: 'iec' })"
-                />
-              </div>
             </q-linear-progress>
+            <div>
+              <q-badge
+                color="info"
+                text-color="white"
+                class="q-mt-sm text-subtitle2"
+                :label="'Memory: ' + $byteSize(parseInt(space.quotas.used.limitsMemory), { units: 'iec' }).value +'/'+ $byteSize(parseInt(space.quotas.hard.limitsMemory), { units: 'iec' })"
+              />
+            </div>
             <q-linear-progress
-              size="20px"
               :value="space.quotas.used.limitsMemory/space.quotas.hard.limitsMemory"
-              class="bg-info q-mt-sm"
-              color="positive"
+              class="bg-info q-mt-xs"
+              color="dark"
               rounded
             >
-              <div class="absolute-full flex flex-center">
-                <q-badge
-                  color="white"
-                  text-color="black"
-                  style="opacity: 0.6;"
-                  :label="'Memory: ' + $byteSize(parseInt(space.quotas.used.limitsMemory), { units: 'iec' })"
-                />
-              </div>
             </q-linear-progress>
+            <div>
+              <q-badge
+                color="info"
+                text-color="white"
+                class="q-mt-sm text-subtitle2"
+                :label="'CPU: ' + space.quotas.used.limitsCPU / 1000 + '/' + space.quotas.hard.limitsCPU / 1000"
+              />
+            </div>
             <q-linear-progress
-              size="20px"
               :value="space.quotas.used.limitsCPU/space.quotas.hard.limitsCPU"
-              class="bg-info q-mt-sm"
-              color="positive"
+              class="bg-info q-mt-xs"
+              color="dark"
               rounded
             >
-              <div class="absolute-full flex flex-center">
-                <q-badge
-                  color="secondary"
-                  text-color="white"
-                  style="opacity: 0.6;"
-                  :label="'CPU: ' + space.quotas.used.limitsCPU / 1000"
-                />
-              </div>
             </q-linear-progress>
-          </q-item-section>
-
-          <q-item-section side>
-            <q-badge color="positive">{{space.apps.length}}</q-badge>
-            <q-badge
-              color="info"
-              class="q-mt-sm"
-            >{{space.deployments.length}}</q-badge>
           </q-item-section>
         </q-item>
       </q-list>

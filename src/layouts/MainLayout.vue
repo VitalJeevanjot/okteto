@@ -17,6 +17,7 @@ colors.setBrand('warning', '#808ca9')
 colors.setBrand('positive', '#04A29E')
 colors.setBrand('negative', '#16191F')
 colors.setBrand('info', '#373e4d')
+colors.setBrand('dark', '#e3c550')
 export default {
   name: 'MainLayout',
   data () {

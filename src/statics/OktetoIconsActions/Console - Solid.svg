@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.3 (81716) - https://sketch.com -->
+    <title>Console - Solid</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Icons-&amp;-Buttons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-95.000000, -30.000000)" fill="#FFFFFF" fill-rule="nonzero">
+            <path d="M115.486563,33.5134371 C120.171146,38.1980198 120.171146,45.8019802 115.486563,50.4865629 C110.80198,55.1711457 103.19802,55.1711457 98.5134371,50.4865629 C93.8288543,45.8019802 93.8288543,38.1980198 98.5134371,33.5134371 C103.19802,28.8288543 110.80198,28.8288543 115.486563,33.5134371 Z M107,40.3026874 L103.605375,36.9080622 L101.908062,38.6053748 L105.302687,42 L101.908062,45.3946252 L103.605375,47.0919378 L107,43.6973126 L108.697313,42 L107,40.3026874 Z M112.457182,44.729497 L107.656457,44.729497 L107.656457,47.1298595 L112.457182,47.1298595 L112.457182,44.729497 Z" id="Console---Solid"></path>
+        </g>
+    </g>
+</svg>

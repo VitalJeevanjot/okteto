@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.3 (81716) - https://sketch.com -->
+    <title>Exit</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Icons-&amp;-Buttons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-275.000000, -30.000000)" fill="#FFFFFF" fill-rule="nonzero">
+            <path d="M299,42 C299,48.624 293.624,54 287,54 C280.376,54 275,48.624 275,42 C275,35.376 280.376,30 287,30 C293.624,30 299,35.376 299,42 Z M289.758445,43.0977384 L287.75952,45.126008 L289.056806,46.4497012 L293.421796,42.0847116 L289.056806,37.7197219 L287.75952,39.0690887 L289.758445,41.0400625 L284.967103,41.0400625 L284.967103,43.0977384 L289.758445,43.0977384 Z M283.457676,39.0576758 L286.54419,39.0576758 L286.54419,37 L281.4,37 L281.4,47.2883792 L286.54419,47.2883792 L286.54419,45.2307034 L283.457676,45.2307034 L283.457676,39.0576758 Z" id="Exit"></path>
+        </g>
+    </g>
+</svg>

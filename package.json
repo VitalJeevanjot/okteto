@@ -16,6 +16,7 @@
     "axios": "^0.18.1",
     "byte-size": "^6.2.0",
     "graphql-request": "^1.8.2",
+    "js-yaml": "^3.13.1",
     "quasar": "^1.0.0",
     "url-parse": "^1.4.7"
   },

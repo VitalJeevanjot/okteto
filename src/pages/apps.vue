@@ -22,6 +22,38 @@
       </q-btn>
     </q-toolbar>
     <!-- content -->
+    <q-list class="rounded-borders q-pt-md">
+      <q-expansion-item class="bg-secondary">
+        <template v-slot:header>
+          <q-item-section avatar>
+            <q-avatar
+              icon="bluetooth"
+              color="primary"
+              text-color="white"
+            />
+          </q-item-section>
+
+          <q-item-section class="text-white text-subtitle2">
+            Bluetooth technology
+          </q-item-section>
+
+          <q-item-section side>
+            <div class="row items-center">
+
+              <q-badge align="middle">app v1.0.0</q-badge>
+            </div>
+          </q-item-section>
+        </template>
+
+        <q-card>
+          <q-card-section>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, eius reprehenderit eos corrupti
+            commodi magni quaerat ex numquam, dolorum officiis modi facere maiores architecto suscipit iste
+            eveniet doloribus ullam aliquid.
+          </q-card-section>
+        </q-card>
+      </q-expansion-item>
+    </q-list>
   </q-page>
 </template>
 
@@ -46,7 +78,6 @@ export default {
   },
   mounted () {
     window.showLoading()
-    console.log(window.spaceQuery(this.$route.params.id))
     window.loginClient.request(window.spaceQuery(this.$route.params.id))
       .then(data => {
         console.log(data)
@@ -57,7 +88,6 @@ export default {
         this.$q.loading.hide()
         this.errorAtReq()
       })
-    console.log(this.$route.params.id)
   }
 }
 </script>
