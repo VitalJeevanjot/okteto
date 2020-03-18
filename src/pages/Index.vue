@@ -445,10 +445,10 @@ export default {
       this.showLoading()
       this.processRequest()
       // Setting global variable
-      window.spaceQuery = this.query3
-      window.showLoading = this.showLoading
       console.log('Mounted Index.vue')
     }
+    window.spaceQuery = this.query3
+    window.showLoading = this.showLoading
   }
 }
 </script>

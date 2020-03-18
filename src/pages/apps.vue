@@ -80,7 +80,7 @@
                 <q-badge
                   class="text-yellow"
                   style="font-size: 8px"
-                >{{app.status}}</q-badge>
+                >Progressing</q-badge>
               </div>
               <div
                 class="row items-center"
@@ -103,32 +103,107 @@
               </q-btn>
             </q-item-section>
           </template>
-
-          <q-markup-table
-            wrap-cells
-            class="bg-secondary text-white"
-            flat
-            dark
+          <!-- app deployments -->
+          <div
+            class="row justify-center"
+            style="font-size: 12px"
+            v-for="appDeployments in app.deployments"
+            :key="appDeployments.id"
           >
-            <tbody>
-              <tr>
-                <td class="text-left text-subtitle2 text-warning">Chart</td>
-                <td class="text-right">{{app.name}} / <span class="text-subtitle2">{{app.version}}</span></td>
-              </tr>
-              <tr>
-                <td
-                  class="text-left text-subtitle2 text-warning"
-                  v-if="app.repo"
-                >Repository</td>
-                <td class="text-right">
-                  <a
-                    style="text-decoration: none !important; color: #00d1ca !important;"
-                    :href="app.repo"
-                  >{{app.repo}}</a></td>
-              </tr>
-            </tbody>
-          </q-markup-table>
-          <q-separator />
+            <div
+              class="row justify-center"
+              style="font-size: 12px"
+              v-for="appDeploymentsEndpoint in appDeployments.endpoints"
+              :key="appDeploymentsEndpoint"
+            >
+              <a
+                class=""
+                style="text-decoration: none !important; color: #00d1ca !important;"
+                :href="appDeploymentsEndpoint"
+              >{{appDeploymentsEndpoint}}</a>
+            </div>
+          </div>
+          <!-- app Statefulsets -->
+          <div
+            class="row justify-center"
+            style="font-size: 12px"
+            v-for="appStatefulsets in app.statefulsets"
+            :key="appStatefulsets.id"
+          >
+            <div
+              class="row justify-center"
+              style="font-size: 12px"
+              v-for="appStatefulsetsEndpoint in appStatefulsets.endpoints"
+              :key="appStatefulsetsEndpoint"
+            >
+              <a
+                class=""
+                style="text-decoration: none !important; color: #00d1ca !important;"
+                :href="appDeploymentsEndpoint"
+              >{{appDeploymentsEndpoint}}</a>
+            </div>
+          </div>
+          <!-- app devs -->
+          <div
+            class="row justify-center"
+            style="font-size: 12px"
+            v-for="appDevs in app.devs"
+            :key="appDevs.id"
+          >
+            <div
+              class="row justify-center"
+              style="font-size: 12px"
+              v-for="appDevsEndpoint in appDevs.endpoints"
+              :key="appDevsEndpoint"
+            >
+              <a
+                class=""
+                style="text-decoration: none !important; color: #00d1ca !important;"
+                :href="appDevsEndpoint"
+              >{{appDevsEndpoint}}</a>
+            </div>
+          </div>
+          <!-- functions -->
+          <div
+            class="row justify-center"
+            style="font-size: 12px"
+            v-for="appFunctions in app.functions"
+            :key="appFunctions.id"
+          >
+            <div
+              class="row justify-center"
+              style="font-size: 12px"
+              v-for="appFunctionsEndpoint in appFunctions.endpoints"
+              :key="appFunctionsEndpoint"
+            >
+              <a
+                class=""
+                style="text-decoration: none !important; color: #00d1ca !important;"
+                :href="appFunctionsEndpoint"
+              >{{appFunctionsEndpoint}}</a>
+            </div>
+          </div>
+          <!-- containers -->
+          <div
+            class="row justify-center"
+            style="font-size: 12px"
+            v-for="appContainers in app.containers"
+            :key="appContainers.id"
+          >
+            <div
+              class="row justify-center"
+              style="font-size: 12px"
+              v-for="appContainersEndpoint in appContainers.endpoints"
+              :key="appContainersEndpoint"
+            >
+              <a
+                class=""
+                style="text-decoration: none !important; color: #00d1ca !important;"
+                :href="appContainersEndpoint"
+              >{{appContainersEndpoint}}</a>
+            </div>
+          </div>
+          <!-- find more button -->
           <div class="row justify-center">
             <q-btn
               :ripple="{ center: true }"
@@ -136,7 +211,7 @@
               round
               icon="las la-play"
               color="primary"
-              class="q-mb-sm text-h6"
+              class="q-mb-sm text-h6 q-mt-lg"
               no-caps
             >
             </q-btn>
