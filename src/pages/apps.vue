@@ -2,11 +2,11 @@
   <q-page padding>
     <q-toolbar class="bg-primary text-secondary">
       <q-btn
-        push
+        v-ripple
         round
         color="secondary"
         text-color="white"
-        icon="las la-angle-left"
+        icon="las la-arrow-left"
         @click="$router.back()"
       />
       <q-toolbar-title align="center">
@@ -17,74 +17,111 @@
         color="primary"
         flat
         text-color="white"
-        icon="las la-ellipsis-v"
+        icon="las la-braille"
       >
       </q-btn>
     </q-toolbar>
     <!-- content -->
-    <q-list
-      class="rounded-borders q-pt-md"
-      v-for="app in spaceData.apps"
-      :key="app.id"
-    >
-      <q-expansion-item
-        class="bg-secondary"
-        group="allApps"
-        expand-icon-class="text-white"
-        style="border-radius: 30px"
-        expand-icon="las la-angle-down"
-        switch-toggle-side
-        expand-icon-toggle
+    <div v-if="spaceData != null">
+
+      <q-list
+        class="rounded-borders q-pt-md"
+        align="center"
+        v-for="app in spaceData.apps"
+        :key="app.id"
       >
-        <template v-slot:header>
+        <q-expansion-item
+          class="bg-secondary shadow-2"
+          group="allApps"
+          align="left"
+          expand-icon-class="text-white"
+          style="border-radius: 3px; max-width: 700px; min-width: 310px; width: 90vw"
+          expand-icon="las la-angle-down"
+          switch-toggle-side
+          expand-icon-toggle
+        >
+          <template v-slot:header>
+            <q-item-section side>
+              <q-avatar size=sm>
+                <img src="statics/OktetoIconsComponents/Application.svg">
+              </q-avatar>
+            </q-item-section>
+            <q-item-section class="text-white text-subtitle2">
+              <div class="text-warning text-caption">
+                Application
+              </div>
+              <div>
+                {{app.chart}}
+              </div>
+            </q-item-section>
 
-          <q-item-section class="text-white text-subtitle2">
-            <div class="row text-warning text-caption">
-              Application
-            </div>
-            <div class="row">
-              {{app.chart}}
-            </div>
-          </q-item-section>
+            <q-item-section side>
+              <div
+                class="row items-center"
+                v-if="app.status == 'running'"
+              >
 
-          <q-item-section side>
-            <div
-              class="row items-center"
-              v-if="app.status == 'running'"
-            >
+                <q-badge class="text-positive">Running</q-badge>
+              </div>
+              <div
+                class="row items-center"
+                v-if="app.status != 'running'"
+              >
 
-              <q-badge class="text-positive">Running</q-badge>
-            </div>
-            <div
-              class="row items-center"
-              v-if="app.status != 'running'"
-            >
+                <q-badge class="text-red">{{app.status}}</q-badge>
+              </div>
+            </q-item-section>
+            <q-item-section side>
+              <q-btn
+                round
+                color="primary"
+                text-color="white"
+                icon="las la-ellipsis-v"
+              >
+              </q-btn>
+            </q-item-section>
+          </template>
 
-              <q-badge class="text-red">{{app.status}}</q-badge>
-            </div>
-          </q-item-section>
-          <q-item-section side>
+          <q-markup-table
+            wrap-cells
+            class="bg-secondary text-white"
+            flat
+            dark
+          >
+            <tbody>
+              <tr>
+                <td class="text-left text-subtitle2 text-warning">Chart</td>
+                <td class="text-right">{{app.name}} / <span class="text-subtitle2">{{app.version}}</span></td>
+              </tr>
+              <tr>
+                <td
+                  class="text-left text-subtitle2 text-warning"
+                  v-if="app.repo"
+                >Repository</td>
+                <td class="text-right">
+                  <a
+                    style="text-decoration: none !important; color: #00d1ca !important;"
+                    :href="app.repo"
+                  >{{app.repo}}</a></td>
+              </tr>
+            </tbody>
+          </q-markup-table>
+          <div class="row justify-center">
             <q-btn
+              :ripple="{ center: true }"
               push
               round
-              color="
-                primary"
-              text-color="white"
-              icon="las la-ellipsis-v"
+              icon="las la-play"
+              color="primary"
+              class="q-mb-sm text-h6"
+              no-caps
             >
             </q-btn>
-          </q-item-section>
-        </template>
+          </div>
+        </q-expansion-item>
+      </q-list>
 
-        <q-card>
-          <q-card-section>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.Quidem, eius reprehenderit eos corrupti
-            commodi magni quaerat ex numquam, dolorum officiis modi facere maiores architecto suscipit iste
-            eveniet doloribus ullam aliquid.
-          </q-card-section>
-        </q-card>
-      </q-expansion-item>
-    </q-list>
+    </div>
   </q-page>
 </template>
 

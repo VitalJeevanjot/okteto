@@ -47,11 +47,12 @@
     </div>
     <div class="q-pa-sm row justify-center">
       <q-list
+        dense
         padding
         v-for="space in spaces"
         :key="space.id"
         class="rounded-borders bg-secondary q-ma-sm"
-        style="max-width: 600px; min-width: 310px; width: 90vw"
+        style="max-width: 600px; width: 90vw"
       >
 
         <q-item
@@ -66,51 +67,44 @@
               align="center"
               class="text-h6 text-white"
             >{{space.id}}</q-item-label>
-            <div>
-              <q-badge
-                color="info"
-                text-color="white"
-                class="q-mt-sm text-subtitle2"
-                :label="'Disk: ' + $byteSize(parseInt(space.quotas.used.limitsStorage), { units: 'iec' }).value + '/' + $byteSize(parseInt(space.quotas.hard.limitsStorage), { units: 'iec' })"
-              />
-            </div>
-            <q-linear-progress
-              :value="space.quotas.used.limitsStorage/space.quotas.hard.limitsStorage"
-              class="bg-info q-mt-xs"
-              color="positive"
-              rounded
-            >
-            </q-linear-progress>
-            <div>
-              <q-badge
-                color="info"
-                text-color="white"
-                class="q-mt-sm text-subtitle2"
-                :label="'Memory: ' + $byteSize(parseInt(space.quotas.used.limitsMemory), { units: 'iec' }).value +'/'+ $byteSize(parseInt(space.quotas.hard.limitsMemory), { units: 'iec' })"
-              />
-            </div>
-            <q-linear-progress
-              :value="space.quotas.used.limitsMemory/space.quotas.hard.limitsMemory"
-              class="bg-info q-mt-xs"
-              color="dark"
-              rounded
-            >
-            </q-linear-progress>
-            <div>
-              <q-badge
-                color="info"
-                text-color="white"
-                class="q-mt-sm text-subtitle2"
-                :label="'CPU: ' + space.quotas.used.limitsCPU / 1000 + '/' + space.quotas.hard.limitsCPU / 1000"
-              />
-            </div>
-            <q-linear-progress
-              :value="space.quotas.used.limitsCPU/space.quotas.hard.limitsCPU"
-              class="bg-info q-mt-xs"
-              color="dark"
-              rounded
-            >
-            </q-linear-progress>
+            <q-item>
+              <q-item-section>
+                <div class="text-white text-caption">
+                  {{'Disk: ' + $byteSize(parseInt(space.quotas.used.limitsStorage), { units: 'iec' })}}
+                </div>
+                <q-linear-progress
+                  :value="space.quotas.used.limitsStorage/space.quotas.hard.limitsStorage"
+                  class="bg-info q-mt-xs"
+                  color="positive"
+                  rounded
+                >
+                </q-linear-progress>
+              </q-item-section>
+              <q-item-section>
+                <div class="text-white text-caption">
+                  {{'Memory: ' + $byteSize(parseInt(space.quotas.used.limitsMemory), { units: 'iec' })}}
+                </div>
+                <q-linear-progress
+                  :value="space.quotas.used.limitsMemory/space.quotas.hard.limitsMemory"
+                  class="bg-info q-mt-xs"
+                  color="dark"
+                  rounded
+                >
+                </q-linear-progress>
+              </q-item-section>
+              <q-item-section>
+                <div class="text-white text-caption">
+                  {{'CPU: ' + space.quotas.used.limitsCPU / 1000}}
+                </div>
+                <q-linear-progress
+                  :value="space.quotas.used.limitsCPU/space.quotas.hard.limitsCPU"
+                  class="bg-info q-mt-xs"
+                  color="dark"
+                  rounded
+                >
+                </q-linear-progress>
+              </q-item-section>
+            </q-item>
           </q-item-section>
         </q-item>
       </q-list>
