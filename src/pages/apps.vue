@@ -42,15 +42,21 @@
         >
           <template v-slot:header>
             <q-item-section side>
-              <q-avatar size=sm>
+              <q-avatar
+                size="xs"
+                class="q-gutter-x-sm"
+              >
                 <img src="statics/OktetoIconsComponents/Application.svg">
               </q-avatar>
             </q-item-section>
             <q-item-section class="text-white text-subtitle2">
-              <div class="text-warning text-caption">
+              <div
+                class="text-warning text-caption"
+                style="font-size: 8px"
+              >
                 Application
               </div>
-              <div>
+              <div class="q-gutter-y-sm">
                 {{app.chart}}
               </div>
             </q-item-section>
@@ -61,14 +67,30 @@
                 v-if="app.status == 'running'"
               >
 
-                <q-badge class="text-positive">Running</q-badge>
+                <q-badge
+                  class="text-positive"
+                  style="font-size: 8px"
+                >Running</q-badge>
               </div>
               <div
                 class="row items-center"
-                v-if="app.status != 'running'"
+                v-if="app.status == 'progressing'"
               >
 
-                <q-badge class="text-red">{{app.status}}</q-badge>
+                <q-badge
+                  class="text-yellow"
+                  style="font-size: 8px"
+                >{{app.status}}</q-badge>
+              </div>
+              <div
+                class="row items-center"
+                v-if="app.status != 'running' && app.status != 'progressing'"
+              >
+
+                <q-badge
+                  class="text-red"
+                  style="font-size: 8px"
+                >{{app.status}}</q-badge>
               </div>
             </q-item-section>
             <q-item-section side>
@@ -106,6 +128,7 @@
               </tr>
             </tbody>
           </q-markup-table>
+          <q-separator />
           <div class="row justify-center">
             <q-btn
               :ripple="{ center: true }"

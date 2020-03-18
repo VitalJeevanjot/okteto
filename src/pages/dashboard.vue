@@ -68,37 +68,52 @@
               class="text-h6 text-white"
             >{{space.id}}</q-item-label>
             <q-item>
-              <q-item-section>
-                <div class="text-white text-caption">
+              <q-item-section
+                class="ellipsis"
+                lines="1"
+              >
+                <div
+                  class="text-white text-caption"
+                  style="font-size: 2vw"
+                >
                   {{'Disk: ' + $byteSize(parseInt(space.quotas.used.limitsStorage), { units: 'iec' })}}
                 </div>
                 <q-linear-progress
                   :value="space.quotas.used.limitsStorage/space.quotas.hard.limitsStorage"
-                  class="bg-info q-mt-xs"
+                  class="bg-info"
                   color="positive"
                   rounded
                 >
                 </q-linear-progress>
               </q-item-section>
-              <q-item-section>
-                <div class="text-white text-caption">
-                  {{'Memory: ' + $byteSize(parseInt(space.quotas.used.limitsMemory), { units: 'iec' })}}
+              <q-item-section
+                lines="1"
+                class="ellipsis"
+              >
+                <div
+                  class="text-white text-caption"
+                  style="font-size: 2vw"
+                >
+                  {{'Mem: ' + $byteSize(parseInt(space.quotas.used.limitsMemory), { units: 'iec' })}}
                 </div>
                 <q-linear-progress
                   :value="space.quotas.used.limitsMemory/space.quotas.hard.limitsMemory"
-                  class="bg-info q-mt-xs"
+                  class="bg-info"
                   color="dark"
                   rounded
                 >
                 </q-linear-progress>
               </q-item-section>
               <q-item-section>
-                <div class="text-white text-caption">
+                <div
+                  class="text-white text-caption"
+                  style="font-size: 2vw"
+                >
                   {{'CPU: ' + space.quotas.used.limitsCPU / 1000}}
                 </div>
                 <q-linear-progress
                   :value="space.quotas.used.limitsCPU/space.quotas.hard.limitsCPU"
-                  class="bg-info q-mt-xs"
+                  class="bg-info"
                   color="dark"
                   rounded
                 >
