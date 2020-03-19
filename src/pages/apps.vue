@@ -29,7 +29,7 @@
     </q-page-sticky>
     <!-- content -->
     <div v-if="spaceData != null">
-
+      <!-- For apps -->
       <q-list
         class="rounded-borders q-pt-md"
         align="center"
@@ -124,8 +124,8 @@
               :key="appDeploymentsEndpoint"
             >
               <a
-                class=""
-                style="text-decoration: none !important; color: #00d1ca !important;"
+                class="heading-bold"
+                style="text-decoration: none !important; color: #ffffff !important;"
                 :href="appDeploymentsEndpoint"
               >{{appDeploymentsEndpoint}}</a>
             </div>
@@ -144,8 +144,8 @@
               :key="appStatefulsetsEndpoint"
             >
               <a
-                class=""
-                style="text-decoration: none !important; color: #00d1ca !important;"
+                class="heading-bold"
+                style="text-decoration: none !important; color: #ffffff !important;"
                 :href="appDeploymentsEndpoint"
               >{{appDeploymentsEndpoint}}</a>
             </div>
@@ -164,8 +164,8 @@
               :key="appDevsEndpoint"
             >
               <a
-                class=""
-                style="text-decoration: none !important; color: #00d1ca !important;"
+                class="heading-bold"
+                style="text-decoration: none !important; color: #ffffff !important;"
                 :href="appDevsEndpoint"
               >{{appDevsEndpoint}}</a>
             </div>
@@ -184,8 +184,8 @@
               :key="appFunctionsEndpoint"
             >
               <a
-                class=""
-                style="text-decoration: none !important; color: #00d1ca !important;"
+                class="heading-bold"
+                style="text-decoration: none !important; color: #ffffff !important;"
                 :href="appFunctionsEndpoint"
               >{{appFunctionsEndpoint}}</a>
             </div>
@@ -204,8 +204,8 @@
               :key="appContainersEndpoint"
             >
               <a
-                class=""
-                style="text-decoration: none !important; color: #00d1ca !important;"
+                class="heading-bold"
+                style="text-decoration: none !important; color: #ffffff !important;"
                 :href="appContainersEndpoint"
               >{{appContainersEndpoint}}</a>
             </div>
@@ -215,7 +215,116 @@
             <q-btn
               :ripple="{ center: true }"
               round
-              icon="las la-play"
+              icon="las la-terminal"
+              color="primary"
+              class="q-mb-sm text-h6 q-mt-lg"
+              no-caps
+            >
+            </q-btn>
+          </div>
+        </q-expansion-item>
+      </q-list>
+
+      <!-- For Devs -->
+      <q-list
+        class="rounded-borders q-pt-md"
+        align="center"
+        v-for="devenv in spaceData.devs"
+        :key="devenv.id"
+      >
+        <q-expansion-item
+          class="bg-secondary shadow-2"
+          group="allApps"
+          align="left"
+          expand-icon-class="text-white"
+          style="border-radius: 3px; max-width: 700px; min-width: 310px; width: 90vw"
+          expand-icon="las la-angle-down"
+          switch-toggle-side
+          expand-icon-toggle
+        >
+          <template v-slot:header>
+            <q-item-section side>
+              <q-avatar
+                size="xs"
+                class="q-gutter-x-sm"
+              >
+                <img src="statics/OktetoIconsComponents/Dev Environment.svg">
+              </q-avatar>
+            </q-item-section>
+            <q-item-section class="text-white text-subtitle2">
+              <div
+                class="text-warning text-caption"
+                style="font-size: 8px"
+              >
+                Dev Environment
+              </div>
+              <div class="q-gutter-y-sm">
+                {{devenv.name}}
+              </div>
+            </q-item-section>
+
+            <q-item-section side>
+              <div
+                class="row items-center"
+                v-if="devenv.status == 'running'"
+              >
+
+                <q-badge
+                  class="text-positive"
+                  style="font-size: 8px"
+                >Running</q-badge>
+              </div>
+              <div
+                class="row items-center"
+                v-if="devenv.status == 'progressing'"
+              >
+
+                <q-badge
+                  class="text-yellow"
+                  style="font-size: 8px"
+                >Progressing</q-badge>
+              </div>
+              <div
+                class="row items-center"
+                v-if="devenv.status != 'running' && devenv.status != 'progressing'"
+              >
+
+                <q-badge
+                  class="text-red"
+                  style="font-size: 8px"
+                >{{devenv.status}}</q-badge>
+              </div>
+            </q-item-section>
+            <q-item-section side>
+              <q-btn
+                unelevated
+                round
+                color="primary"
+                text-color="white"
+                icon="las la-ellipsis-v"
+              >
+              </q-btn>
+            </q-item-section>
+          </template>
+          <div
+            class=""
+            align="center"
+            style="font-size: 12px"
+            v-for="devenvnd in devenv.endpoints"
+            :key="devenvnd"
+          >
+            <a
+              class="heading-bold"
+              style="text-decoration: none !important; color: #ffffff !important;"
+              :href="devenvnd"
+            >{{devenvnd}}</a>
+          </div>
+          <!-- find more button -->
+          <div class="row justify-center">
+            <q-btn
+              :ripple="{ center: true }"
+              round
+              icon="las la-terminal"
               color="primary"
               class="q-mb-sm text-h6 q-mt-lg"
               no-caps
