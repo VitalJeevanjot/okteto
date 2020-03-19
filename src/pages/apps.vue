@@ -2,25 +2,29 @@
   <q-page padding>
     <q-toolbar class="bg-primary text-secondary">
       <q-btn
-        v-ripple
-        round
+        flat
+        to="/dashboard"
         color="secondary"
         text-color="white"
         icon="las la-arrow-left"
-        @click="$router.back()"
       />
-      <q-toolbar-title align="center">
-        <p class="heading-bold text-warning">{{$route.params.id}}</p>
+      <q-toolbar-title class="heading-bold text-warning">
+        {{$route.params.id}}
       </q-toolbar-title>
+    </q-toolbar>
+    <q-page-sticky
+      position="bottom-right"
+      :offset="[ 18, 18 ]"
+    >
       <q-btn
+        unelevated
         round
-        color="primary"
-        flat
+        color="secondary"
         text-color="white"
         icon="las la-braille"
       >
       </q-btn>
-    </q-toolbar>
+    </q-page-sticky>
     <!-- content -->
     <div v-if="spaceData != null">
 
@@ -95,6 +99,7 @@
             </q-item-section>
             <q-item-section side>
               <q-btn
+                unelevated
                 round
                 color="primary"
                 text-color="white"
@@ -207,7 +212,6 @@
           <div class="row justify-center">
             <q-btn
               :ripple="{ center: true }"
-              push
               round
               icon="las la-play"
               color="primary"

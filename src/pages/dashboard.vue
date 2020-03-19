@@ -2,9 +2,9 @@
   <q-page padding>
     <q-toolbar class="bg-primary text-secondary q-mb-md">
       <q-btn
-        push
         round
         color="secondary"
+        unelevated
         text-color="white"
         icon="las la-sign-out-alt"
       />
@@ -15,7 +15,7 @@
       </q-toolbar-title>
       <q-btn
         round
-        push
+        unelevated
         color="secondary"
         text-color="white"
         icon="las la-plus"

@@ -4,12 +4,7 @@
     class="bg-primary"
   >
     <q-page-container>
-      <transition
-        enter-active-class="animated slideInRight"
-        leave-active-class="animated slideInLeft"
-      >
-        <router-view />
-      </transition>
+      <router-view />
     </q-page-container>
   </q-layout>
 </template>
