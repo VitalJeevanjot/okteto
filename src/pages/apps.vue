@@ -26,12 +26,17 @@
         <q-fab-action
           @click="console.log('Hello')"
           color="info"
-          icon="las la-info-circle"
+          icon="las la-terminal"
         />
         <q-fab-action
           @click="console.log('Hello')"
           color="info"
-          icon="las la-terminal"
+          icon="widgets"
+        />
+        <q-fab-action
+          @click="console.log('Hello')"
+          color="info"
+          icon="settings"
         />
       </q-fab>
     </q-page-sticky>
@@ -126,13 +131,12 @@
             :key="appDeployments.id"
           >
             <div
-              class="row justify-center"
+              class="q-pa-sm"
               style="font-size: 12px"
               v-for="appDeploymentsEndpoint in appDeployments.endpoints"
               :key="appDeploymentsEndpoint"
             >
               <a
-                class="heading-bold"
                 style="text-decoration: none !important; color: #ffffff !important;"
                 :href="appDeploymentsEndpoint"
               >{{appDeploymentsEndpoint}}</a>
@@ -146,13 +150,12 @@
             :key="appStatefulsets.id"
           >
             <div
-              class="row justify-center"
+              class="q-pa-sm"
               style="font-size: 12px"
               v-for="appStatefulsetsEndpoint in appStatefulsets.endpoints"
               :key="appStatefulsetsEndpoint"
             >
               <a
-                class="heading-bold"
                 style="text-decoration: none !important; color: #ffffff !important;"
                 :href="appDeploymentsEndpoint"
               >{{appDeploymentsEndpoint}}</a>
@@ -166,13 +169,12 @@
             :key="appDevs.id"
           >
             <div
-              class="row justify-center"
+              class="q-pa-sm"
               style="font-size: 12px"
               v-for="appDevsEndpoint in appDevs.endpoints"
               :key="appDevsEndpoint"
             >
               <a
-                class="heading-bold"
                 style="text-decoration: none !important; color: #ffffff !important;"
                 :href="appDevsEndpoint"
               >{{appDevsEndpoint}}</a>
@@ -186,13 +188,12 @@
             :key="appFunctions.id"
           >
             <div
-              class="row justify-center"
+              class="q-pa-sm"
               style="font-size: 12px"
               v-for="appFunctionsEndpoint in appFunctions.endpoints"
               :key="appFunctionsEndpoint"
             >
               <a
-                class="heading-bold"
                 style="text-decoration: none !important; color: #ffffff !important;"
                 :href="appFunctionsEndpoint"
               >{{appFunctionsEndpoint}}</a>
@@ -206,13 +207,12 @@
             :key="appContainers.id"
           >
             <div
-              class="row justify-center"
+              class="q-pa-sm"
               style="font-size: 12px"
               v-for="appContainersEndpoint in appContainers.endpoints"
               :key="appContainersEndpoint"
             >
               <a
-                class="heading-bold"
                 style="text-decoration: none !important; color: #ffffff !important;"
                 :href="appContainersEndpoint"
               >{{appContainersEndpoint}}</a>
@@ -304,14 +304,12 @@
             </q-item-section>
           </template>
           <div
-            class=""
-            align="center"
+            class="q-pa-sm"
             style="font-size: 12px"
             v-for="devenvnd in devenv.endpoints"
             :key="devenvnd"
           >
             <a
-              class="heading-bold"
               style="text-decoration: none !important; color: #ffffff !important;"
               :href="devenvnd"
             >{{devenvnd}}</a>
@@ -331,11 +329,9 @@
           class="bg-secondary shadow-2"
           group="allApps"
           align="left"
+          dense-toggle
           expand-icon-class="text-white"
           style="border-radius: 3px; max-width: 700px; min-width: 310px; width: 90vw"
-          expand-icon="las la-angle-down"
-          switch-toggle-side
-          expand-icon-toggle
         >
           <template v-slot:header>
             <q-item-section side>
@@ -390,29 +386,35 @@
                 >{{deployment.status}}</q-badge>
               </div>
             </q-item-section>
-            <q-item-section side>
-              <q-btn
-                unelevated
-                round
-                color="primary"
-                text-color="white"
-                icon="las la-ellipsis-v"
-              >
-              </q-btn>
-            </q-item-section>
           </template>
           <div
-            class=""
+            class="row q-pa-md vertical-middle"
+            style="font-size: 80%"
             align="center"
-            style="font-size: 12px"
             v-for="deployment in deployment.endpoints"
             :key="deployment"
           >
             <a
-              class="heading-bold"
+              class="ellipsis col-10 q-mt-sm"
               style="text-decoration: none !important; color: #ffffff !important;"
               :href="deployment"
             >{{deployment}}</a>
+            <q-btn
+              class="text-white"
+              flat
+              icon="assignment"
+              round
+            />
+          </div>
+          <div class="row justify-center q-pa-sm">
+            <q-btn
+              unelevated
+              round
+              color="primary"
+              text-color="white"
+              icon="settings"
+            >
+            </q-btn>
           </div>
 
         </q-expansion-item>
@@ -500,14 +502,12 @@
             </q-item-section>
           </template>
           <div
-            class=""
-            align="center"
+            class="q-pa-sm"
             style="font-size: 12px"
             v-for="containerend in container.endpoints"
             :key="containerend"
           >
             <a
-              class="heading-bold"
               style="text-decoration: none !important; color: #ffffff !important;"
               :href="containerend"
             >{{containerend}}</a>
@@ -596,14 +596,12 @@
             </q-item-section>
           </template>
           <div
-            class=""
-            align="center"
+            class="q-pa-sm"
             style="font-size: 12px"
             v-for="functionCellend in functionCell.endpoints"
             :key="functionCellend"
           >
             <a
-              class="heading-bold"
               style="text-decoration: none !important; color: #ffffff !important;"
               :href="functionCellend"
             >{{functionCellend}}</a>

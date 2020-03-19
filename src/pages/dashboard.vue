@@ -25,7 +25,8 @@
           v-model="namespaceNewName"
           content-class="bg-negative text-white"
           color="white"
-          title="Name"
+          title="New namespace"
+          label-set="Create"
           @save="createNameSpace"
         >
           <q-input
@@ -140,7 +141,14 @@ export default {
     }
   },
   methods: {
-    createNameSpace () {
+    createNameSpace (val, initval) {
+      var mutation = 'mutation{ createSpace(name: "' + this.namespaceNewName + '-' + this.$q.localStorage.getItem('auth').githubID + '", members:"") { id } }'
+      window.loginClient.request(mutation).then(data => {
+        console.log(data)
+        this.spaceData = data.space
+        this.$q.loading.hide()
+        this.namespaceNewName = ''
+      }).catch((e) => { console.log(e) })
     },
     openNamespace (id) {
       console.log(id)
