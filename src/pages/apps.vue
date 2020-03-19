@@ -1,8 +1,10 @@
 <template>
   <q-page padding>
-    <q-toolbar class="bg-primary text-secondary">
+    <q-toolbar>
       <q-btn
         flat
+        round
+        size="sm"
         to="/dashboard"
         color="secondary"
         text-color="white"
