@@ -5,7 +5,7 @@
         flat
         round
         size="sm"
-        to="/dashboard"
+        @click="$router.back()"
         color="secondary"
         text-color="white"
         icon="las la-arrow-left"
@@ -16,16 +16,24 @@
     </q-toolbar>
     <q-page-sticky
       position="bottom-right"
-      :offset="[ 18, 18 ]"
+      :offset="[18, 18]"
     >
-      <q-btn
-        unelevated
-        round
-        color="secondary"
-        text-color="white"
+      <q-fab
         icon="las la-braille"
+        direction="up"
+        color="secondary"
       >
-      </q-btn>
+        <q-fab-action
+          @click="console.log('Hello')"
+          color="info"
+          icon="las la-info-circle"
+        />
+        <q-fab-action
+          @click="console.log('Hello')"
+          color="info"
+          icon="las la-terminal"
+        />
+      </q-fab>
     </q-page-sticky>
     <!-- content -->
     <div v-if="spaceData != null">
@@ -210,18 +218,7 @@
               >{{appContainersEndpoint}}</a>
             </div>
           </div>
-          <!-- find more button -->
-          <div class="row justify-center">
-            <q-btn
-              :ripple="{ center: true }"
-              round
-              icon="las la-terminal"
-              color="primary"
-              class="q-mb-sm text-h6 q-mt-lg"
-              no-caps
-            >
-            </q-btn>
-          </div>
+
         </q-expansion-item>
       </q-list>
 
@@ -319,18 +316,372 @@
               :href="devenvnd"
             >{{devenvnd}}</a>
           </div>
-          <!-- find more button -->
-          <div class="row justify-center">
-            <q-btn
-              :ripple="{ center: true }"
-              round
-              icon="las la-terminal"
-              color="primary"
-              class="q-mb-sm text-h6 q-mt-lg"
-              no-caps
-            >
-            </q-btn>
+
+        </q-expansion-item>
+      </q-list>
+
+      <!-- For Deployments -->
+      <q-list
+        class="rounded-borders q-pt-md"
+        align="center"
+        v-for="deployment in spaceData.deployments"
+        :key="deployment.id"
+      >
+        <q-expansion-item
+          class="bg-secondary shadow-2"
+          group="allApps"
+          align="left"
+          expand-icon-class="text-white"
+          style="border-radius: 3px; max-width: 700px; min-width: 310px; width: 90vw"
+          expand-icon="las la-angle-down"
+          switch-toggle-side
+          expand-icon-toggle
+        >
+          <template v-slot:header>
+            <q-item-section side>
+              <q-avatar
+                size="xs"
+                class="q-gutter-x-sm"
+              >
+                <img src="statics/OktetoIconsComponents/Deployment.svg">
+              </q-avatar>
+            </q-item-section>
+            <q-item-section class="text-white text-subtitle2">
+              <div
+                class="text-warning text-caption"
+                style="font-size: 8px"
+              >
+                Deployment
+              </div>
+              <div class="q-gutter-y-sm">
+                {{deployment.name}}
+              </div>
+            </q-item-section>
+
+            <q-item-section side>
+              <div
+                class="row items-center"
+                v-if="deployment.status == 'running'"
+              >
+
+                <q-badge
+                  class="text-positive"
+                  style="font-size: 8px"
+                >Running</q-badge>
+              </div>
+              <div
+                class="row items-center"
+                v-if="deployment.status == 'progressing'"
+              >
+
+                <q-badge
+                  class="text-yellow"
+                  style="font-size: 8px"
+                >Progressing</q-badge>
+              </div>
+              <div
+                class="row items-center"
+                v-if="deployment.status != 'running' && deployment.status != 'progressing'"
+              >
+
+                <q-badge
+                  class="text-red"
+                  style="font-size: 8px"
+                >{{deployment.status}}</q-badge>
+              </div>
+            </q-item-section>
+            <q-item-section side>
+              <q-btn
+                unelevated
+                round
+                color="primary"
+                text-color="white"
+                icon="las la-ellipsis-v"
+              >
+              </q-btn>
+            </q-item-section>
+          </template>
+          <div
+            class=""
+            align="center"
+            style="font-size: 12px"
+            v-for="deployment in deployment.endpoints"
+            :key="deployment"
+          >
+            <a
+              class="heading-bold"
+              style="text-decoration: none !important; color: #ffffff !important;"
+              :href="deployment"
+            >{{deployment}}</a>
           </div>
+
+        </q-expansion-item>
+      </q-list>
+
+      <!-- For Container -->
+      <q-list
+        class="rounded-borders q-pt-md"
+        align="center"
+        v-for="container in spaceData.containers"
+        :key="container.id"
+      >
+        <q-expansion-item
+          class="bg-secondary shadow-2"
+          group="allApps"
+          align="left"
+          expand-icon-class="text-white"
+          style="border-radius: 3px; max-width: 700px; min-width: 310px; width: 90vw"
+          expand-icon="las la-angle-down"
+          switch-toggle-side
+          expand-icon-toggle
+        >
+          <template v-slot:header>
+            <q-item-section side>
+              <q-avatar
+                size="xs"
+                class="q-gutter-x-sm"
+              >
+                <img src="statics/OktetoIconsComponents/Container.svg">
+              </q-avatar>
+            </q-item-section>
+            <q-item-section class="text-white text-subtitle2">
+              <div
+                class="text-warning text-caption"
+                style="font-size: 8px"
+              >
+                Container
+              </div>
+              <div class="q-gutter-y-sm">
+                {{container.name}}
+              </div>
+            </q-item-section>
+
+            <q-item-section side>
+              <div
+                class="row items-center"
+                v-if="container.status == 'running'"
+              >
+
+                <q-badge
+                  class="text-positive"
+                  style="font-size: 8px"
+                >Running</q-badge>
+              </div>
+              <div
+                class="row items-center"
+                v-if="container.status == 'progressing'"
+              >
+
+                <q-badge
+                  class="text-yellow"
+                  style="font-size: 8px"
+                >Progressing</q-badge>
+              </div>
+              <div
+                class="row items-center"
+                v-if="container.status != 'running' && container.status != 'progressing'"
+              >
+
+                <q-badge
+                  class="text-red"
+                  style="font-size: 8px"
+                >{{container.status}}</q-badge>
+              </div>
+            </q-item-section>
+            <q-item-section side>
+              <q-btn
+                unelevated
+                round
+                color="primary"
+                text-color="white"
+                icon="las la-ellipsis-v"
+              >
+              </q-btn>
+            </q-item-section>
+          </template>
+          <div
+            class=""
+            align="center"
+            style="font-size: 12px"
+            v-for="containerend in container.endpoints"
+            :key="containerend"
+          >
+            <a
+              class="heading-bold"
+              style="text-decoration: none !important; color: #ffffff !important;"
+              :href="containerend"
+            >{{containerend}}</a>
+          </div>
+        </q-expansion-item>
+      </q-list>
+      <!-- For Functions -->
+      <q-list
+        class="rounded-borders q-pt-md"
+        align="center"
+        v-for="functionCell in spaceData.functions"
+        :key="functionCell.id"
+      >
+        <q-expansion-item
+          class="bg-secondary shadow-2"
+          group="allApps"
+          align="left"
+          expand-icon-class="text-white"
+          style="border-radius: 3px; max-width: 700px; min-width: 310px; width: 90vw"
+          expand-icon="las la-angle-down"
+          switch-toggle-side
+          expand-icon-toggle
+        >
+          <template v-slot:header>
+            <q-item-section side>
+              <q-avatar
+                size="xs"
+                class="q-gutter-x-sm"
+              >
+                <img src="statics/OktetoIconsComponents/Function.svg">
+              </q-avatar>
+            </q-item-section>
+            <q-item-section class="text-white text-subtitle2">
+              <div
+                class="text-warning text-caption"
+                style="font-size: 8px"
+              >
+                Function
+              </div>
+              <div class="q-gutter-y-sm">
+                {{functionCell.name}}
+              </div>
+            </q-item-section>
+
+            <q-item-section side>
+              <div
+                class="row items-center"
+                v-if="functionCell.status == 'running'"
+              >
+
+                <q-badge
+                  class="text-positive"
+                  style="font-size: 8px"
+                >Running</q-badge>
+              </div>
+              <div
+                class="row items-center"
+                v-if="functionCell.status == 'progressing'"
+              >
+
+                <q-badge
+                  class="text-yellow"
+                  style="font-size: 8px"
+                >Progressing</q-badge>
+              </div>
+              <div
+                class="row items-center"
+                v-if="functionCell.status != 'running' && functionCell.status != 'progressing'"
+              >
+
+                <q-badge
+                  class="text-red"
+                  style="font-size: 8px"
+                >{{functionCell.status}}</q-badge>
+              </div>
+            </q-item-section>
+            <q-item-section side>
+              <q-btn
+                unelevated
+                round
+                color="primary"
+                text-color="white"
+                icon="las la-ellipsis-v"
+              >
+              </q-btn>
+            </q-item-section>
+          </template>
+          <div
+            class=""
+            align="center"
+            style="font-size: 12px"
+            v-for="functionCellend in functionCell.endpoints"
+            :key="functionCellend"
+          >
+            <a
+              class="heading-bold"
+              style="text-decoration: none !important; color: #ffffff !important;"
+              :href="functionCellend"
+            >{{functionCellend}}</a>
+          </div>
+        </q-expansion-item>
+      </q-list>
+
+      <!-- For Volumes -->
+      <q-list
+        class="rounded-borders q-pt-md"
+        align="center"
+        v-for="volume in spaceData.volumes"
+        :key="volume.id"
+      >
+        <q-expansion-item
+          class="bg-secondary shadow-2"
+          group="allApps"
+          align="left"
+          expand-icon-class="text-white"
+          style="border-radius: 3px; max-width: 700px; min-width: 310px; width: 90vw"
+          expand-icon="las la-angle-down"
+          switch-toggle-side
+          expand-icon-toggle
+        >
+          <template v-slot:header>
+            <q-item-section side>
+              <q-avatar
+                size="xs"
+                class="q-gutter-x-sm"
+              >
+                <img src="statics/OktetoIconsComponents/Volume.svg">
+              </q-avatar>
+            </q-item-section>
+            <q-item-section class="text-white text-subtitle2">
+              <div
+                class="text-warning text-caption"
+                style="font-size: 8px"
+              >
+                Volume
+              </div>
+              <div class="q-gutter-y-sm">
+                {{volume.name}}
+              </div>
+            </q-item-section>
+
+            <q-item-section side>
+              <div
+                class="row items-center"
+                v-if="volume.status == 'in-use'"
+              >
+
+                <q-badge
+                  class="text-yellow"
+                  style="font-size: 8px"
+                >In-use</q-badge>
+              </div>
+              <div
+                class="row items-center"
+                v-if="volume.status == 'unused'"
+              >
+
+                <q-badge
+                  class="text-grey"
+                  style="font-size: 8px"
+                >{{volume.status}}</q-badge>
+              </div>
+            </q-item-section>
+            <q-item-section side>
+              <q-btn
+                unelevated
+                round
+                color="primary"
+                text-color="white"
+                icon="las la-ellipsis-v"
+              >
+              </q-btn>
+            </q-item-section>
+          </template>
         </q-expansion-item>
       </q-list>
 
@@ -350,9 +701,10 @@ export default {
     errorAtReq () {
       this.$q.notify({
         message:
-          'Error #1: Your token expires please try login again. If this error comes again after login, then report it at okteto support.',
+          'Error #1.1: ' + this.$route.params.id + ' data not available anymore.',
         icon: 'fa fa-exclamation-triangle',
-        timeout: 10000,
+        color: 'red',
+        timeout: 5000,
         position: 'top'
       })
     }
@@ -368,6 +720,7 @@ export default {
         console.log(e)
         this.$q.loading.hide()
         this.errorAtReq()
+        this.$router.back()
       })
   }
 }

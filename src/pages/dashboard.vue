@@ -52,7 +52,7 @@
         v-for="space in spaces"
         :key="space.id"
         class="rounded-borders bg-secondary q-ma-sm"
-        style="max-width: 600px; width: 90vw"
+        style="max-width: 600px; width: 95%;"
       >
 
         <q-item
