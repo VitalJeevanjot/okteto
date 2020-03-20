@@ -628,7 +628,7 @@
                 size="xs"
                 class="q-gutter-x-sm"
               >
-                <img src="statics/OktetoIconsComponents/Function.svg">
+                <img src="statics/OktetoIconsComponents/StatefulSet.svg">
               </q-avatar>
             </q-item-section>
             <q-item-section class="text-white text-subtitle2">
