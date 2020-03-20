@@ -53,11 +53,9 @@
           class="bg-secondary shadow-2"
           group="allApps"
           align="left"
+          dense-toggle
           expand-icon-class="text-white"
           style="border-radius: 3px; max-width: 700px; min-width: 310px; width: 90vw"
-          expand-icon="las la-angle-down"
-          switch-toggle-side
-          expand-icon-toggle
         >
           <template v-slot:header>
             <q-item-section side>
@@ -112,16 +110,7 @@
                 >{{app.status}}</q-badge>
               </div>
             </q-item-section>
-            <q-item-section side>
-              <q-btn
-                unelevated
-                round
-                color="primary"
-                text-color="white"
-                icon="las la-ellipsis-v"
-              >
-              </q-btn>
-            </q-item-section>
+
           </template>
           <!-- app deployments -->
           <div
@@ -131,12 +120,13 @@
             :key="appDeployments.id"
           >
             <div
-              class="q-pa-sm"
-              style="font-size: 12px"
+              class="row q-pa-md vertical-middle"
+              style="font-size: 80%"
               v-for="appDeploymentsEndpoint in appDeployments.endpoints"
               :key="appDeploymentsEndpoint"
             >
               <a
+                class="ellipsis q-mt-sm"
                 style="text-decoration: none !important; color: #ffffff !important;"
                 :href="appDeploymentsEndpoint"
               >{{appDeploymentsEndpoint}}</a>
@@ -150,12 +140,13 @@
             :key="appStatefulsets.id"
           >
             <div
-              class="q-pa-sm"
-              style="font-size: 12px"
+              class="row q-pa-md vertical-middle"
+              style="font-size: 80%"
               v-for="appStatefulsetsEndpoint in appStatefulsets.endpoints"
               :key="appStatefulsetsEndpoint"
             >
               <a
+                class="ellipsis q-mt-sm"
                 style="text-decoration: none !important; color: #ffffff !important;"
                 :href="appDeploymentsEndpoint"
               >{{appDeploymentsEndpoint}}</a>
@@ -169,12 +160,13 @@
             :key="appDevs.id"
           >
             <div
-              class="q-pa-sm"
-              style="font-size: 12px"
+              class="row q-pa-md vertical-middle"
+              style="font-size: 80%"
               v-for="appDevsEndpoint in appDevs.endpoints"
               :key="appDevsEndpoint"
             >
               <a
+                class="ellipsis q-mt-sm"
                 style="text-decoration: none !important; color: #ffffff !important;"
                 :href="appDevsEndpoint"
               >{{appDevsEndpoint}}</a>
@@ -188,12 +180,13 @@
             :key="appFunctions.id"
           >
             <div
-              class="q-pa-sm"
-              style="font-size: 12px"
+              class="row q-pa-md vertical-middle"
+              style="font-size: 80%"
               v-for="appFunctionsEndpoint in appFunctions.endpoints"
               :key="appFunctionsEndpoint"
             >
               <a
+                class="ellipsis q-mt-sm"
                 style="text-decoration: none !important; color: #ffffff !important;"
                 :href="appFunctionsEndpoint"
               >{{appFunctionsEndpoint}}</a>
@@ -207,18 +200,29 @@
             :key="appContainers.id"
           >
             <div
-              class="q-pa-sm"
-              style="font-size: 12px"
+              class="row q-pa-md vertical-middle"
+              style="font-size: 80%"
               v-for="appContainersEndpoint in appContainers.endpoints"
               :key="appContainersEndpoint"
             >
               <a
+                class="ellipsis q-mt-sm"
                 style="text-decoration: none !important; color: #ffffff !important;"
                 :href="appContainersEndpoint"
               >{{appContainersEndpoint}}</a>
             </div>
           </div>
 
+          <div class="row justify-center q-pa-sm">
+            <q-btn
+              unelevated
+              round
+              color="primary"
+              text-color="white"
+              icon="settings"
+            >
+            </q-btn>
+          </div>
         </q-expansion-item>
       </q-list>
 
@@ -233,11 +237,9 @@
           class="bg-secondary shadow-2"
           group="allApps"
           align="left"
+          dense-toggle
           expand-icon-class="text-white"
           style="border-radius: 3px; max-width: 700px; min-width: 310px; width: 90vw"
-          expand-icon="las la-angle-down"
-          switch-toggle-side
-          expand-icon-toggle
         >
           <template v-slot:header>
             <q-item-section side>
@@ -292,29 +294,31 @@
                 >{{devenv.status}}</q-badge>
               </div>
             </q-item-section>
-            <q-item-section side>
-              <q-btn
-                unelevated
-                round
-                color="primary"
-                text-color="white"
-                icon="las la-ellipsis-v"
-              >
-              </q-btn>
-            </q-item-section>
+
           </template>
           <div
-            class="q-pa-sm"
-            style="font-size: 12px"
+            class="row q-pa-md vertical-middle"
+            style="font-size: 80%"
             v-for="devenvnd in devenv.endpoints"
             :key="devenvnd"
           >
             <a
+              class="ellipsis q-mt-sm"
               style="text-decoration: none !important; color: #ffffff !important;"
               :href="devenvnd"
             >{{devenvnd}}</a>
           </div>
 
+          <div class="row justify-center q-pa-sm">
+            <q-btn
+              unelevated
+              round
+              color="primary"
+              text-color="white"
+              icon="settings"
+            >
+            </q-btn>
+          </div>
         </q-expansion-item>
       </q-list>
 
@@ -390,22 +394,17 @@
           <div
             class="row q-pa-md vertical-middle"
             style="font-size: 80%"
-            align="center"
             v-for="deployment in deployment.endpoints"
             :key="deployment"
           >
             <a
-              class="ellipsis col-10 q-mt-sm"
+              class="ellipsis q-mt-sm"
               style="text-decoration: none !important; color: #ffffff !important;"
               :href="deployment"
             >{{deployment}}</a>
-            <q-btn
-              class="text-white"
-              flat
-              icon="assignment"
-              round
-            />
+
           </div>
+
           <div class="row justify-center q-pa-sm">
             <q-btn
               unelevated
@@ -416,7 +415,6 @@
             >
             </q-btn>
           </div>
-
         </q-expansion-item>
       </q-list>
 
@@ -431,11 +429,9 @@
           class="bg-secondary shadow-2"
           group="allApps"
           align="left"
+          dense-toggle
           expand-icon-class="text-white"
           style="border-radius: 3px; max-width: 700px; min-width: 310px; width: 90vw"
-          expand-icon="las la-angle-down"
-          switch-toggle-side
-          expand-icon-toggle
         >
           <template v-slot:header>
             <q-item-section side>
@@ -490,27 +486,30 @@
                 >{{container.status}}</q-badge>
               </div>
             </q-item-section>
-            <q-item-section side>
-              <q-btn
-                unelevated
-                round
-                color="primary"
-                text-color="white"
-                icon="las la-ellipsis-v"
-              >
-              </q-btn>
-            </q-item-section>
+
           </template>
           <div
-            class="q-pa-sm"
-            style="font-size: 12px"
+            class="row q-pa-md vertical-middle"
+            style="font-size: 80%"
             v-for="containerend in container.endpoints"
             :key="containerend"
           >
             <a
+              class="ellipsis q-mt-sm"
               style="text-decoration: none !important; color: #ffffff !important;"
               :href="containerend"
             >{{containerend}}</a>
+
+          </div>
+          <div class="row justify-center q-pa-sm">
+            <q-btn
+              unelevated
+              round
+              color="primary"
+              text-color="white"
+              icon="settings"
+            >
+            </q-btn>
           </div>
         </q-expansion-item>
       </q-list>
@@ -525,11 +524,9 @@
           class="bg-secondary shadow-2"
           group="allApps"
           align="left"
+          dense-toggle
           expand-icon-class="text-white"
           style="border-radius: 3px; max-width: 700px; min-width: 310px; width: 90vw"
-          expand-icon="las la-angle-down"
-          switch-toggle-side
-          expand-icon-toggle
         >
           <template v-slot:header>
             <q-item-section side>
@@ -584,16 +581,7 @@
                 >{{functionCell.status}}</q-badge>
               </div>
             </q-item-section>
-            <q-item-section side>
-              <q-btn
-                unelevated
-                round
-                color="primary"
-                text-color="white"
-                icon="las la-ellipsis-v"
-              >
-              </q-btn>
-            </q-item-section>
+
           </template>
           <div
             class="q-pa-sm"
@@ -606,9 +594,112 @@
               :href="functionCellend"
             >{{functionCellend}}</a>
           </div>
+          <div class="row justify-center q-pa-sm">
+            <q-btn
+              unelevated
+              round
+              color="primary"
+              text-color="white"
+              icon="settings"
+            >
+            </q-btn>
+          </div>
         </q-expansion-item>
       </q-list>
 
+      <!-- For Functions -->
+      <q-list
+        class="rounded-borders q-pt-md"
+        align="center"
+        v-for="statefulset in spaceData.statefulsets"
+        :key="statefulset.id"
+      >
+        <q-expansion-item
+          class="bg-secondary shadow-2"
+          group="allApps"
+          align="left"
+          dense-toggle
+          expand-icon-class="text-white"
+          style="border-radius: 3px; max-width: 700px; min-width: 310px; width: 90vw"
+        >
+          <template v-slot:header>
+            <q-item-section side>
+              <q-avatar
+                size="xs"
+                class="q-gutter-x-sm"
+              >
+                <img src="statics/OktetoIconsComponents/Function.svg">
+              </q-avatar>
+            </q-item-section>
+            <q-item-section class="text-white text-subtitle2">
+              <div
+                class="text-warning text-caption"
+                style="font-size: 8px"
+              >
+                StatefulSet
+              </div>
+              <div class="q-gutter-y-sm">
+                {{statefulset.name}}
+              </div>
+            </q-item-section>
+
+            <q-item-section side>
+              <div
+                class="row items-center"
+                v-if="statefulset.status == 'running'"
+              >
+
+                <q-badge
+                  class="text-positive"
+                  style="font-size: 8px"
+                >Running</q-badge>
+              </div>
+              <div
+                class="row items-center"
+                v-if="statefulset.status == 'progressing'"
+              >
+
+                <q-badge
+                  class="text-yellow"
+                  style="font-size: 8px"
+                >Progressing</q-badge>
+              </div>
+              <div
+                class="row items-center"
+                v-if="statefulset.status != 'running' && statefulset.status != 'progressing'"
+              >
+
+                <q-badge
+                  class="text-red"
+                  style="font-size: 8px"
+                >{{statefulset.status}}</q-badge>
+              </div>
+            </q-item-section>
+
+          </template>
+          <div
+            class="q-pa-sm"
+            style="font-size: 12px"
+            v-for="statefulsetend in statefulset.endpoints"
+            :key="statefulsetend"
+          >
+            <a
+              style="text-decoration: none !important; color: #ffffff !important;"
+              :href="statefulsetend"
+            >{{statefulsetend}}</a>
+          </div>
+          <div class="row justify-center q-pa-sm">
+            <q-btn
+              unelevated
+              round
+              color="primary"
+              text-color="white"
+              icon="settings"
+            >
+            </q-btn>
+          </div>
+        </q-expansion-item>
+      </q-list>
       <!-- For Volumes -->
       <q-list
         class="rounded-borders q-pt-md"
@@ -620,11 +711,9 @@
           class="bg-secondary shadow-2"
           group="allApps"
           align="left"
+          dense-toggle
           expand-icon-class="text-white"
           style="border-radius: 3px; max-width: 700px; min-width: 310px; width: 90vw"
-          expand-icon="las la-angle-down"
-          switch-toggle-side
-          expand-icon-toggle
         >
           <template v-slot:header>
             <q-item-section side>
@@ -669,17 +758,18 @@
                 >{{volume.status}}</q-badge>
               </div>
             </q-item-section>
-            <q-item-section side>
-              <q-btn
-                unelevated
-                round
-                color="primary"
-                text-color="white"
-                icon="las la-ellipsis-v"
-              >
-              </q-btn>
-            </q-item-section>
+
           </template>
+          <div class="row justify-center q-pa-sm">
+            <q-btn
+              unelevated
+              round
+              color="primary"
+              text-color="white"
+              icon="settings"
+            >
+            </q-btn>
+          </div>
         </q-expansion-item>
       </q-list>
 
