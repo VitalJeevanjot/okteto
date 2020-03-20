@@ -154,8 +154,11 @@ export default {
                     if (i === data1.spaces.length - 1) {
                       console.log(allSpacesData)
                       this.$q.loading.hide()
+                      this.$spaces.spaces = allSpacesData
                       this.$q.localStorage.set('spaces', allSpacesData)
-                      this.$router.push('dashboard')
+                      if (this.$route.path !== '/dashboard') {
+                        this.$router.push('dashboard')
+                      }
                       // and login user to dashboard
                     }
                     // successfully can login now.
@@ -449,6 +452,7 @@ export default {
     }
     window.spaceQuery = this.query3
     window.showLoading = this.showLoading
+    window.processRequest = this.processRequest
   }
 }
 </script>

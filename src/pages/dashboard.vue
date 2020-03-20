@@ -33,6 +33,7 @@
           <q-input
             dark
             color="white"
+            maxlength="253"
             v-model="namespaceNewName"
             dense
             autofocus
@@ -45,13 +46,13 @@
     <!-- namespaces -->
 
     <div class="text-warning row justify-center text-h6">
-      <p class="heading-bold">Namespace ({{spaces.length}})</p>
+      <p class="heading-bold">Namespace ({{this.$spaces.spaces.length}})</p>
     </div>
     <div class="q-pa-sm row justify-center">
       <q-list
         dense
         padding
-        v-for="space in spaces"
+        v-for="space in $spaces.spaces"
         :key="space.id"
         class="rounded-borders bg-secondary q-ma-sm"
         style="max-width: 600px; width: 95%;"
@@ -136,7 +137,6 @@ export default {
   name: 'dashboard',
   data () {
     return {
-      spaces: [],
       avatar: '',
       namespaceNewName: ''
     }
@@ -149,7 +149,17 @@ export default {
         this.spaceData = data.space
         this.$q.loading.hide()
         this.namespaceNewName = ''
-      }).catch((e) => { console.log(e) })
+        window.processRequest()
+      }).catch((e) => {
+        this.$q.notify({
+          message: 'Failed to create namespace.',
+          icon: 'fa fa-exclamation-triangle',
+          timeout: 3000,
+          color: 'red',
+          position: 'top'
+        })
+        console.log(e.message)
+      })
     },
     openNamespace (id) {
       console.log(id)
@@ -160,11 +170,8 @@ export default {
       this.$q.localStorage.remove('auth')
       this.$router.back()
     }
-
   },
   mounted () {
-    this.spaces = this.$q.localStorage.getItem('spaces')
-    console.log(this.spaces)
     console.log(this.$q.localStorage.getItem('auth'))
     this.avatar = this.$q.localStorage.getItem('auth').avatar
     console.log(this.$byteSize(13958643712, { units: 'iec' }))
