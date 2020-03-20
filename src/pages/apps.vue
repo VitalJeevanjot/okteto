@@ -607,7 +607,7 @@
         </q-expansion-item>
       </q-list>
 
-      <!-- For Functions -->
+      <!-- For StatefulSets -->
       <q-list
         class="rounded-borders q-pt-md"
         align="center"
