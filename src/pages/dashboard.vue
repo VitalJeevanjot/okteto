@@ -7,6 +7,7 @@
         unelevated
         text-color="white"
         icon="las la-sign-out-alt"
+        @click="signOutUser"
       />
       <q-toolbar-title align="center">
         <q-avatar>
@@ -44,7 +45,7 @@
     <!-- namespaces -->
 
     <div class="text-warning row justify-center text-h6">
-      <p class="heading-bold">Namespaces ({{spaces.length}})</p>
+      <p class="heading-bold">Namespace ({{spaces.length}})</p>
     </div>
     <div class="q-pa-sm row justify-center">
       <q-list
@@ -153,6 +154,11 @@ export default {
     openNamespace (id) {
       console.log(id)
       this.$router.push('namespace/' + id)
+    },
+    signOutUser () {
+      console.log('signout user')
+      this.$q.localStorage.remove('auth')
+      this.$router.back()
     }
 
   },
