@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <q-toolbar>
+    <!-- <q-toolbar>
       <q-btn
         flat
         round
@@ -41,7 +41,7 @@
           icon="menu_open"
         />
       </q-fab>
-    </q-page-sticky>
+    </q-page-sticky> -->
     <!-- content -->
     <div v-if="spaceData != null">
       <!-- For apps -->
@@ -134,7 +134,7 @@
               :key="appDeployments.id"
             >
               <div
-                class="row q-pa-sm q-pt-md vertical-middle"
+                class="row col-12 q-pa-sm q-pt-md vertical-middle"
                 style="font-size: 100%"
                 v-for="appDeploymentsEndpoint in appDeployments.endpoints"
                 :key="appDeploymentsEndpoint"
@@ -154,7 +154,7 @@
               :key="appStatefulsets.id"
             >
               <div
-                class="row q-pa-sm q-pt-md vertical-middle"
+                class="row col-12 q-pa-sm q-pt-md vertical-middle"
                 style="font-size: 100%"
                 v-for="appStatefulsetsEndpoint in appStatefulsets.endpoints"
                 :key="appStatefulsetsEndpoint"
@@ -174,7 +174,7 @@
               :key="appDevs.id"
             >
               <div
-                class="row q-pa-sm q-pt-md vertical-middle"
+                class="row col-12 q-pa-sm q-pt-md vertical-middle"
                 style="font-size: 100%"
                 v-for="appDevsEndpoint in appDevs.endpoints"
                 :key="appDevsEndpoint"
@@ -194,7 +194,7 @@
               :key="appFunctions.id"
             >
               <div
-                class="row q-pa-sm q-pt-md vertical-middle"
+                class="row col-12 q-pa-sm q-pt-md vertical-middle"
                 style="font-size: 100%"
                 v-for="appFunctionsEndpoint in appFunctions.endpoints"
                 :key="appFunctionsEndpoint"
@@ -214,7 +214,7 @@
               :key="appContainers.id"
             >
               <div
-                class="row q-pa-sm q-pt-md vertical-middle"
+                class="row col-12 q-pa-sm q-pt-md vertical-middle"
                 style="font-size: 100%"
                 v-for="appContainersEndpoint in appContainers.endpoints"
                 :key="appContainersEndpoint"
@@ -794,7 +794,7 @@
 
 <script>
 export default {
-  name: 'apps',
+  name: 'listingapps',
   data () {
     return {
       spaceData: null

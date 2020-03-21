@@ -10,7 +10,13 @@ const routes = [
         path: 'namespace/:id',
         component: () => import('pages/apps.vue'),
         children: [
-          { path: '', component: () => import('pages/listingapps.vue') }
+          {
+            path: '',
+            component: () => import('pages/namespaceActions.vue'),
+            children: [
+              { path: '', component: () => import('pages/listingapps.vue') }
+            ]
+          }
         ]
       }
     ]

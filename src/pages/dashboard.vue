@@ -162,7 +162,7 @@ export default {
       })
     },
     openNamespace (id) {
-      console.log(id)
+      console.log('on dashboard: ' + id)
       this.$router.push('namespace/' + id)
     },
     signOutUser () {
