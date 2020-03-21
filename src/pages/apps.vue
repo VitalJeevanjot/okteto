@@ -114,14 +114,14 @@
           </template>
           <!-- app deployments -->
           <div
-            class="row justify-center"
+            class="row"
             style="font-size: 12px"
             v-for="appDeployments in app.deployments"
             :key="appDeployments.id"
           >
             <div
               class="row q-pa-md vertical-middle"
-              style="font-size: 80%"
+              style="font-size: 100%"
               v-for="appDeploymentsEndpoint in appDeployments.endpoints"
               :key="appDeploymentsEndpoint"
             >
@@ -134,14 +134,14 @@
           </div>
           <!-- app Statefulsets -->
           <div
-            class="row justify-center"
+            class="row"
             style="font-size: 12px"
             v-for="appStatefulsets in app.statefulsets"
             :key="appStatefulsets.id"
           >
             <div
               class="row q-pa-md vertical-middle"
-              style="font-size: 80%"
+              style="font-size: 100%"
               v-for="appStatefulsetsEndpoint in appStatefulsets.endpoints"
               :key="appStatefulsetsEndpoint"
             >
@@ -154,14 +154,14 @@
           </div>
           <!-- app devs -->
           <div
-            class="row justify-center"
+            class="row"
             style="font-size: 12px"
             v-for="appDevs in app.devs"
             :key="appDevs.id"
           >
             <div
               class="row q-pa-md vertical-middle"
-              style="font-size: 80%"
+              style="font-size: 100%"
               v-for="appDevsEndpoint in appDevs.endpoints"
               :key="appDevsEndpoint"
             >
@@ -174,14 +174,14 @@
           </div>
           <!-- functions -->
           <div
-            class="row justify-center"
+            class="row"
             style="font-size: 12px"
             v-for="appFunctions in app.functions"
             :key="appFunctions.id"
           >
             <div
               class="row q-pa-md vertical-middle"
-              style="font-size: 80%"
+              style="font-size: 100%"
               v-for="appFunctionsEndpoint in appFunctions.endpoints"
               :key="appFunctionsEndpoint"
             >
@@ -194,14 +194,14 @@
           </div>
           <!-- containers -->
           <div
-            class="row justify-center"
+            class="row"
             style="font-size: 12px"
             v-for="appContainers in app.containers"
             :key="appContainers.id"
           >
             <div
               class="row q-pa-md vertical-middle"
-              style="font-size: 80%"
+              style="font-size: 100%"
               v-for="appContainersEndpoint in appContainers.endpoints"
               :key="appContainersEndpoint"
             >
@@ -219,7 +219,7 @@
               round
               color="primary"
               text-color="white"
-              icon="settings"
+              icon="menu"
             >
             </q-btn>
           </div>
@@ -298,7 +298,7 @@
           </template>
           <div
             class="row q-pa-md vertical-middle"
-            style="font-size: 80%"
+            style="font-size: 100%"
             v-for="devenvnd in devenv.endpoints"
             :key="devenvnd"
           >
@@ -315,7 +315,7 @@
               round
               color="primary"
               text-color="white"
-              icon="settings"
+              icon="menu"
             >
             </q-btn>
           </div>
@@ -393,7 +393,7 @@
           </template>
           <div
             class="row q-pa-md vertical-middle"
-            style="font-size: 80%"
+            style="font-size: 100%"
             v-for="deployment in deployment.endpoints"
             :key="deployment"
           >
@@ -411,7 +411,7 @@
               round
               color="primary"
               text-color="white"
-              icon="settings"
+              icon="menu"
             >
             </q-btn>
           </div>
@@ -490,7 +490,7 @@
           </template>
           <div
             class="row q-pa-md vertical-middle"
-            style="font-size: 80%"
+            style="font-size: 100%"
             v-for="containerend in container.endpoints"
             :key="containerend"
           >
@@ -507,7 +507,7 @@
               round
               color="primary"
               text-color="white"
-              icon="settings"
+              icon="menu"
             >
             </q-btn>
           </div>
@@ -600,7 +600,7 @@
               round
               color="primary"
               text-color="white"
-              icon="settings"
+              icon="menu"
             >
             </q-btn>
           </div>
@@ -694,7 +694,7 @@
               round
               color="primary"
               text-color="white"
-              icon="settings"
+              icon="menu"
             >
             </q-btn>
           </div>
@@ -766,7 +766,7 @@
               round
               color="primary"
               text-color="white"
-              icon="settings"
+              icon="menu"
             >
             </q-btn>
           </div>
