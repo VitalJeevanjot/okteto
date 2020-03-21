@@ -25,17 +25,18 @@
       >
         <q-fab-action
           @click="console.log('Hello')"
-          color="info"
+          color="positive"
           icon="las la-terminal"
         />
         <q-fab-action
           @click="console.log('Hello')"
-          color="info"
+          color="white"
+          text-color="amber-9"
           icon="widgets"
         />
         <q-fab-action
           @click="console.log('Hello')"
-          color="info"
+          color="secondary"
           class="rotate-90"
           icon="menu_open"
         />
