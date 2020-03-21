@@ -21,7 +21,8 @@
       <q-fab
         icon="las la-braille"
         direction="up"
-        color="secondary"
+        color="white"
+        text-color="primary"
       >
         <q-fab-action
           @click="console.log('Hello')"
