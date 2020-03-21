@@ -36,7 +36,8 @@
         <q-fab-action
           @click="console.log('Hello')"
           color="info"
-          icon="settings"
+          class="rotate-90"
+          icon="menu_open"
         />
       </q-fab>
     </q-page-sticky>
@@ -217,9 +218,10 @@
             <q-btn
               unelevated
               round
+              class="rotate-270"
               color="primary"
               text-color="white"
-              icon="menu"
+              icon="menu_open"
             >
             </q-btn>
           </div>
@@ -313,9 +315,10 @@
             <q-btn
               unelevated
               round
+              class="rotate-270"
               color="primary"
               text-color="white"
-              icon="menu"
+              icon="menu_open"
             >
             </q-btn>
           </div>
@@ -409,9 +412,10 @@
             <q-btn
               unelevated
               round
+              class="rotate-270"
               color="primary"
               text-color="white"
-              icon="menu"
+              icon="menu_open"
             >
             </q-btn>
           </div>
@@ -505,9 +509,10 @@
             <q-btn
               unelevated
               round
+              class="rotate-270"
               color="primary"
               text-color="white"
-              icon="menu"
+              icon="menu_open"
             >
             </q-btn>
           </div>
@@ -598,9 +603,10 @@
             <q-btn
               unelevated
               round
+              class="rotate-270"
               color="primary"
               text-color="white"
-              icon="menu"
+              icon="menu_open"
             >
             </q-btn>
           </div>
@@ -692,9 +698,10 @@
             <q-btn
               unelevated
               round
+              class="rotate-270"
               color="primary"
               text-color="white"
-              icon="menu"
+              icon="menu_open"
             >
             </q-btn>
           </div>
@@ -764,9 +771,10 @@
             <q-btn
               unelevated
               round
+              class="rotate-270"
               color="primary"
               text-color="white"
-              icon="menu"
+              icon="menu_open"
             >
             </q-btn>
           </div>
