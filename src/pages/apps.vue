@@ -113,6 +113,17 @@
             </q-item-section>
 
           </template>
+          <div class="row justify-center q-pa-sm">
+            <q-btn
+              unelevated
+              round
+              class="rotate-270"
+              color="primary"
+              text-color="white"
+              icon="menu_open"
+            >
+            </q-btn>
+          </div>
           <!-- app deployments -->
           <div
             class="row"
@@ -214,17 +225,6 @@
             </div>
           </div>
 
-          <div class="row justify-center q-pa-sm">
-            <q-btn
-              unelevated
-              round
-              class="rotate-270"
-              color="primary"
-              text-color="white"
-              icon="menu_open"
-            >
-            </q-btn>
-          </div>
         </q-expansion-item>
       </q-list>
 
@@ -298,6 +298,17 @@
             </q-item-section>
 
           </template>
+          <div class="row justify-center q-pa-sm">
+            <q-btn
+              unelevated
+              round
+              class="rotate-270"
+              color="primary"
+              text-color="white"
+              icon="menu_open"
+            >
+            </q-btn>
+          </div>
           <div
             class="row q-pa-md vertical-middle"
             style="font-size: 100%"
@@ -311,17 +322,6 @@
             >{{devenvnd}}</a>
           </div>
 
-          <div class="row justify-center q-pa-sm">
-            <q-btn
-              unelevated
-              round
-              class="rotate-270"
-              color="primary"
-              text-color="white"
-              icon="menu_open"
-            >
-            </q-btn>
-          </div>
         </q-expansion-item>
       </q-list>
 
@@ -394,6 +394,17 @@
               </div>
             </q-item-section>
           </template>
+          <div class="row justify-center q-pa-sm">
+            <q-btn
+              unelevated
+              round
+              class="rotate-270"
+              color="primary"
+              text-color="white"
+              icon="menu_open"
+            >
+            </q-btn>
+          </div>
           <div
             class="row q-pa-md vertical-middle"
             style="font-size: 100%"
@@ -408,17 +419,6 @@
 
           </div>
 
-          <div class="row justify-center q-pa-sm">
-            <q-btn
-              unelevated
-              round
-              class="rotate-270"
-              color="primary"
-              text-color="white"
-              icon="menu_open"
-            >
-            </q-btn>
-          </div>
         </q-expansion-item>
       </q-list>
 
@@ -492,6 +492,17 @@
             </q-item-section>
 
           </template>
+          <div class="row justify-center q-pa-sm">
+            <q-btn
+              unelevated
+              round
+              class="rotate-270"
+              color="primary"
+              text-color="white"
+              icon="menu_open"
+            >
+            </q-btn>
+          </div>
           <div
             class="row q-pa-md vertical-middle"
             style="font-size: 100%"
@@ -505,17 +516,7 @@
             >{{containerend}}</a>
 
           </div>
-          <div class="row justify-center q-pa-sm">
-            <q-btn
-              unelevated
-              round
-              class="rotate-270"
-              color="primary"
-              text-color="white"
-              icon="menu_open"
-            >
-            </q-btn>
-          </div>
+
         </q-expansion-item>
       </q-list>
       <!-- For Functions -->
@@ -588,17 +589,6 @@
             </q-item-section>
 
           </template>
-          <div
-            class="q-pa-sm"
-            style="font-size: 12px"
-            v-for="functionCellend in functionCell.endpoints"
-            :key="functionCellend"
-          >
-            <a
-              style="text-decoration: none !important; color: #ffffff !important;"
-              :href="functionCellend"
-            >{{functionCellend}}</a>
-          </div>
           <div class="row justify-center q-pa-sm">
             <q-btn
               unelevated
@@ -610,6 +600,19 @@
             >
             </q-btn>
           </div>
+          <div
+            class="row q-pa-md vertical-middle"
+            style="font-size: 100%"
+            v-for="functionCellend in functionCell.endpoints"
+            :key="functionCellend"
+          >
+            <a
+              class="ellipsis q-mt-sm"
+              style="text-decoration: none !important; color: #ffffff !important;"
+              :href="functionCellend"
+            >{{functionCellend}}</a>
+          </div>
+
         </q-expansion-item>
       </q-list>
 
@@ -683,17 +686,6 @@
             </q-item-section>
 
           </template>
-          <div
-            class="q-pa-sm"
-            style="font-size: 12px"
-            v-for="statefulsetend in statefulset.endpoints"
-            :key="statefulsetend"
-          >
-            <a
-              style="text-decoration: none !important; color: #ffffff !important;"
-              :href="statefulsetend"
-            >{{statefulsetend}}</a>
-          </div>
           <div class="row justify-center q-pa-sm">
             <q-btn
               unelevated
@@ -705,6 +697,19 @@
             >
             </q-btn>
           </div>
+          <div
+            class="row q-pa-md vertical-middle"
+            style="font-size: 100%"
+            v-for="statefulsetend in statefulset.endpoints"
+            :key="statefulsetend"
+          >
+            <a
+              class="ellipsis q-mt-sm"
+              style="text-decoration: none !important; color: #ffffff !important;"
+              :href="statefulsetend"
+            >{{statefulsetend}}</a>
+          </div>
+
         </q-expansion-item>
       </q-list>
       <!-- For Volumes -->
@@ -767,17 +772,7 @@
             </q-item-section>
 
           </template>
-          <div class="row justify-center q-pa-sm">
-            <q-btn
-              unelevated
-              round
-              class="rotate-270"
-              color="primary"
-              text-color="white"
-              icon="menu_open"
-            >
-            </q-btn>
-          </div>
+
         </q-expansion-item>
       </q-list>
 
