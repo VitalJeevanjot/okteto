@@ -57,7 +57,7 @@
           align="left"
           dense-toggle
           expand-icon-class="text-white"
-          style="border-radius: 3px; max-width: 700px; min-width: 310px; width: 90vw"
+          style="border-radius: 3px; max-width: 700px; min-width: 310px; width: 90vw;"
         >
           <template v-slot:header>
             <q-item-section side>
@@ -114,7 +114,7 @@
             </q-item-section>
 
           </template>
-          <div class="row justify-center q-pa-sm">
+          <div class="row float-right q-mr-sm">
             <q-btn
               unelevated
               round
@@ -127,13 +127,13 @@
           </div>
           <!-- app deployments -->
           <div
-            class="row"
-            style="font-size: 12px"
+            class="row q-pa-sm q-pt-md vertical-middle"
+            style="font-size: 100%; min-height: 70px;"
             v-for="appDeployments in app.deployments"
             :key="appDeployments.id"
           >
             <div
-              class="row q-pa-md vertical-middle"
+              class="row q-pa-sm q-pt-md vertical-middle"
               style="font-size: 100%"
               v-for="appDeploymentsEndpoint in appDeployments.endpoints"
               :key="appDeploymentsEndpoint"
@@ -147,13 +147,13 @@
           </div>
           <!-- app Statefulsets -->
           <div
-            class="row"
-            style="font-size: 12px"
+            class="row q-pa-sm q-pt-md vertical-middle"
+            style="font-size: 100%; min-height: 70px;"
             v-for="appStatefulsets in app.statefulsets"
             :key="appStatefulsets.id"
           >
             <div
-              class="row q-pa-md vertical-middle"
+              class="row q-pa-sm q-pt-md vertical-middle"
               style="font-size: 100%"
               v-for="appStatefulsetsEndpoint in appStatefulsets.endpoints"
               :key="appStatefulsetsEndpoint"
@@ -167,13 +167,13 @@
           </div>
           <!-- app devs -->
           <div
-            class="row"
-            style="font-size: 12px"
+            class="row q-pa-sm q-pt-md vertical-middle"
+            style="font-size: 100%; min-height: 70px;"
             v-for="appDevs in app.devs"
             :key="appDevs.id"
           >
             <div
-              class="row q-pa-md vertical-middle"
+              class="row q-pa-sm q-pt-md vertical-middle"
               style="font-size: 100%"
               v-for="appDevsEndpoint in appDevs.endpoints"
               :key="appDevsEndpoint"
@@ -187,13 +187,13 @@
           </div>
           <!-- functions -->
           <div
-            class="row"
-            style="font-size: 12px"
+            class="row q-pa-sm q-pt-md vertical-middle"
+            style="font-size: 100%; min-height: 70px;"
             v-for="appFunctions in app.functions"
             :key="appFunctions.id"
           >
             <div
-              class="row q-pa-md vertical-middle"
+              class="row q-pa-sm q-pt-md vertical-middle"
               style="font-size: 100%"
               v-for="appFunctionsEndpoint in appFunctions.endpoints"
               :key="appFunctionsEndpoint"
@@ -207,13 +207,13 @@
           </div>
           <!-- containers -->
           <div
-            class="row"
-            style="font-size: 12px"
+            class="row q-pa-sm q-pt-md vertical-middle"
+            style="font-size: 100%; min-height: 70px;"
             v-for="appContainers in app.containers"
             :key="appContainers.id"
           >
             <div
-              class="row q-pa-md vertical-middle"
+              class="row q-pa-sm q-pt-md vertical-middle"
               style="font-size: 100%"
               v-for="appContainersEndpoint in appContainers.endpoints"
               :key="appContainersEndpoint"
@@ -242,7 +242,7 @@
           align="left"
           dense-toggle
           expand-icon-class="text-white"
-          style="border-radius: 3px; max-width: 700px; min-width: 310px; width: 90vw"
+          style="border-radius: 3px; max-width: 700px; min-width: 310px; width: 90vw;"
         >
           <template v-slot:header>
             <q-item-section side>
@@ -299,7 +299,7 @@
             </q-item-section>
 
           </template>
-          <div class="row justify-center q-pa-sm">
+          <div class="row float-right q-mr-sm">
             <q-btn
               unelevated
               round
@@ -311,13 +311,13 @@
             </q-btn>
           </div>
           <div
-            class="row q-pa-md vertical-middle"
-            style="font-size: 100%"
+            class="row q-pa-sm q-pt-md vertical-middle"
+            style="font-size: 100%; min-height: 70px;"
             v-for="devenvnd in devenv.endpoints"
             :key="devenvnd"
           >
             <a
-              class="ellipsis q-mt-sm"
+              class="ellipsis q-mt-sm q-pa-sm q-pt-md"
               style="text-decoration: none !important; color: #ffffff !important;"
               :href="devenvnd"
             >{{devenvnd}}</a>
@@ -395,7 +395,7 @@
               </div>
             </q-item-section>
           </template>
-          <div class="row justify-center q-pa-sm">
+          <div class="row float-right q-mr-sm">
             <q-btn
               unelevated
               round
@@ -407,13 +407,13 @@
             </q-btn>
           </div>
           <div
-            class="row q-pa-md vertical-middle"
-            style="font-size: 100%"
+            class="row q-pa-sm q-pt-md vertical-middle"
+            style="font-size: 100%; min-height: 70px;"
             v-for="deployment in deployment.endpoints"
             :key="deployment"
           >
             <a
-              class="ellipsis q-mt-sm"
+              class="ellipsis q-mt-sm q-pa-sm q-pt-md"
               style="text-decoration: none !important; color: #ffffff !important;"
               :href="deployment"
             >{{deployment}}</a>
@@ -493,7 +493,7 @@
             </q-item-section>
 
           </template>
-          <div class="row justify-center q-pa-sm">
+          <div class="row float-right q-mr-sm">
             <q-btn
               unelevated
               round
@@ -505,13 +505,13 @@
             </q-btn>
           </div>
           <div
-            class="row q-pa-md vertical-middle"
-            style="font-size: 100%"
+            class="row q-pa-sm q-pt-md vertical-middle"
+            style="font-size: 100%; min-height: 70px;"
             v-for="containerend in container.endpoints"
             :key="containerend"
           >
             <a
-              class="ellipsis q-mt-sm"
+              class="ellipsis q-mt-sm q-pa-sm q-pt-md"
               style="text-decoration: none !important; color: #ffffff !important;"
               :href="containerend"
             >{{containerend}}</a>
@@ -590,7 +590,7 @@
             </q-item-section>
 
           </template>
-          <div class="row justify-center q-pa-sm">
+          <div class="row float-right q-mr-sm">
             <q-btn
               unelevated
               round
@@ -602,13 +602,13 @@
             </q-btn>
           </div>
           <div
-            class="row q-pa-md vertical-middle"
-            style="font-size: 100%"
+            class="row q-pa-sm q-pt-md vertical-middle"
+            style="font-size: 100%; min-height: 70px;"
             v-for="functionCellend in functionCell.endpoints"
             :key="functionCellend"
           >
             <a
-              class="ellipsis q-mt-sm"
+              class="ellipsis q-mt-sm q-pa-sm q-pt-md"
               style="text-decoration: none !important; color: #ffffff !important;"
               :href="functionCellend"
             >{{functionCellend}}</a>
@@ -687,7 +687,7 @@
             </q-item-section>
 
           </template>
-          <div class="row justify-center q-pa-sm">
+          <div class="row float-right q-mr-sm">
             <q-btn
               unelevated
               round
@@ -699,13 +699,13 @@
             </q-btn>
           </div>
           <div
-            class="row q-pa-md vertical-middle"
-            style="font-size: 100%"
+            class="row q-pa-sm q-pt-md vertical-middle"
+            style="font-size: 100%; min-height: 70px;"
             v-for="statefulsetend in statefulset.endpoints"
             :key="statefulsetend"
           >
             <a
-              class="ellipsis q-mt-sm"
+              class="ellipsis q-mt-sm q-pa-sm q-pt-md"
               style="text-decoration: none !important; color: #ffffff !important;"
               :href="statefulsetend"
             >{{statefulsetend}}</a>
