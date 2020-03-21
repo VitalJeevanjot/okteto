@@ -15,6 +15,7 @@
       </q-toolbar-title>
     </q-toolbar>
     <q-page-sticky
+      style="z-index: 1;"
       position="bottom-right"
       :offset="[18, 18]"
     >
@@ -25,18 +26,16 @@
         text-color="primary"
       >
         <q-fab-action
-          @click="console.log('Hello')"
           color="positive"
           icon="las la-terminal"
         />
         <q-fab-action
-          @click="console.log('Hello')"
           color="white"
           text-color="amber-9"
           icon="widgets"
         />
         <q-fab-action
-          @click="console.log('Hello')"
+          @click="namespaceInfoDialog = true"
           color="secondary"
           class="rotate-90"
           icon="menu_open"
@@ -46,12 +45,48 @@
     <q-page-container>
       <router-view />
     </q-page-container>
+
+    <q-dialog
+      v-model="namespaceInfoDialog"
+      position="bottom"
+    >
+      <q-card
+        style="min-width: 320px"
+        class="bg-primary text-white"
+      >
+
+        <q-card-section class="row items-center no-wrap">
+
+          <q-btn
+            align="between"
+            class="btn-fixed-width"
+            flat
+            label="Share"
+            no-caps
+            icon="account_circle"
+          />
+          <q-btn
+            align="between"
+            class="btn-fixed-width"
+            flat
+            label="Delete"
+            no-caps
+            icon="cancel"
+          />
+        </q-card-section>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
 <script>
 export default {
   name: 'namespaceActions',
+  data () {
+    return {
+      namespaceInfoDialog: false
+    }
+  },
   mounted () {
     console.log('hello')
   }
