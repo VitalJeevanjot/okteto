@@ -775,6 +775,8 @@ export default {
       .then(data => {
         console.log(data)
         this.$spaceData.space = data.space
+        this.$spaceMembers.members = data.space.members
+        this.$ownerOfNamespace.owner = data.space.members[0].email
         this.$q.loading.hide()
       }).catch((e) => {
         console.log(e)

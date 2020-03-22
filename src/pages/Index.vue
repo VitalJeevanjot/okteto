@@ -453,6 +453,7 @@ export default {
     window.spaceQuery = this.query3
     window.showLoading = this.showLoading
     window.processRequest = this.processRequest
+    this.$authUser.user = this.$q.localStorage.getItem('auth')
   }
 }
 </script>

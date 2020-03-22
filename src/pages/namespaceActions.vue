@@ -25,10 +25,10 @@
         color="white"
         text-color="primary"
       >
-        <q-fab-action
+        <!-- <q-fab-action
           color="positive"
           icon="las la-terminal"
-        />
+        /> -->
         <q-fab-action
           color="white"
           text-color="amber-9"
@@ -76,6 +76,7 @@
               <q-item
                 clickable
                 @click="namespaceTab = 'share'"
+                v-if="$ownerOfNamespace.owner == $authUser.user.email"
               >
                 <q-item-section>Share</q-item-section>
               </q-item>
@@ -83,17 +84,20 @@
               <q-item
                 clickable
                 @click="namespaceTab = 'delete'"
+                v-if="$ownerOfNamespace.owner == $authUser.user.email"
               >
                 <q-item-section>Delete</q-item-section>
               </q-item>
             </q-list>
           </q-btn-dropdown>
           <q-tab
+            v-if="$ownerOfNamespace.owner == $authUser.user.email"
             name="secret"
             icon="las la-key"
             label="Secrets"
           />
           <q-tab
+            v-if="$ownerOfNamespace.owner != $authUser.user.email"
             name="leave"
             icon="las la-door-open"
             label="Leave"
@@ -111,11 +115,7 @@
             <q-item>
 
               <q-item-section>
-                <q-item-label
-                  lines="1"
-                  align="center"
-                  class="text-h6 text-white"
-                >{{this.$spaceData.space.id}}</q-item-label>
+                <q-item-label class="text-h6 heading-bold text-warning">{{this.$spaceData.space.id}}</q-item-label>
                 <div>
                   <q-badge
                     color="info"
@@ -166,11 +166,59 @@
           </q-tab-panel>
           <q-tab-panel name="share">
             <div class="text-h6"><span class="heading-bold text-warning">Manage:</span> Share</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            <div class="row">
+              <q-btn
+                round
+                color="positive"
+                class="q-ma-sm"
+                unelevated
+                icon="add"
+              />
+            </div>
+            <div class="row">
+              <q-list
+                class="bg-secondary"
+                separator
+                dark
+              >
+                <q-item
+                  class="q-pa-sm"
+                  v-for="
+                member
+                in
+                $spaceMembers.members"
+                  :key="member.id"
+                  clickable
+                  v-ripple
+                  @click="updateMemberConfirmation($spaceData.space.id,  member.email, true, member.avatar)"
+                >
+                  <q-item-section avatar>
+                    <q-avatar>
+                      <img :src="member.avatar">
+                    </q-avatar>
+                  </q-item-section>
+
+                  <q-item-section>
+                    <q-item-label>{{ member.email }}</q-item-label>
+                  </q-item-section>
+
+                  <q-item-section
+                    side
+                    v-if="$authUser.user.email != member.email"
+                  >
+                    <q-icon
+                      size="xs"
+                      name="close"
+                      color="white"
+                    />
+                  </q-item-section>
+                </q-item>
+              </q-list>
+            </div>
           </q-tab-panel>
           <q-tab-panel name="delete">
             <div class="text-h6"><span class="heading-bold text-warning">Manage:</span> Delete</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Lorem ipsum dolor sit amet consectetur adipisicing elito.
           </q-tab-panel>
 
           <q-tab-panel name="secret">
@@ -185,6 +233,37 @@
         </q-tab-panels>
       </q-card>
     </q-dialog>
+    <q-dialog
+      v-model="updateNameSpaceConfirm"
+      persistent
+    >
+      <q-card>
+        <q-card-section class="row items-center">
+          <q-avatar>
+            <img :src="memberToDeleteAvatar">
+          </q-avatar>
+          <span class="text-subtitle">Delete <span class="text-positive">{{memberToDelete}}</span> from this namespace ?</span>
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn
+            flat
+            label="Cancel"
+            no-caps
+            color="primary"
+            v-close-popup
+          />
+          <q-btn
+            flat
+            label="Delete"
+            color="primary"
+            no-caps
+            @click="updateMember($spaceData.space.id, memberToDelete, true)"
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -195,12 +274,38 @@ export default {
     return {
       namespaceInfoDialog: false,
       namespaceTab: 'quota',
-      namespaceTabChild: 'details'
+      namespaceTabChild: 'details',
+      memberToDelete: null,
+      updateNameSpaceConfirm: true,
+      memberToDeleteAvatar: null
+    }
+  },
+  methods: {
+    updateMemberConfirmation (namespaceId, memberToDelete, deleteMember, memberToDeleteAvatar) {
+      if (memberToDelete !== this.$authUser.user.email) {
+        this.updateNameSpaceConfirm = true
+        this.memberToDelete = memberToDelete
+        this.memberToDeleteAvatar = memberToDeleteAvatar
+      }
+    },
+    updateMember (namespaceId, memberToDelete, deleteMember) {
+      if (deleteMember === true) {
+        var indexOfMember = this.$spaceMembers.members.indexOf(memberToDelete)
+        if (indexOfMember !== -1) { this.$spaceMembers.members.splice(indexOfMember, 1) }
+      }
+      var updateSpace = 'updateSpace(id: ' + namespaceId + ', members: ' + this.$spaceMembers.members + '): Space'
+      window.loginClient.request(updateSpace).then(data => {
+        console.log(data)
+        this.$q.loading.hide()
+        this.namespaceNewName = ''
+        this.$spaceMembers.members = data.members
+      }).catch((e) => { console.log(e) })
     }
   },
   mounted () {
     console.log('hello')
-    console.log(this.$space)
+    console.log(this.$spaceData.space)
+    console.log(this.$spaceMembers.members)
   }
 }
 </script>

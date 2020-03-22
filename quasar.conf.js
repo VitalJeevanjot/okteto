@@ -10,7 +10,8 @@ module.exports = function (ctx) {
       'axios',
       'url-parser',
       'graphql-req',
-      'byte'
+      'byte',
+      'globalvars'
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
