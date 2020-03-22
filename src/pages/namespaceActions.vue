@@ -50,30 +50,84 @@
       v-model="namespaceInfoDialog"
       position="bottom"
     >
-      <q-card
-        style="min-width: 320px"
-        class="bg-primary text-white"
-      >
-
-        <q-card-section class="row items-center no-wrap">
-
-          <q-btn
-            align="between"
-            class="btn-fixed-width"
+      <q-card class="bg-primary text-white">
+        <q-tabs
+          v-model="namespaceTab"
+          dense
+          no-caps
+          inline-label
+          class="bg-secondary text-white shadow-2"
+        >
+          <q-btn-dropdown
+            auto-close
+            stretch
             flat
-            label="Share"
+            label="Manage"
             no-caps
-            icon="account_circle"
+          >
+            <q-list>
+              <q-item
+                clickable
+                @click="namespaceTab = 'quota'"
+              >
+                <q-item-section>Quota</q-item-section>
+              </q-item>
+
+              <q-item
+                clickable
+                @click="namespaceTab = 'share'"
+              >
+                <q-item-section>Share</q-item-section>
+              </q-item>
+
+              <q-item
+                clickable
+                @click="namespaceTab = 'delete'"
+              >
+                <q-item-section>Delete</q-item-section>
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
+          <q-tab
+            name="secret"
+            icon="las la-key"
+            label="Secrets"
           />
-          <q-btn
-            align="between"
-            class="btn-fixed-width"
-            flat
-            label="Delete"
-            no-caps
-            icon="cancel"
+          <q-tab
+            name="leave"
+            icon="las la-door-open"
+            label="Leave"
           />
-        </q-card-section>
+        </q-tabs>
+        <q-separator />
+        <q-tab-panels
+          class="text-white  bg-primary"
+          v-model="namespaceTab"
+          animated
+        >
+          <q-tab-panel name="quota">
+            <div class="text-h6">manage/Quota</div>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </q-tab-panel>
+          <q-tab-panel name="share">
+            <div class="text-h6">manage/Share</div>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </q-tab-panel>
+          <q-tab-panel name="delete">
+            <div class="text-h6">manage/Delete</div>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </q-tab-panel>
+
+          <q-tab-panel name="secret">
+            <div class="text-h6">Secret</div>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </q-tab-panel>
+
+          <q-tab-panel name="leave">
+            <div class="text-h6">Leave</div>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </q-tab-panel>
+        </q-tab-panels>
       </q-card>
     </q-dialog>
   </q-page>
@@ -84,7 +138,9 @@ export default {
   name: 'namespaceActions',
   data () {
     return {
-      namespaceInfoDialog: false
+      namespaceInfoDialog: false,
+      namespaceTab: 'quota',
+      namespaceTabChild: 'details'
     }
   },
   mounted () {
