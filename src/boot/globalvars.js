@@ -8,5 +8,5 @@ export default async ({ Vue }) => {
   Vue.prototype.$spaceData = Vue.observable({ space: null })
   Vue.prototype.$spaceMembers = Vue.observable({ members: [] })
   Vue.prototype.$authUser = Vue.observable({ user: null })
-  Vue.prototype.$ownerOfNamespace = Vue.observable({ owner: null })
+  Vue.prototype.$ownerOfNamespace = Vue.observable({ user: '', owner: null })
 }

@@ -776,7 +776,7 @@ export default {
         console.log(data)
         this.$spaceData.space = data.space
         this.$spaceMembers.members = data.space.members
-        this.$ownerOfNamespace.owner = data.space.members[0].email
+        console.warn(this.$spaceMembers.members.find(member => member.email === this.$authUser.user.email).owner)
         this.$q.loading.hide()
       }).catch((e) => {
         console.log(e)

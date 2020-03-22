@@ -76,7 +76,7 @@
               <q-item
                 clickable
                 @click="namespaceTab = 'share'"
-                v-if="$ownerOfNamespace.owner == $authUser.user.email"
+                v-if="$spaceMembers.members.find(member => member.email === $authUser.user.email).owner"
               >
                 <q-item-section>Share</q-item-section>
               </q-item>
@@ -84,20 +84,20 @@
               <q-item
                 clickable
                 @click="namespaceTab = 'delete'"
-                v-if="$ownerOfNamespace.owner == $authUser.user.email"
+                v-if="$spaceMembers.members.find(member => member.email === $authUser.user.email).owner"
               >
                 <q-item-section>Delete</q-item-section>
               </q-item>
             </q-list>
           </q-btn-dropdown>
           <q-tab
-            v-if="$ownerOfNamespace.owner == $authUser.user.email"
+            v-if="$spaceMembers.members.find(member => member.email === $authUser.user.email).owner"
             name="secret"
             icon="las la-key"
             label="Secrets"
           />
           <q-tab
-            v-if="$ownerOfNamespace.owner != $authUser.user.email"
+            v-if="!$spaceMembers.members.find(member => member.email === $authUser.user.email).owner"
             name="leave"
             icon="las la-door-open"
             label="Leave"
@@ -242,7 +242,7 @@
           <q-avatar>
             <img :src="memberToDeleteAvatar">
           </q-avatar>
-          <span class="text-subtitle">Delete <span class="text-positive">{{memberToDelete}}</span> from this namespace ?</span>
+          <span class="text-subtitle"><span class="text-bold"> Delete </span> <span class="text-positive">{{memberToDelete}}</span> from this namespace ?</span>
         </q-card-section>
 
         <q-card-actions align="right">
