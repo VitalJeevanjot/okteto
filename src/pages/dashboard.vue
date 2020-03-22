@@ -146,7 +146,6 @@ export default {
       var mutation = 'mutation{ createSpace(name: "' + this.namespaceNewName + '-' + this.$q.localStorage.getItem('auth').githubID + '", members:"") { id } }'
       window.loginClient.request(mutation).then(data => {
         console.log(data)
-        this.spaceData = data.space
         this.$q.loading.hide()
         this.namespaceNewName = ''
         window.processRequest()
@@ -172,6 +171,7 @@ export default {
     }
   },
   mounted () {
+    console.log(this.$spaces)
     console.log(this.$q.localStorage.getItem('auth'))
     this.avatar = this.$q.localStorage.getItem('auth').avatar
     console.log(this.$byteSize(13958643712, { units: 'iec' }))

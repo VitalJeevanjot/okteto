@@ -1,11 +1,11 @@
 <template>
   <!-- content -->
-  <div v-if="spaceData != null">
+  <div v-if="$spaceData.space != null">
     <!-- For apps -->
     <q-list
       class="rounded-borders q-pt-md"
       align="center"
-      v-for="app in spaceData.apps"
+      v-for="app in $spaceData.space.apps"
       :key="app.id"
     >
       <q-expansion-item
@@ -192,7 +192,7 @@
     <q-list
       class="rounded-borders q-pt-md"
       align="center"
-      v-for="devenv in spaceData.devs"
+      v-for="devenv in $spaceData.space.devs"
       :key="devenv.id"
     >
       <q-expansion-item
@@ -291,7 +291,7 @@
     <q-list
       class="rounded-borders q-pt-md"
       align="center"
-      v-for="deployment in spaceData.deployments"
+      v-for="deployment in $spaceData.space.deployments"
       :key="deployment.id"
     >
       <q-expansion-item
@@ -390,7 +390,7 @@
     <q-list
       class="rounded-borders q-pt-md"
       align="center"
-      v-for="container in spaceData.containers"
+      v-for="container in $spaceData.space.containers"
       :key="container.id"
     >
       <q-expansion-item
@@ -489,7 +489,7 @@
     <q-list
       class="rounded-borders q-pt-md"
       align="center"
-      v-for="functionCell in spaceData.functions"
+      v-for="functionCell in $spaceData.space.functions"
       :key="functionCell.id"
     >
       <q-expansion-item
@@ -588,7 +588,7 @@
     <q-list
       class="rounded-borders q-pt-md"
       align="center"
-      v-for="statefulset in spaceData.statefulsets"
+      v-for="statefulset in $spaceData.space.statefulsets"
       :key="statefulset.id"
     >
       <q-expansion-item
@@ -685,7 +685,7 @@
     <q-list
       class="rounded-borders q-pt-md"
       align="center"
-      v-for="volume in spaceData.volumes"
+      v-for="volume in $spaceData.space.volumes"
       :key="volume.id"
     >
       <q-expansion-item
@@ -753,7 +753,6 @@ export default {
   name: 'listingapps',
   data () {
     return {
-      spaceData: null
     }
   },
   methods: {
@@ -769,11 +768,13 @@ export default {
     }
   },
   mounted () {
+    console.log('here #1')
     window.showLoading()
+    console.log('here #2')
     window.loginClient.request(window.spaceQuery(this.$route.params.id))
       .then(data => {
         console.log(data)
-        this.spaceData = data.space
+        this.$spaceData.space = data.space
         this.$q.loading.hide()
       }).catch((e) => {
         console.log(e)

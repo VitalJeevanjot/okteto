@@ -104,17 +104,72 @@
           class="text-white  bg-primary"
           v-model="namespaceTab"
           animated
+          v-if="$spaceData.space != null"
         >
           <q-tab-panel name="quota">
-            <div class="text-h6">manage/Quota</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            <div class="text-h6"><span class="heading-bold text-warning">Manage:</span> Quota</div>
+            <q-item>
+
+              <q-item-section>
+                <q-item-label
+                  lines="1"
+                  align="center"
+                  class="text-h6 text-white"
+                >{{this.$spaceData.space.id}}</q-item-label>
+                <div>
+                  <q-badge
+                    color="info"
+                    text-color="white"
+                    class="q-mt-sm text-subtitle2"
+                    :label="'Disk: ' + $byteSize(parseInt(this.$spaceData.space.quotas.used.limitsStorage), { units: 'iec' }).value + '/' + $byteSize(parseInt(this.$spaceData.space.quotas.hard.limitsStorage), { units: 'iec' })"
+                  />
+                </div>
+                <q-linear-progress
+                  :value="this.$spaceData.space.quotas.used.limitsStorage/this.$spaceData.space.quotas.hard.limitsStorage"
+                  class="bg-info q-mt-xs"
+                  color="positive"
+                  rounded
+                >
+                </q-linear-progress>
+                <div>
+                  <q-badge
+                    color="info"
+                    text-color="white"
+                    class="q-mt-sm text-subtitle2"
+                    :label="'Memory: ' + $byteSize(parseInt(this.$spaceData.space.quotas.used.limitsMemory), { units: 'iec' }).value +'/'+ $byteSize(parseInt(this.$spaceData.space.quotas.hard.limitsMemory), { units: 'iec' })"
+                  />
+                </div>
+                <q-linear-progress
+                  :value="this.$spaceData.space.quotas.used.limitsMemory/this.$spaceData.space.quotas.hard.limitsMemory"
+                  class="bg-info q-mt-xs"
+                  color="dark"
+                  rounded
+                >
+                </q-linear-progress>
+                <div>
+                  <q-badge
+                    color="info"
+                    text-color="white"
+                    class="q-mt-sm text-subtitle2"
+                    :label="'CPU: ' + this.$spaceData.space.quotas.used.limitsCPU / 1000 + '/' + this.$spaceData.space.quotas.hard.limitsCPU / 1000"
+                  />
+                </div>
+                <q-linear-progress
+                  :value="this.$spaceData.space.quotas.used.limitsCPU/this.$spaceData.space.quotas.hard.limitsCPU"
+                  class="bg-info q-mt-xs"
+                  color="dark"
+                  rounded
+                >
+                </q-linear-progress>
+              </q-item-section>
+            </q-item>
           </q-tab-panel>
           <q-tab-panel name="share">
-            <div class="text-h6">manage/Share</div>
+            <div class="text-h6"><span class="heading-bold text-warning">Manage:</span> Share</div>
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </q-tab-panel>
           <q-tab-panel name="delete">
-            <div class="text-h6">manage/Delete</div>
+            <div class="text-h6"><span class="heading-bold text-warning">Manage:</span> Delete</div>
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </q-tab-panel>
 
@@ -145,6 +200,7 @@ export default {
   },
   mounted () {
     console.log('hello')
+    console.log(this.$space)
   }
 }
 </script>

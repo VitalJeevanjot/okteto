@@ -6,4 +6,5 @@ export default async ({ Vue }) => {
   Vue.prototype.$greq = request
   Vue.prototype.$loginClient = null
   Vue.prototype.$spaces = Vue.observable({ spaces: [] })
+  Vue.prototype.$spaceData = Vue.observable({ space: null })
 }
