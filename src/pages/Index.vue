@@ -98,6 +98,7 @@ export default {
             console.log(data.auth.token)
             try {
               this.$q.localStorage.set('auth', data.auth)
+              this.$authUser.user = data.auth
             } catch (e) {
               this.$q.notify({
                 message: 'Your credentails not saved because of error:' + e,

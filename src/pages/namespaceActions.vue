@@ -304,6 +304,7 @@ export default {
     },
     checkOwner () {
       if (this.$spaceMembers.members) {
+        console.log(this.$authUser.user)
         return this.$spaceMembers.members.find(member => member.email === this.$authUser.user.email).owner
       }
     },
