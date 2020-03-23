@@ -49,6 +49,7 @@
     <q-dialog
       v-model="namespaceInfoDialog"
       position="bottom"
+      v-if="$spaceData.space"
     >
       <q-card class="bg-primary text-white">
         <q-tabs
@@ -303,7 +304,7 @@ export default {
     }
   },
   mounted () {
-    console.log('hello')
+    console.log('hello namespaceActions')
     console.log(this.$spaceData.space)
     console.log(this.$spaceMembers.members)
   }
