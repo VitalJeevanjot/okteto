@@ -294,7 +294,7 @@ export default {
         var indexOfMember = this.$spaceMembers.members.indexOf(memberToDelete)
         if (indexOfMember !== -1) { this.$spaceMembers.members.splice(indexOfMember, 1) }
       }
-      var updateSpace = 'mutation{updateSpace(id: "' + namespaceId + '", members: ' + this.$spaceMembers.members + '){id}}'
+      var updateSpace = 'mutation{updateSpace(id: "' + namespaceId + '", members: [' + this.getFinalMembers() + '])}'
       window.loginClient.request(updateSpace).then(data => {
         console.log(data)
         this.$q.loading.hide()
@@ -303,7 +303,13 @@ export default {
       }).catch((e) => { console.log(e) })
     },
     checkOwner () {
-      return this.$spaceMembers.members.find(member => member.email === this.$authUser.user.email).owner
+      if (this.$spaceMembers.members) {
+        return this.$spaceMembers.members.find(member => member.email === this.$authUser.user.email).owner
+      }
+    },
+    getFinalMembers () {
+      var result = this.$spaceMembers.members.map(a => a.email)
+      return '"' + result + '"'
     }
   },
   mounted () {
