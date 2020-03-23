@@ -116,6 +116,7 @@ export default {
               message: 'Error #2: Please Report at Okteto Support.',
               icon: 'fa fa-exclamation-triangle'
             })
+            console.log(e)
           })
       }
     },

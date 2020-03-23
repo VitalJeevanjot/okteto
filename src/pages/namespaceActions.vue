@@ -316,6 +316,13 @@ export default {
     console.log('hello namespaceActions')
     console.log(this.$spaceData.space)
     console.log(this.$spaceMembers.members)
+    // var updateSpace = 'mutation{updateSpace(id: "genievot", members: ["genievot"]){id}}'
+    // window.loginClient.request(updateSpace).then(data => {
+    //   console.log(data)
+    //   this.$q.loading.hide()
+    //   this.namespaceNewName = ''
+    //   this.$spaceMembers.members = data.members
+    // }).catch((e) => { console.log(e) })
   }
 }
 </script>
