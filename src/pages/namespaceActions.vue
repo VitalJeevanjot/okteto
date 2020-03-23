@@ -77,7 +77,7 @@
               <q-item
                 clickable
                 @click="namespaceTab = 'share'"
-                v-if="$spaceMembers.members.find(member => member.email === $authUser.user.email).owner"
+                v-if="checkOwner()"
               >
                 <q-item-section>Share</q-item-section>
               </q-item>
@@ -85,20 +85,20 @@
               <q-item
                 clickable
                 @click="namespaceTab = 'delete'"
-                v-if="$spaceMembers.members.find(member => member.email === $authUser.user.email).owner"
+                v-if="checkOwner()"
               >
                 <q-item-section>Delete</q-item-section>
               </q-item>
             </q-list>
           </q-btn-dropdown>
           <q-tab
-            v-if="$spaceMembers.members.find(member => member.email === $authUser.user.email).owner"
+            v-if="checkOwner()"
             name="secret"
             icon="las la-key"
             label="Secrets"
           />
           <q-tab
-            v-if="!$spaceMembers.members.find(member => member.email === $authUser.user.email).owner"
+            v-if="!checkOwner()"
             name="leave"
             icon="las la-door-open"
             label="Leave"
@@ -277,7 +277,7 @@ export default {
       namespaceTab: 'quota',
       namespaceTabChild: 'details',
       memberToDelete: null,
-      updateNameSpaceConfirm: true,
+      updateNameSpaceConfirm: false,
       memberToDeleteAvatar: null
     }
   },
@@ -294,13 +294,16 @@ export default {
         var indexOfMember = this.$spaceMembers.members.indexOf(memberToDelete)
         if (indexOfMember !== -1) { this.$spaceMembers.members.splice(indexOfMember, 1) }
       }
-      var updateSpace = 'updateSpace(id: ' + namespaceId + ', members: ' + this.$spaceMembers.members + '): Space'
+      var updateSpace = 'mutation{updateSpace(id: "' + namespaceId + '", members: ' + this.$spaceMembers.members + '){id}}'
       window.loginClient.request(updateSpace).then(data => {
         console.log(data)
         this.$q.loading.hide()
         this.namespaceNewName = ''
         this.$spaceMembers.members = data.members
       }).catch((e) => { console.log(e) })
+    },
+    checkOwner () {
+      return this.$spaceMembers.members.find(member => member.email === this.$authUser.user.email).owner
     }
   },
   mounted () {
