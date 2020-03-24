@@ -201,6 +201,10 @@
 
                   <q-item-section>
                     <q-item-label>{{ member.email }}</q-item-label>
+                    <q-item-label
+                      caption
+                      lines="1"
+                    >{{ member.githubID }}</q-item-label>
                   </q-item-section>
 
                   <q-item-section
@@ -304,7 +308,6 @@ export default {
     },
     checkOwner () {
       if (this.$spaceMembers.members) {
-        console.log(this.$authUser.user)
         return this.$spaceMembers.members.find(member => member.email === this.$authUser.user.email).owner
       }
     },
