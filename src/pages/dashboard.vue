@@ -153,7 +153,7 @@ export default {
         this.$q.notify({
           message: 'Failed to create namespace.',
           icon: 'fa fa-exclamation-triangle',
-          timeout: 3000,
+          timeout: 5000,
           color: 'red',
           position: 'top'
         })

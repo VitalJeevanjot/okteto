@@ -57,6 +57,7 @@
           dense
           no-caps
           inline-label
+          v-if="$spaceMembers.members"
           class="bg-secondary text-white shadow-2"
         >
           <q-btn-dropdown
@@ -174,7 +175,26 @@
                 class="q-ma-sm"
                 unelevated
                 icon="add"
-              />
+              >
+                <q-popup-edit
+                  buttons
+                  v-model="memberToUpdate"
+                  content-class="bg-negative text-white"
+                  color="white"
+                  title="New User Email"
+                  label-set="Add"
+                  @save="updateMember($spaceData.space.id, memberToUpdate, false)"
+                >
+                  <q-input
+                    v-model="memberToUpdate"
+                    dense
+                    dark
+                    color="white"
+                    maxlength="100"
+                    autofocus
+                  />
+                </q-popup-edit>
+              </q-btn>
             </div>
             <div class="row">
               <q-list
@@ -191,7 +211,7 @@
                   :key="member.id"
                   clickable
                   v-ripple
-                  @click="updateMemberConfirmation($spaceData.space.id,  member.email, true, member.avatar)"
+                  @click="updateMemberConfirmation($spaceData.space.id,  member.githubID, true, member.avatar, member.githubID)"
                 >
                   <q-item-section avatar>
                     <q-avatar>
@@ -200,11 +220,11 @@
                   </q-item-section>
 
                   <q-item-section>
-                    <q-item-label>{{ member.email }}</q-item-label>
+                    <q-item-label>{{ member.githubID }}</q-item-label>
                     <q-item-label
                       caption
                       lines="1"
-                    >{{ member.githubID }}</q-item-label>
+                    >{{ member.email }}</q-item-label>
                   </q-item-section>
 
                   <q-item-section
@@ -245,9 +265,9 @@
       <q-card>
         <q-card-section class="row items-center">
           <q-avatar>
-            <img :src="memberToDeleteAvatar">
+            <img :src="memberToUpdateAvatar">
           </q-avatar>
-          <span class="text-subtitle"><span class="text-bold"> Delete </span> <span class="text-positive">{{memberToDelete}}</span> from this namespace ?</span>
+          <span class="text-subtitle"><span class="text-bold"> Delete </span> <span class="text-positive">{{memberToUpdate}}</span> from this namespace ?</span>
         </q-card-section>
 
         <q-card-actions align="right">
@@ -263,7 +283,7 @@
             label="Delete"
             color="primary"
             no-caps
-            @click="updateMember($spaceData.space.id, memberToDelete, true)"
+            @click="updateMember($spaceData.space.id, memberToUpdate, true)"
             v-close-popup
           />
         </q-card-actions>
@@ -280,53 +300,55 @@ export default {
       namespaceInfoDialog: false,
       namespaceTab: 'quota',
       namespaceTabChild: 'details',
-      memberToDelete: null,
+      memberToUpdate: null,
       updateNameSpaceConfirm: false,
-      memberToDeleteAvatar: null
+      memberToUpdateAvatar: null,
+      memberList: []
     }
   },
   methods: {
-    updateMemberConfirmation (namespaceId, memberToDelete, deleteMember, memberToDeleteAvatar) {
-      if (memberToDelete !== this.$authUser.user.email) {
+    updateMemberConfirmation (namespaceId, memberToUpdate, deleteMember, memberToUpdateAvatar) { // only for deletion
+      console.log(memberToUpdate)
+      if (memberToUpdate !== this.$authUser.user.githubID) {
         this.updateNameSpaceConfirm = true
-        this.memberToDelete = memberToDelete
-        this.memberToDeleteAvatar = memberToDeleteAvatar
+        this.memberToUpdate = memberToUpdate
+        this.memberToUpdateAvatar = memberToUpdateAvatar
       }
     },
-    updateMember (namespaceId, memberToDelete, deleteMember) {
-      if (deleteMember === true) {
-        var indexOfMember = this.$spaceMembers.members.indexOf(memberToDelete)
-        if (indexOfMember !== -1) { this.$spaceMembers.members.splice(indexOfMember, 1) }
+    getMemberList (deleteUser, memberToUpdate) { // get finalized member list
+      var finalList = null
+      this.memberList = this.$spaceMembers.members.map(a => a.githubID)
+      if (deleteUser === true) {
+        var indexOfMember = this.memberList.indexOf(memberToUpdate)
+        if (indexOfMember !== -1) { this.memberList.splice(indexOfMember, 1); console.log(this.memberList) }
       }
-      var updateSpace = 'mutation{updateSpace(id: "' + namespaceId + '", members: [' + this.getFinalMembers() + '])}'
+      if (deleteUser === false) {
+        this.memberList.push(memberToUpdate)
+      }
+      finalList = '["' + this.memberList.join('","') + '"]'
+      return finalList
+    },
+    updateMember (namespaceId, memberToUpdate, deleteMember) {
+      var updateSpace = 'mutation{updateSpace(id:"' + namespaceId + '", members: ' + this.getMemberList(deleteMember, memberToUpdate) + ') {members {avatar, email, githubID, id, name, owner}}}'
+      console.log(updateSpace)
       window.loginClient.request(updateSpace).then(data => {
         console.log(data)
         this.$q.loading.hide()
         this.namespaceNewName = ''
-        this.$spaceMembers.members = data.members
+        this.$spaceMembers.members = data.updateSpace.members
       }).catch((e) => { console.log(e) })
     },
     checkOwner () {
       if (this.$spaceMembers.members) {
         return this.$spaceMembers.members.find(member => member.email === this.$authUser.user.email).owner
       }
-    },
-    getFinalMembers () {
-      var result = this.$spaceMembers.members.map(a => a.email)
-      return '"' + result + '"'
     }
   },
   mounted () {
     console.log('hello namespaceActions')
     console.log(this.$spaceData.space)
     console.log(this.$spaceMembers.members)
-    // var updateSpace = 'mutation{updateSpace(id: "genievot", members: ["genievot"]){id}}'
-    // window.loginClient.request(updateSpace).then(data => {
-    //   console.log(data)
-    //   this.$q.loading.hide()
-    //   this.namespaceNewName = ''
-    //   this.$spaceMembers.members = data.members
-    // }).catch((e) => { console.log(e) })
+    console.log(this.$authUser.user)
   }
 }
 </script>
