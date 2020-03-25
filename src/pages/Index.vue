@@ -171,6 +171,23 @@ export default {
                     this.errorAtReq()
                   })
               }
+              this.loginClient
+                .request(this.query4()).then(data => {
+                  console.log(this.query4())
+                  console.log(data)
+                  this.$helmRepos.repos = data
+                })
+                .catch(e => {
+                  console.log(e)
+                  this.$q.notify({
+                    message:
+                      'Unable to download repo list',
+                    icon: 'fa fa-exclamation-triangle',
+                    timeout: 3000,
+                    position: 'top',
+                    color: 'yellow-10'
+                  })
+                })
               // successfully can login now.
             })
             .catch(e => {
@@ -203,7 +220,7 @@ export default {
       })
       window.loginClient = this.loginClient
     },
-    query3 (spaceID) {
+    query3 (spaceID) { // query for all spaces
       var query = `query {
           space (id: "${spaceID}") {
             apps {
@@ -442,7 +459,13 @@ export default {
           }
         } `
       return query
+    },
+    query4 () { // query for listing apps
+      var query = `query {
+          helmRepos {charts {description, devs{manifest, name, repo}, home, icon, name, versions}, default, url }}`
+      return query
     }
+
   },
   mounted () {
     if (this.$q.localStorage.getItem('auth')) {
