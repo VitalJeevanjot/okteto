@@ -188,9 +188,10 @@
                   <q-input
                     v-model="memberToUpdate"
                     dense
+                    type="email"
                     dark
                     color="white"
-                    maxlength="100"
+                    maxlength="200"
                     autofocus
                   />
                 </q-popup-edit>

@@ -31,13 +31,15 @@
           @save="createNameSpace"
         >
           <q-input
+            type="text"
             dark
             color="white"
             maxlength="253"
             v-model="namespaceNewName"
             dense
+            reverse-fill-mask
+            :mask="'x-' + $authUser.user.githubID"
             autofocus
-            counter
           />
         </q-popup-edit>
       </q-btn>
@@ -54,6 +56,7 @@
         padding
         v-for="space in $spaces.spaces"
         :key="space.id"
+        transition-show="rotate"
         class="rounded-borders bg-secondary q-ma-sm"
         style="max-width: 600px; width: 95%;"
       >
@@ -143,12 +146,19 @@ export default {
   },
   methods: {
     createNameSpace (val, initval) {
-      var mutation = 'mutation{ createSpace(name: "' + this.namespaceNewName + '-' + this.$q.localStorage.getItem('auth').githubID + '", members:"") { id } }'
+      var mutation = 'mutation{ createSpace(name: "' + this.namespaceNewName + '", members:"") { id } }'
       window.loginClient.request(mutation).then(data => {
         console.log(data)
         this.$q.loading.hide()
         this.namespaceNewName = ''
         window.processRequest()
+        this.$q.notify({
+          message: 'New namespace added.',
+          icon: 'done',
+          timeout: 3000,
+          color: 'positive',
+          position: 'top'
+        })
       }).catch((e) => {
         this.$q.notify({
           message: 'Failed to create namespace.',
