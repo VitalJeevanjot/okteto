@@ -260,7 +260,7 @@
                 color="white"
                 title="Enter namespace name you want to delete"
                 label-set="Delete"
-                @save="deleteNameSpace(namespaceToDelete)"
+                @save="deleteNameSpace(namespaceToDelete, true)"
               >
                 <q-input
                   v-model="namespaceToDelete"
@@ -281,8 +281,34 @@
           </q-tab-panel>
 
           <q-tab-panel name="leave">
-            <div class="text-h6">Leave</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            <q-item-label class="text-h6 heading-bold text-warning">{{this.$spaceData.space.id}}</q-item-label>
+            <q-btn
+              round
+              color="yellow-10"
+              class="q-ma-sm"
+              unelevated
+              icon="las la-door-open"
+            >
+              <q-popup-edit
+                buttons
+                v-model="namespaceToDelete"
+                content-class="bg-negative text-white"
+                color="white"
+                title="Enter namespace name you want to leave"
+                label-set="Leave"
+                @save="deleteNameSpace(namespaceToDelete, false)"
+              >
+                <q-input
+                  v-model="namespaceToDelete"
+                  dense
+                  type="email"
+                  dark
+                  color="white"
+                  maxlength="253"
+                  autofocus
+                />
+              </q-popup-edit>
+            </q-btn>
           </q-tab-panel>
         </q-tab-panels>
       </q-card>
@@ -337,11 +363,18 @@ export default {
     }
   },
   methods: {
-    deleteNameSpace (nameSpaceToDelete) {
+    deleteNameSpace (nameSpaceToDelete, ofOwner) {
+      // if user is not owner of space then assign leave mutation else delete
       console.log(this.$spaceData.space.id)
       console.log(nameSpaceToDelete)
+      var deleteSpace = null
+      if (ofOwner === true) {
+        deleteSpace = 'mutation{deleteSpace(id:"' + nameSpaceToDelete + '") {id}}'
+      }
+      if (ofOwner === false) {
+        deleteSpace = 'mutation{leaveSpace(id:"' + nameSpaceToDelete + '") {id}}'
+      }
       if (nameSpaceToDelete === this.$spaceData.space.id) {
-        var deleteSpace = 'mutation{deleteSpace(id:"' + nameSpaceToDelete + '") {id}}'
         console.log(deleteSpace)
         window.loginClient.request(deleteSpace).then(data => {
           console.log(data)
