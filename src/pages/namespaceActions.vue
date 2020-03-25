@@ -86,7 +86,7 @@
               <q-item
                 clickable
                 @click="namespaceTab = 'delete'"
-                v-if="checkOwner()"
+                v-if="checkOwner() && $authUser.user.githubID != this.$spaceData.space.id"
               >
                 <q-item-section>Delete</q-item-section>
               </q-item>
@@ -113,7 +113,7 @@
           v-if="$spaceData.space != null"
         >
           <q-tab-panel name="quota">
-            <div class="text-h6"><span class="heading-bold text-warning">Manage:</span> Quota</div>
+            <!-- <div class="text-h6"><span class="heading-bold text-warning">Manage:</span> Quota</div> -->
             <q-item>
 
               <q-item-section>
@@ -167,7 +167,6 @@
             </q-item>
           </q-tab-panel>
           <q-tab-panel name="share">
-            <div class="text-h6"><span class="heading-bold text-warning">Manage:</span> Share</div>
             <div class="row">
               <q-btn
                 round
@@ -242,9 +241,38 @@
               </q-list>
             </div>
           </q-tab-panel>
-          <q-tab-panel name="delete">
-            <div class="text-h6"><span class="heading-bold text-warning">Manage:</span> Delete</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elito.
+          <q-tab-panel
+            name="delete"
+            v-if="$authUser.user.githubID != this.$spaceData.space.id"
+          >
+            <q-item-label class="text-h6 heading-bold text-warning">{{this.$spaceData.space.id}}</q-item-label>
+            <q-btn
+              round
+              color="red"
+              class="q-ma-sm"
+              unelevated
+              icon="delete"
+            >
+              <q-popup-edit
+                buttons
+                v-model="namespaceToDelete"
+                content-class="bg-negative text-white"
+                color="white"
+                title="Enter namespace name you want to delete"
+                label-set="Delete"
+                @save="deleteNameSpace(namespaceToDelete)"
+              >
+                <q-input
+                  v-model="namespaceToDelete"
+                  dense
+                  type="email"
+                  dark
+                  color="white"
+                  maxlength="253"
+                  autofocus
+                />
+              </q-popup-edit>
+            </q-btn>
           </q-tab-panel>
 
           <q-tab-panel name="secret">
@@ -304,10 +332,53 @@ export default {
       memberToUpdate: null,
       updateNameSpaceConfirm: false,
       memberToUpdateAvatar: null,
-      memberList: []
+      memberList: [],
+      namespaceToDelete: ''
     }
   },
   methods: {
+    deleteNameSpace (nameSpaceToDelete) {
+      console.log(this.$spaceData.space.id)
+      console.log(nameSpaceToDelete)
+      if (nameSpaceToDelete === this.$spaceData.space.id) {
+        var deleteSpace = 'mutation{deleteSpace(id:"' + nameSpaceToDelete + '") {id}}'
+        console.log(deleteSpace)
+        window.loginClient.request(deleteSpace).then(data => {
+          console.log(data)
+          this.$q.loading.hide()
+          window.processRequest()
+          this.$q.notify({
+            message:
+              nameSpaceToDelete + ' space Deleted',
+            icon: 'done',
+            color: 'positive',
+            timeout: 3000,
+            position: 'top'
+          })
+          this.nameSpaceToDelete = ''
+          this.$router.back()
+        }).catch((e) => {
+          console.log(e)
+          this.$q.notify({
+            message:
+              'Unable to delete namespace',
+            icon: 'fa fa-exclamation-triangle',
+            color: 'red',
+            timeout: 5000,
+            position: 'top'
+          })
+        })
+      } else {
+        this.$q.notify({
+          message:
+            'Namespace name is not correct!',
+          icon: 'fa fa-exclamation-triangle',
+          color: 'red',
+          timeout: 5000,
+          position: 'top'
+        })
+      }
+    },
     updateMemberConfirmation (namespaceId, memberToUpdate, deleteMember, memberToUpdateAvatar) { // only for deletion
       console.log(memberToUpdate)
       if (memberToUpdate !== this.$authUser.user.githubID) {
@@ -337,7 +408,17 @@ export default {
         this.$q.loading.hide()
         this.namespaceNewName = ''
         this.$spaceMembers.members = data.updateSpace.members
-      }).catch((e) => { console.log(e) })
+      }).catch((e) => {
+        console.log(e)
+        this.$q.notify({
+          message:
+            'Unable to update member',
+          icon: 'fa fa-exclamation-triangle',
+          color: 'red',
+          timeout: 5000,
+          position: 'top'
+        })
+      })
     },
     checkOwner () {
       if (this.$spaceMembers.members) {
