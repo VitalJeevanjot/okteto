@@ -128,8 +128,8 @@
               <a
                 class="ellipsis q-mt-sm"
                 style="text-decoration: none !important; color: #ffffff !important;"
-                :href="appDeploymentsEndpoint"
-              >{{appDeploymentsEndpoint}}</a>
+                @click="openEndpointDialog(appStatefulsetsEndpoint)"
+              >{{appStatefulsetsEndpoint}}</a>
             </div>
           </div>
           <!-- app devs -->
@@ -148,7 +148,7 @@
               <a
                 class="ellipsis q-mt-sm"
                 style="text-decoration: none !important; color: #ffffff !important;"
-                :href="appDevsEndpoint"
+                @click="openEndpointDialog(appDevsEndpoint)"
               >{{appDevsEndpoint}}</a>
             </div>
           </div>
@@ -168,7 +168,7 @@
               <a
                 class="ellipsis q-mt-sm"
                 style="text-decoration: none !important; color: #ffffff !important;"
-                :href="appFunctionsEndpoint"
+                @click="openEndpointDialog(appFunctionsEndpoint)"
               >{{appFunctionsEndpoint}}</a>
             </div>
           </div>
@@ -188,7 +188,7 @@
               <a
                 class="ellipsis q-mt-sm"
                 style="text-decoration: none !important; color: #ffffff !important;"
-                :href="appContainersEndpoint"
+                @click="openEndpointDialog(appContainersEndpoint)"
               >{{appContainersEndpoint}}</a>
             </div>
           </div>
@@ -289,7 +289,7 @@
             <a
               class="ellipsis q-mt-sm q-pa-sm q-pt-md"
               style="text-decoration: none !important; color: #ffffff !important;"
-              :href="devenvnd"
+              @click="openEndpointDialog(devenvnd)"
             >{{devenvnd}}</a>
           </div>
         </div>
@@ -388,7 +388,7 @@
             <a
               class="ellipsis q-mt-sm q-pa-sm q-pt-md"
               style="text-decoration: none !important; color: #ffffff !important;"
-              :href="deployment"
+              @click="openEndpointDialog(deployment)"
             >{{deployment}}</a>
           </div>
 
@@ -489,7 +489,7 @@
             <a
               class="ellipsis q-mt-sm q-pa-sm q-pt-md"
               style="text-decoration: none !important; color: #ffffff !important;"
-              :href="containerend"
+              @click="openEndpointDialog(containerend)"
             >{{containerend}}</a>
 
           </div>
@@ -589,7 +589,7 @@
             <a
               class="ellipsis q-mt-sm q-pa-sm q-pt-md"
               style="text-decoration: none !important; color: #ffffff !important;"
-              :href="functionCellend"
+              @click="openEndpointDialog(functionCellend)"
             >{{functionCellend}}</a>
           </div>
         </div>
@@ -689,7 +689,7 @@
             <a
               class="ellipsis q-mt-sm q-pa-sm q-pt-md"
               style="text-decoration: none !important; color: #ffffff !important;"
-              :href="statefulsetend"
+              @click="openEndpointDialog(statefulsetend)"
             >{{statefulsetend}}</a>
           </div>
         </div>
