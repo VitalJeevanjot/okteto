@@ -773,6 +773,7 @@
           <q-btn
             flat
             label="Copy"
+            icon="las la-copy"
             color="grey-9"
             @click="copySelectedEndpoint"
             no-caps
@@ -812,7 +813,7 @@ export default {
     copySelectedEndpoint () {
       copyToClipboard(this.selectedEndpoint)
         .then(() => {
-          this.$q.notify({ message: 'Copied URL', icon: 'las la-clipboard', color: 'green', position: 'top' })
+          this.$q.notify({ message: 'Copied URL', icon: 'las la-clipboard', color: 'positive', position: 'top' })
         })
         .catch((e) => {
           this.$q.notify({ message: 'Copied URL Failed', icon: 'close', color: 'red', position: 'top' })
