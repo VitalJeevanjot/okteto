@@ -19,10 +19,18 @@
         <template v-slot:header>
           <q-item-section side>
             <q-avatar
+              v-if="app.repo != 'https://apps.okteto.com'"
               size="xs"
               class="q-gutter-x-sm"
             >
               <img src="statics/OktetoIconsComponents/Application.svg">
+            </q-avatar>
+            <q-avatar
+              v-if="app.repo == 'https://apps.okteto.com'"
+              size="xs"
+              class="q-gutter-x-sm"
+            >
+              <img :src="$helmRepos.repos.find(repo => repo.name == app.name).icon">
             </q-avatar>
           </q-item-section>
           <q-item-section class="text-white text-subtitle2">
@@ -33,7 +41,7 @@
               Application
             </div>
             <div class="q-gutter-y-sm">
-              {{app.chart}}
+              {{app.name}}
             </div>
           </q-item-section>
 
@@ -75,6 +83,7 @@
           <q-btn
             unelevated
             round
+            @click="upcomingFeatures('moreAboutApp')"
             class="rotate-270"
             color="primary"
             text-color="white"

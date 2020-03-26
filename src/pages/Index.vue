@@ -174,8 +174,8 @@ export default {
               this.loginClient
                 .request(this.query4()).then(data => {
                   console.log(this.query4())
-                  console.log(data)
-                  this.$helmRepos.repos = data
+                  console.warn(data.helmRepos[0].charts)
+                  this.$helmRepos.repos = data.helmRepos[0].charts
                 })
                 .catch(e => {
                   console.log(e)

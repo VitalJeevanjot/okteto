@@ -10,4 +10,16 @@ export default async ({ Vue }) => {
   Vue.prototype.$authUser = Vue.observable({ user: null })
   Vue.prototype.$ownerOfNamespace = Vue.observable({ user: '', owner: null })
   Vue.prototype.$helmRepos = Vue.observable({ repos: null })
+  Vue.mixin({
+    methods: {
+      upcomingFeatures (feature) {
+        if (feature === 'deploy') {
+          this.$q.notify({ message: 'Deploying apps is an upcoming feature', color: 'orange', icon: 'hourglass_full', position: 'top' })
+        }
+        if (feature === 'moreAboutApp') {
+          this.$q.notify({ message: 'More about apps and logs are upcoming features', color: 'secondary', icon: 'hourglass_full', position: 'top' })
+        }
+      }
+    }
+  }) // to get upcoming feature function
 }

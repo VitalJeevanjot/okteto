@@ -30,6 +30,7 @@
           icon="las la-terminal"
         /> -->
         <q-fab-action
+          @click="upcomingFeatures('deploy')"
           color="white"
           text-color="amber-9"
           icon="widgets"
@@ -453,7 +454,7 @@ export default {
         })
       })
     },
-    checkOwner () {
+    checkOwner () { // check whether the owner is user or not for each object inside array
       if (this.$spaceMembers.members) {
         return this.$spaceMembers.members.find(member => member.email === this.$authUser.user.email).owner
       }
