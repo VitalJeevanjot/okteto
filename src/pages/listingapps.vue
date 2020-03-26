@@ -83,9 +83,9 @@
           <q-btn
             unelevated
             round
-            @click="upcomingFeatures('moreAboutApp')"
             class="rotate-270"
             color="primary"
+            @click="upcomingFeatures('moreAboutApp')"
             text-color="white"
             icon="menu_open"
           >
@@ -108,7 +108,7 @@
               <a
                 class="ellipsis q-mt-sm"
                 style="text-decoration: none !important; color: #ffffff !important;"
-                :href="appDeploymentsEndpoint"
+                @click="openEndpointDialog(appDeploymentsEndpoint)"
               >{{appDeploymentsEndpoint}}</a>
             </div>
           </div>
@@ -273,6 +273,7 @@
             round
             class="rotate-270"
             color="primary"
+            @click="upcomingFeatures('moreAboutApp')"
             text-color="white"
             icon="menu_open"
           >
@@ -371,6 +372,7 @@
             round
             class="rotate-270"
             color="primary"
+            @click="upcomingFeatures('moreAboutApp')"
             text-color="white"
             icon="menu_open"
           >
@@ -471,6 +473,7 @@
             round
             class="rotate-270"
             color="primary"
+            @click="upcomingFeatures('moreAboutApp')"
             text-color="white"
             icon="menu_open"
           >
@@ -570,6 +573,7 @@
             round
             class="rotate-270"
             color="primary"
+            @click="upcomingFeatures('moreAboutApp')"
             text-color="white"
             icon="menu_open"
           >
@@ -669,6 +673,7 @@
             round
             class="rotate-270"
             color="primary"
+            @click="upcomingFeatures('moreAboutApp')"
             text-color="white"
             icon="menu_open"
           >
@@ -753,15 +758,40 @@
 
       </q-expansion-item>
     </q-list>
+    <q-dialog v-model="endpointDialog">
+      <q-card>
+        <q-card-section class="row">
+          <a
+            :href="selectedEndpoint"
+            style="text-decoration: none !important"
+          >
+            <span class="q-ml-sm heading-bold text-positive">{{selectedEndpoint}}</span>
+          </a>
+        </q-card-section>
 
+        <q-card-actions align="right">
+          <q-btn
+            flat
+            label="Copy"
+            color="grey-9"
+            @click="copySelectedEndpoint"
+            no-caps
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
 <script>
+import { copyToClipboard } from 'quasar'
 export default {
   name: 'listingapps',
   data () {
     return {
+      selectedEndpoint: '',
+      endpointDialog: false
     }
   },
   methods: {
@@ -774,6 +804,19 @@ export default {
         timeout: 5000,
         position: 'top'
       })
+    },
+    openEndpointDialog (endpoint) {
+      this.selectedEndpoint = endpoint
+      this.endpointDialog = true
+    },
+    copySelectedEndpoint () {
+      copyToClipboard(this.selectedEndpoint)
+        .then(() => {
+          this.$q.notify({ message: 'Copied URL', icon: 'las la-clipboard', color: 'green', position: 'top' })
+        })
+        .catch((e) => {
+          this.$q.notify({ message: 'Copied URL Failed', icon: 'close', color: 'red', position: 'top' })
+        })
     }
   },
   mounted () {
