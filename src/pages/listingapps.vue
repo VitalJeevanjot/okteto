@@ -816,7 +816,7 @@ export default {
           this.$q.notify({ message: 'Copied URL', icon: 'las la-clipboard', color: 'positive', position: 'top' })
         })
         .catch((e) => {
-          this.$q.notify({ message: 'Copied URL Failed', icon: 'close', color: 'red', position: 'top' })
+          this.$q.notify({ message: 'Copied URL on ' + this.$q.platform.is.platform, icon: 'close', color: 'red', position: 'top' })
         })
     }
   },
