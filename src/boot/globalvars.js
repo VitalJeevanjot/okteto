@@ -17,7 +17,7 @@ export default async ({ Vue }) => {
           this.$q.notify({ message: 'Deploying apps is an upcoming feature', color: 'orange', icon: 'hourglass_full', position: 'top' })
         }
         if (feature === 'moreAboutApp') {
-          this.$q.notify({ message: 'More about apps and logs are upcoming features', color: 'secondary', icon: 'hourglass_full', position: 'top' })
+          this.$q.notify({ message: 'More about components and component logs are upcoming features', color: 'secondary', icon: 'hourglass_full', position: 'top' })
         }
       }
     }
