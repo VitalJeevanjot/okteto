@@ -474,7 +474,10 @@ export default {
       this.processRequest()
       // Setting global variable
       console.log('Mounted Index.vue')
+      this.$eventReg('account', 'login', this.$q.localStorage.getItem('auth').githubID, window.sessionId)
+      // this.$ga.logPage(this.$route.path, 'index', this.$q.localStorage.getItem('auth').githubID)
     }
+    this.$eventReg('unknown', 'appOpen', 'Home page', window.sessionId)
     window.spaceQuery = this.query3
     window.showLoading = this.showLoading
     window.processRequest = this.processRequest

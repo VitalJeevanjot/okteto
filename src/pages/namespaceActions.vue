@@ -389,6 +389,7 @@ export default {
             timeout: 3000,
             position: 'top'
           })
+          this.$eventReg('actions', 'Delete Namespace', this.$spaceData.space.id, window.sessionId)
           this.nameSpaceToDelete = ''
           this.$router.back()
         }).catch((e) => {
@@ -440,8 +441,9 @@ export default {
       window.loginClient.request(updateSpace).then(data => {
         console.log(data)
         this.$q.loading.hide()
-        this.namespaceNewName = ''
+        this.namespaceNewName = '' // same model used for namespace new names
         this.$spaceMembers.members = data.updateSpace.members
+        this.$eventReg('actions', 'Member Deleted: ' + deleteMember, memberToUpdate, window.sessionId)
       }).catch((e) => {
         console.log(e)
         this.$q.notify({
@@ -465,6 +467,7 @@ export default {
     console.log(this.$spaceData.space)
     console.log(this.$spaceMembers.members)
     console.log(this.$authUser.user)
+    // this.$ga.logPage(this.$route.path, this.$route.params.id, this.$q.localStorage.getItem('auth').githubID)
   }
 }
 </script>

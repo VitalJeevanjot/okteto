@@ -11,7 +11,8 @@ module.exports = function (ctx) {
       'url-parser',
       'graphql-req',
       'byte',
-      'globalvars'
+      'globalvars',
+      'google-analytics'
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css

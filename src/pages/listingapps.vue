@@ -824,6 +824,7 @@ export default {
     console.log('here #1')
     window.showLoading()
     console.log('here #2')
+    this.$eventReg('page', 'Listing App', 'Lising app page', window.sessionId)
     window.loginClient.request(window.spaceQuery(this.$route.params.id))
       .then(data => {
         console.log(data)
