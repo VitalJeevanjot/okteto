@@ -92,12 +92,12 @@
               </q-item>
             </q-list>
           </q-btn-dropdown>
-          <q-tab
+          <!-- <q-tab
             v-if="checkOwner()"
             name="secret"
             icon="las la-key"
             label="Secrets"
-          />
+          /> -->
           <q-tab
             v-if="!checkOwner()"
             name="leave"
