@@ -10,20 +10,25 @@
         text-color="white"
         icon="las la-arrow-left"
       />
-      <q-toolbar-title class="heading-bold text-warning">
+      <q-toolbar-title
+        class="heading-bold text-warning ellipsis"
+        lines="1"
+      >
         {{$route.params.id}}
       </q-toolbar-title>
     </q-toolbar>
     <q-page-sticky
       style="z-index: 1;"
       position="bottom-right"
-      :offset="[18, 18]"
+      :offset="fabPos"
     >
       <q-fab
         icon="las la-braille"
-        direction="up"
         color="white"
         text-color="primary"
+        direction="up"
+        :disable="draggingFab"
+        v-touch-pan.prevent.mouse="moveFab"
       >
         <!-- <q-fab-action
           color="positive"
@@ -34,6 +39,7 @@
           color="white"
           text-color="amber-9"
           icon="widgets"
+          :disable="draggingFab"
         />
         <q-fab-action
           @click="namespaceInfoDialog = true"
@@ -360,10 +366,20 @@ export default {
       updateNameSpaceConfirm: false,
       memberToUpdateAvatar: null,
       memberList: [],
-      namespaceToDelete: ''
+      namespaceToDelete: '',
+      draggingFab: false,
+      fabPos: [18, 18]
     }
   },
   methods: {
+    moveFab (ev) {
+      this.draggingFab = ev.isFirst !== true && ev.isFinal !== true
+
+      this.fabPos = [
+        this.fabPos[0] - ev.delta.x,
+        this.fabPos[1] - ev.delta.y
+      ]
+    },
     deleteNameSpace (nameSpaceToDelete, ofOwner) {
       // if user is not owner of space then assign leave mutation else delete
       console.log(this.$spaceData.space.id)

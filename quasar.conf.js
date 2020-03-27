@@ -50,7 +50,7 @@ module.exports = function (ctx) {
       all: 'auto',
 
       components: [],
-      directives: [],
+      directives: ['TouchPan'],
 
       // Quasar plugins
       plugins: [
