@@ -38,9 +38,13 @@
             v-model="namespaceNewName"
             dense
             reverse-fill-mask
-            :mask="'x-' + $authUser.user.githubID"
+            mask="x"
             autofocus
-          />
+          >
+            <template v-slot:append>
+              -{{$authUser.user.githubID}}
+            </template>
+          </q-input>
         </q-popup-edit>
       </q-btn>
     </q-toolbar>
@@ -160,7 +164,7 @@ export default {
       })
     },
     createNameSpace (val, initval) {
-      var mutation = 'mutation{ createSpace(name: "' + this.namespaceNewName + '", members:"") { id } }'
+      var mutation = 'mutation{ createSpace(name: "' + this.namespaceNewName + '-' + this.$authUser.user.githubID + '", members:"") { id } }'
       window.loginClient.request(mutation).then(data => {
         console.log(data)
         this.$q.loading.hide()
