@@ -73,7 +73,7 @@
               align="center"
               class="text-h6 text-white"
             >{{space.id}}</q-item-label>
-            <q-item>
+            <q-item v-if="space.quotas">
               <q-item-section
                 class="ellipsis"
                 lines="1"
