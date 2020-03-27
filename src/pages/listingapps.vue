@@ -786,13 +786,13 @@
 </template>
 
 <script>
-import { copyToClipboard } from 'quasar'
 export default {
   name: 'listingapps',
   data () {
     return {
       selectedEndpoint: '',
-      endpointDialog: false
+      endpointDialog: false,
+      copiedText: ''
     }
   },
   methods: {
@@ -810,14 +810,24 @@ export default {
       this.selectedEndpoint = endpoint
       this.endpointDialog = true
     },
-    copySelectedEndpoint () {
-      copyToClipboard(this.selectedEndpoint)
-        .then(() => {
-          this.$q.notify({ message: 'Copied URL', icon: 'las la-clipboard', color: 'positive', position: 'top' })
-        })
-        .catch((e) => {
-          this.$q.notify({ message: 'Copied URL on ' + this.$q.platform.is.platform, icon: 'close', color: 'red', position: 'top' })
-        })
+    async copySelectedEndpoint () {
+      await cordova.plugins.clipboard.copy(this.selectedEndpoint)
+      await cordova.plugins.clipboard.paste(text => { this.copiedText = text })
+      console.log(this.copiedText)
+      if (this.copiedText === this.selectedEndpoint) {
+        this.$q.notify({ message: 'Copied URL', icon: 'las la-clipboard', color: 'positive', position: 'top' })
+      } else {
+        this.$q.notify({ message: 'Copied URL Failed on ' + this.$q.platform.is.platform, icon: 'close', color: 'red', position: 'top' })
+      }
+      // Quasar method to copy
+      // copyToClipboard(this.selectedEndpoint)
+      //   .then(() => {
+      //     this.$q.notify({ message: 'Copied URL', icon: 'las la-clipboard', color: 'positive', position: 'top' })
+      //   })
+      //   .catch((e) => {
+      //     console.log(e)
+      //     this.$q.notify({ message: 'Copied URL on ' + this.$q.platform.is.platform, icon: 'close', color: 'red', position: 'top' })
+      //   })
     }
   },
   mounted () {
