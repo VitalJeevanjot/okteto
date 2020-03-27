@@ -159,8 +159,8 @@ export default {
     },
     signOutUserConfirmation () {
       this.$q.dialog({
-        title: 'Logout',
-        message: 'You are going to logout from your account!',
+        title: 'Sign Out',
+        message: 'You are about to sign out from your account!',
         cancel: true,
         persistent: true
       }).onOk(() => {
