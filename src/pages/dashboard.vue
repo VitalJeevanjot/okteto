@@ -7,7 +7,7 @@
         unelevated
         text-color="white"
         icon="las la-sign-out-alt"
-        @click="signOutUser"
+        @click="signOutUserConfirmation"
       />
       <q-toolbar-title align="center">
         <q-avatar>
@@ -145,6 +145,20 @@ export default {
     }
   },
   methods: {
+    signOutUserConfirmation () {
+      this.$q.dialog({
+        title: 'Logout',
+        message: 'You are going to logout from your account!',
+        cancel: true,
+        persistent: true
+      }).onOk(() => {
+        this.signOutUser()
+      }).onCancel(() => {
+        // console.log('>>>> Cancel')
+      }).onDismiss(() => {
+        // console.log('I am triggered on both OK and Cancel')
+      })
+    },
     createNameSpace (val, initval) {
       var mutation = 'mutation{ createSpace(name: "' + this.namespaceNewName + '", members:"") { id } }'
       window.loginClient.request(mutation).then(data => {
