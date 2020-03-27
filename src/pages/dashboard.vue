@@ -1,142 +1,144 @@
 <template>
-  <q-page padding>
-    <q-toolbar class="bg-primary text-secondary q-mb-md">
-      <q-btn
-        round
-        color="secondary"
-        unelevated
-        text-color="white"
-        icon="las la-sign-out-alt"
-        @click="signOutUserConfirmation"
-      />
-      <q-toolbar-title align="center">
-        <q-avatar>
-          <img :src="avatar">
-        </q-avatar>
-      </q-toolbar-title>
-      <q-btn
-        round
-        unelevated
-        color="secondary"
-        text-color="white"
-        icon="las la-plus"
-      >
-        <q-popup-edit
-          buttons
-          v-model="namespaceNewName"
-          content-class="bg-negative text-white"
-          color="white"
-          title="New namespace"
-          label-set="Create"
-          @save="createNameSpace"
+  <q-pull-to-refresh @refresh="refresh">
+    <q-page padding>
+      <q-toolbar class="bg-primary text-secondary q-mb-md">
+        <q-btn
+          round
+          color="secondary"
+          unelevated
+          text-color="white"
+          icon="las la-sign-out-alt"
+          @click="signOutUserConfirmation"
+        />
+        <q-toolbar-title align="center">
+          <q-avatar>
+            <img :src="avatar">
+          </q-avatar>
+        </q-toolbar-title>
+        <q-btn
+          round
+          unelevated
+          color="secondary"
+          text-color="white"
+          icon="las la-plus"
         >
-          <q-input
-            type="text"
-            dark
-            color="white"
-            maxlength="253"
+          <q-popup-edit
+            buttons
             v-model="namespaceNewName"
-            dense
-            reverse-fill-mask
-            mask="x"
-            autofocus
+            content-class="bg-negative text-white"
+            color="white"
+            title="New namespace"
+            label-set="Create"
+            @save="createNameSpace"
           >
-            <template v-slot:append>
-              -{{$authUser.user.githubID}}
-            </template>
-          </q-input>
-        </q-popup-edit>
-      </q-btn>
-    </q-toolbar>
+            <q-input
+              type="text"
+              dark
+              color="white"
+              maxlength="253"
+              v-model="namespaceNewName"
+              dense
+              reverse-fill-mask
+              mask="x"
+              autofocus
+            >
+              <template v-slot:append>
+                -{{$authUser.user.githubID}}
+              </template>
+            </q-input>
+          </q-popup-edit>
+        </q-btn>
+      </q-toolbar>
 
-    <!-- namespaces -->
+      <!-- namespaces -->
 
-    <div class="text-warning row justify-center text-h6">
-      <p class="heading-bold">Namespace ({{this.$spaces.spaces.length}})</p>
-    </div>
-    <div class="q-pa-sm row justify-center">
-      <q-list
-        dense
-        padding
-        v-for="space in $spaces.spaces"
-        :key="space.id"
-        transition-show="rotate"
-        class="rounded-borders bg-secondary q-ma-sm"
-        style="max-width: 600px; width: 95%;"
-      >
-
-        <q-item
-          clickable
-          v-ripple
-          @click="openNamespace(space.id)"
+      <div class="text-warning row justify-center text-h6">
+        <p class="heading-bold">Namespace ({{this.$spaces.spaces.length}})</p>
+      </div>
+      <div class="q-pa-sm row justify-center">
+        <q-list
+          dense
+          padding
+          v-for="space in $spaces.spaces"
+          :key="space.id"
+          transition-show="rotate"
+          class="rounded-borders bg-secondary q-ma-sm"
+          style="max-width: 600px; width: 95%;"
         >
 
-          <q-item-section>
-            <q-item-label
-              lines="1"
-              align="center"
-              class="text-h6 text-white"
-            >{{space.id}}</q-item-label>
-            <q-item v-if="space.quotas">
-              <q-item-section
-                class="ellipsis"
-                lines="1"
-              >
-                <div
-                  class="text-white text-caption"
-                  style="font-size: 2vw"
-                >
-                  {{'Disk: ' + $byteSize(parseInt(space.quotas.used.limitsStorage), { units: 'iec' })}}
-                </div>
-                <q-linear-progress
-                  :value="space.quotas.used.limitsStorage/space.quotas.hard.limitsStorage"
-                  class="bg-info"
-                  color="positive"
-                  rounded
-                >
-                </q-linear-progress>
-              </q-item-section>
-              <q-item-section
-                lines="1"
-                class="ellipsis"
-              >
-                <div
-                  class="text-white text-caption"
-                  style="font-size: 2vw"
-                >
-                  {{'Mem: ' + $byteSize(parseInt(space.quotas.used.limitsMemory), { units: 'iec' })}}
-                </div>
-                <q-linear-progress
-                  :value="space.quotas.used.limitsMemory/space.quotas.hard.limitsMemory"
-                  class="bg-info"
-                  color="dark"
-                  rounded
-                >
-                </q-linear-progress>
-              </q-item-section>
-              <q-item-section>
-                <div
-                  class="text-white text-caption"
-                  style="font-size: 2vw"
-                >
-                  {{'CPU: ' + space.quotas.used.limitsCPU / 1000}}
-                </div>
-                <q-linear-progress
-                  :value="space.quotas.used.limitsCPU/space.quotas.hard.limitsCPU"
-                  class="bg-info"
-                  color="dark"
-                  rounded
-                >
-                </q-linear-progress>
-              </q-item-section>
-            </q-item>
-          </q-item-section>
-        </q-item>
-      </q-list>
+          <q-item
+            clickable
+            v-ripple
+            @click="openNamespace(space.id)"
+          >
 
-    </div>
+            <q-item-section>
+              <q-item-label
+                lines="1"
+                align="center"
+                class="text-h6 text-white"
+              >{{space.id}}</q-item-label>
+              <q-item v-if="space.quotas">
+                <q-item-section
+                  class="ellipsis"
+                  lines="1"
+                >
+                  <div
+                    class="text-white text-caption"
+                    style="font-size: 2vw"
+                  >
+                    {{'Disk: ' + $byteSize(parseInt(space.quotas.used.limitsStorage), { units: 'iec' })}}
+                  </div>
+                  <q-linear-progress
+                    :value="space.quotas.used.limitsStorage/space.quotas.hard.limitsStorage"
+                    class="bg-info"
+                    color="positive"
+                    rounded
+                  >
+                  </q-linear-progress>
+                </q-item-section>
+                <q-item-section
+                  lines="1"
+                  class="ellipsis"
+                >
+                  <div
+                    class="text-white text-caption"
+                    style="font-size: 2vw"
+                  >
+                    {{'Mem: ' + $byteSize(parseInt(space.quotas.used.limitsMemory), { units: 'iec' })}}
+                  </div>
+                  <q-linear-progress
+                    :value="space.quotas.used.limitsMemory/space.quotas.hard.limitsMemory"
+                    class="bg-info"
+                    color="dark"
+                    rounded
+                  >
+                  </q-linear-progress>
+                </q-item-section>
+                <q-item-section>
+                  <div
+                    class="text-white text-caption"
+                    style="font-size: 2vw"
+                  >
+                    {{'CPU: ' + space.quotas.used.limitsCPU / 1000}}
+                  </div>
+                  <q-linear-progress
+                    :value="space.quotas.used.limitsCPU/space.quotas.hard.limitsCPU"
+                    class="bg-info"
+                    color="dark"
+                    rounded
+                  >
+                  </q-linear-progress>
+                </q-item-section>
+              </q-item>
+            </q-item-section>
+          </q-item>
+        </q-list>
 
-  </q-page>
+      </div>
+
+    </q-page>
+  </q-pull-to-refresh>
 </template>
 
 <script>
@@ -149,6 +151,12 @@ export default {
     }
   },
   methods: {
+    refresh (done) {
+      setTimeout(() => {
+        window.processRequest()
+        done()
+      }, 2000)
+    },
     signOutUserConfirmation () {
       this.$q.dialog({
         title: 'Logout',
