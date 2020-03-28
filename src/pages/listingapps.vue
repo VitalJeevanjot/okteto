@@ -849,7 +849,7 @@ export default {
     console.log('here #1')
     window.showLoading()
     console.log('here #2')
-    this.$eventReg('page', 'Listing App', 'Lising app page', window.sessionId)
+    this.$eventReg('page', 'Listing App', 'Lising app page')
     this.listingAllApps()
     window.listingApps = this.listingAllApps
   }

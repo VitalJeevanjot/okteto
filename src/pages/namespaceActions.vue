@@ -413,7 +413,7 @@ export default {
             timeout: 3000,
             position: 'top'
           })
-          this.$eventReg('actions', 'Delete Namespace', this.$spaceData.space.id, window.sessionId)
+          this.$eventReg('actions', 'Delete Namespace', this.$spaceData.space.id)
           this.nameSpaceToDelete = ''
           this.$router.back()
         }).catch((e) => {
@@ -467,7 +467,7 @@ export default {
         this.$q.loading.hide()
         this.namespaceNewName = '' // same model used for namespace new names
         this.$spaceMembers.members = data.updateSpace.members
-        this.$eventReg('actions', 'Member Deleted: ' + deleteMember, memberToUpdate, window.sessionId)
+        this.$eventReg('actions', 'Member Deleted: ' + deleteMember, memberToUpdate)
       }).catch((e) => {
         console.log(e)
         this.$q.notify({
