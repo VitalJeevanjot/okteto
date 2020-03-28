@@ -91,6 +91,13 @@
           >
           </q-btn>
         </div>
+        <div
+          v-if="app.error"
+          class="row col-12 q-pa-sm q-pt-md vertical-middle text-red"
+          style="font-size: 100%"
+        >
+          {{app.error}}
+        </div>
         <div style="min-height: 70px;">
           <!-- app deployments -->
           <div
@@ -279,6 +286,13 @@
           >
           </q-btn>
         </div>
+        <div
+          v-if="devenv.error"
+          class="row col-12 q-pa-sm q-pt-md vertical-middle text-red"
+          style="font-size: 100%"
+        >
+          {{devenv.error}}
+        </div>
         <div style="min-height: 70px;">
           <div
             class="row q-pa-sm q-pt-md vertical-middle"
@@ -377,6 +391,13 @@
             icon="menu_open"
           >
           </q-btn>
+        </div>
+        <div
+          v-if="deployment.error"
+          class="row col-12 q-pa-sm q-pt-md vertical-middle text-red"
+          style="font-size: 100%"
+        >
+          {{deployment.error}}
         </div>
         <div style="min-height: 70px;">
           <div
@@ -479,6 +500,13 @@
           >
           </q-btn>
         </div>
+        <div
+          v-if="container.error"
+          class="row col-12 q-pa-sm q-pt-md vertical-middle text-red"
+          style="font-size: 100%"
+        >
+          {{container.error}}
+        </div>
         <div style="min-height: 70px;">
           <div
             class="row q-pa-sm q-pt-md vertical-middle"
@@ -579,6 +607,13 @@
           >
           </q-btn>
         </div>
+        <div
+          v-if="functionCell.error"
+          class="row col-12 q-pa-sm q-pt-md vertical-middle text-red"
+          style="font-size: 100%"
+        >
+          {{functionCell.error}}
+        </div>
         <div style="min-height: 70px;">
           <div
             class="row q-pa-sm q-pt-md vertical-middle"
@@ -678,6 +713,13 @@
             icon="menu_open"
           >
           </q-btn>
+        </div>
+        <div
+          v-if="statefulset.error"
+          class="row col-12 q-pa-sm q-pt-md vertical-middle text-red"
+          style="font-size: 100%"
+        >
+          {{statefulset.error}}
         </div>
         <div style="min-height: 70px;">
           <div
