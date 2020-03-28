@@ -828,6 +828,21 @@ export default {
       //     console.log(e)
       //     this.$q.notify({ message: 'Copied URL on ' + this.$q.platform.is.platform, icon: 'close', color: 'red', position: 'top' })
       //   })
+    },
+    listingAllApps () {
+      window.loginClient.request(window.spaceQuery(this.$route.params.id))
+        .then(data => {
+          console.log(data)
+          this.$spaceData.space = data.space
+          this.$spaceMembers.members = data.space.members
+          console.warn(this.$spaceMembers.members.find(member => member.email === this.$authUser.user.email).owner)
+          this.$q.loading.hide()
+        }).catch((e) => {
+          console.log(e)
+          this.$q.loading.hide()
+          this.errorAtReq()
+          this.$router.back()
+        })
     }
   },
   mounted () {
@@ -835,19 +850,8 @@ export default {
     window.showLoading()
     console.log('here #2')
     this.$eventReg('page', 'Listing App', 'Lising app page', window.sessionId)
-    window.loginClient.request(window.spaceQuery(this.$route.params.id))
-      .then(data => {
-        console.log(data)
-        this.$spaceData.space = data.space
-        this.$spaceMembers.members = data.space.members
-        console.warn(this.$spaceMembers.members.find(member => member.email === this.$authUser.user.email).owner)
-        this.$q.loading.hide()
-      }).catch((e) => {
-        console.log(e)
-        this.$q.loading.hide()
-        this.errorAtReq()
-        this.$router.back()
-      })
+    this.listingAllApps()
+    window.listingApps = this.listingAllApps
   }
 }
 </script>
