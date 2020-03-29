@@ -22,6 +22,17 @@ export default {
   name: 'MainLayout',
   data () {
     return {}
+  },
+  mounted () {
+    window.plugins.OneSignal.setLogLevel({ logLevel: 6, visualLevel: 0 })
+
+    var notificationOpenedCallback = function (jsonData) {
+      console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData))
+    }
+    window.plugins.OneSignal
+      .startInit('883b6dce-2337-4ecb-8652-f1f97d715c6d')
+      .handleNotificationOpened(notificationOpenedCallback)
+      .endInit()
   }
 }
 </script>
