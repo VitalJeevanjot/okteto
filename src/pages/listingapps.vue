@@ -3,6 +3,7 @@
   <div v-if="$spaceData.space != null">
     <!-- For apps -->
     <q-list
+      id="component"
       class="rounded-borders q-pt-md"
       align="center"
       v-for="app in $spaceData.space.apps"
@@ -206,6 +207,7 @@
 
     <!-- For Devs -->
     <q-list
+      id="component"
       class="rounded-borders q-pt-md"
       align="center"
       v-for="devenv in $spaceData.space.devs"
@@ -313,6 +315,7 @@
 
     <!-- For Deployments -->
     <q-list
+      id="component"
       class="rounded-borders q-pt-md"
       align="center"
       v-for="deployment in $spaceData.space.deployments"
@@ -420,6 +423,7 @@
 
     <!-- For Container -->
     <q-list
+      id="component"
       class="rounded-borders q-pt-md"
       align="center"
       v-for="container in $spaceData.space.containers"
@@ -527,6 +531,7 @@
     </q-list>
     <!-- For Functions -->
     <q-list
+      id="component"
       class="rounded-borders q-pt-md"
       align="center"
       v-for="functionCell in $spaceData.space.functions"
@@ -634,6 +639,7 @@
 
     <!-- For StatefulSets -->
     <q-list
+      id="component"
       class="rounded-borders q-pt-md"
       align="center"
       v-for="statefulset in $spaceData.space.statefulsets"
@@ -739,6 +745,7 @@
     </q-list>
     <!-- For Volumes -->
     <q-list
+      id="component"
       class="rounded-borders q-pt-md"
       align="center"
       v-for="volume in $spaceData.space.volumes"
@@ -800,6 +807,9 @@
 
       </q-expansion-item>
     </q-list>
+    <div :class="`row justify-center q-mt-md ${hideLine}`">
+      <span class="heading-bold text-warning ellipsis">Nothing Deployed Here!</span>
+    </div>
     <q-dialog v-model="endpointDialog">
       <q-card>
         <q-card-section class="row">
@@ -834,7 +844,9 @@ export default {
     return {
       selectedEndpoint: '',
       endpointDialog: false,
-      copiedText: ''
+      copiedText: '',
+      components: null,
+      hideLine: 'hidden'
     }
   },
   methods: {
@@ -907,6 +919,15 @@ export default {
     console.log('here #2')
     this.$eventReg('page', 'Listing App', 'Lising app page')
     window.listingApps = this.listingAllApps
+  },
+  updated () {
+    this.components = document.getElementById('component')
+    if (this.components == null) {
+      this.hideLine = ''
+    } else {
+      this.hideLine = 'hidden'
+    }
+    console.info(this.components)
   }
 }
 </script>
