@@ -898,6 +898,7 @@ export default {
   },
   created () {
     this.listingAllApps()
+    clearInterval(window.timer)
     window.timer = setInterval(this.listingAllApps, 3000)
   },
   mounted () {

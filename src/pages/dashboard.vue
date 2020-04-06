@@ -11,10 +11,21 @@
           @click="signOutUserConfirmation"
         />
         <q-toolbar-title align="center">
-          <q-avatar>
+          <q-avatar class="q-ml-sm">
             <img :src="avatar">
           </q-avatar>
         </q-toolbar-title>
+        <q-btn
+          round
+          unelevated
+          color="secondary"
+          size="sm"
+          text-color="white"
+          :loading="startRefresh"
+          icon="sync"
+          @click="refresh"
+          class="q-mr-sm"
+        />
         <q-btn
           round
           unelevated
@@ -147,15 +158,19 @@ export default {
   data () {
     return {
       avatar: '',
-      namespaceNewName: ''
+      namespaceNewName: '',
+      startRefresh: false
     }
   },
   methods: {
     refresh (done) {
+      window.processRequest()
+      this.startRefresh = true
       setTimeout(() => {
-        window.processRequest()
+        this.$q.notify({ icon: 'sync', color: 'positive', message: 'Refresh done', position: 'top', timeout: 1500 })
+        this.startRefresh = false
         done()
-      }, 2000)
+      }, 2500)
     },
     signOutUserConfirmation () {
       this.$q.dialog({
