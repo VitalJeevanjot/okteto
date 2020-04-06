@@ -137,7 +137,7 @@
                   <q-linear-progress
                     :value="this.$spaceData.space.quotas.used.limitsStorage/this.$spaceData.space.quotas.hard.limitsStorage"
                     class="bg-info q-mt-xs"
-                    color="positive"
+                    :color="getProgressColor(this.$spaceData.space.quotas.used.limitsStorage/this.$spaceData.space.quotas.hard.limitsStorage)"
                     rounded
                   >
                   </q-linear-progress>
@@ -152,7 +152,7 @@
                   <q-linear-progress
                     :value="this.$spaceData.space.quotas.used.limitsMemory/this.$spaceData.space.quotas.hard.limitsMemory"
                     class="bg-info q-mt-xs"
-                    color="dark"
+                    :color="getProgressColor(this.$spaceData.space.quotas.used.limitsMemory/this.$spaceData.space.quotas.hard.limitsMemory)"
                     rounded
                   >
                   </q-linear-progress>
@@ -167,7 +167,7 @@
                   <q-linear-progress
                     :value="this.$spaceData.space.quotas.used.limitsCPU/this.$spaceData.space.quotas.hard.limitsCPU"
                     class="bg-info q-mt-xs"
-                    color="dark"
+                    :color="getProgressColor(this.$spaceData.space.quotas.used.limitsCPU/this.$spaceData.space.quotas.hard.limitsCPU)"
                     rounded
                   >
                   </q-linear-progress>

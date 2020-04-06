@@ -92,7 +92,7 @@
                   <q-linear-progress
                     :value="space.quotas.used.limitsStorage/space.quotas.hard.limitsStorage"
                     class="bg-info"
-                    color="positive"
+                    :color="getProgressColor(space.quotas.used.limitsStorage/space.quotas.hard.limitsStorage)"
                     rounded
                   >
                   </q-linear-progress>
@@ -110,7 +110,7 @@
                   <q-linear-progress
                     :value="space.quotas.used.limitsMemory/space.quotas.hard.limitsMemory"
                     class="bg-info"
-                    color="dark"
+                    :color="getProgressColor(space.quotas.used.limitsMemory/space.quotas.hard.limitsMemory)"
                     rounded
                   >
                   </q-linear-progress>
@@ -125,7 +125,7 @@
                   <q-linear-progress
                     :value="space.quotas.used.limitsCPU/space.quotas.hard.limitsCPU"
                     class="bg-info"
-                    color="dark"
+                    :color="getProgressColor(space.quotas.used.limitsCPU/space.quotas.hard.limitsCPU)"
                     rounded
                   >
                   </q-linear-progress>

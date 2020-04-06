@@ -30,7 +30,7 @@
               size="xs"
               class="q-gutter-x-sm"
             >
-              <img :src="$helmRepos.repos.find(repo => repo.name == app.name).icon">
+              <img :src="$helmRepos.repos.find(repo => repo.name == app.chart).icon">
             </q-avatar>
           </q-item-section>
           <q-item-section class="text-white text-subtitle2">
