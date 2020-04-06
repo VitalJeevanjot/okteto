@@ -467,6 +467,9 @@ export default {
     }
 
   },
+  created () {
+    clearInterval(window.timer)
+  },
   mounted () {
     if (this.$q.localStorage.getItem('auth')) {
       this.setupLoginClient()

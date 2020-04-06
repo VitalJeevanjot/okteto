@@ -874,10 +874,19 @@ export default {
     listingAllApps () {
       window.loginClient.request(window.spaceQuery(this.$route.params.id))
         .then(data => {
-          console.log(data)
-          this.$spaceData.space = data.space
-          this.$spaceMembers.members = data.space.members
-          console.warn(this.$spaceMembers.members.find(member => member.email === this.$authUser.user.email).owner)
+          console.info(this.$spaceData)
+          console.info(data)
+          if (JSON.stringify(this.$spaceData) == JSON.stringify(data)) { // eslint-disable-line
+            console.error('All same')
+            // handle if data already exists (For timely request)
+          } else {
+            console.error('Not same')
+            console.log(this.$spaceData.space)
+            console.log(data.space)
+            this.$spaceData.space = data.space
+            this.$spaceMembers.members = data.space.members
+            console.warn(this.$spaceMembers.members.find(member => member.email === this.$authUser.user.email).owner)
+          }
           this.$q.loading.hide()
         }).catch((e) => {
           console.log(e)
@@ -887,12 +896,15 @@ export default {
         })
     }
   },
+  created () {
+    this.listingAllApps()
+    window.timer = setInterval(this.listingAllApps, 3000)
+  },
   mounted () {
     console.log('here #1')
     window.showLoading()
     console.log('here #2')
     this.$eventReg('page', 'Listing App', 'Lising app page')
-    this.listingAllApps()
     window.listingApps = this.listingAllApps
   }
 }

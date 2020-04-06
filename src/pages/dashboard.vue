@@ -206,6 +206,9 @@ export default {
       this.$router.back()
     }
   },
+  created () {
+    clearInterval(window.timer)
+  },
   mounted () {
     console.log(this.$spaces)
     console.log(this.$q.localStorage.getItem('auth'))
