@@ -12,7 +12,8 @@ module.exports = function (ctx) {
       'graphql-req',
       'byte',
       'globalvars',
-      'google-analytics'
+      'google-analytics',
+      'loadash'
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css

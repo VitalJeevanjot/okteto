@@ -6,7 +6,7 @@
       id="component"
       class="rounded-borders q-pt-md"
       align="center"
-      v-for="app in $spaceData.space.apps"
+      v-for="app in orderedApps"
       :key="app.id"
     >
       <q-expansion-item
@@ -80,7 +80,7 @@
           </q-item-section>
 
         </template>
-        <div class="row float-right q-mr-sm">
+        <!--<div class="row float-right q-mr-sm">
           <q-btn
             unelevated
             round
@@ -91,7 +91,7 @@
             icon="menu_open"
           >
           </q-btn>
-        </div>
+        </div> -->
         <div
           v-if="app.error"
           class="row col-12 q-pa-sm q-pt-md vertical-middle text-red"
@@ -210,7 +210,7 @@
       id="component"
       class="rounded-borders q-pt-md"
       align="center"
-      v-for="devenv in $spaceData.space.devs"
+      v-for="devenv in orderedDevs"
       :key="devenv.id"
     >
       <q-expansion-item
@@ -276,7 +276,7 @@
           </q-item-section>
 
         </template>
-        <div class="row float-right q-mr-sm">
+        <!--<div class="row float-right q-mr-sm">
           <q-btn
             unelevated
             round
@@ -287,7 +287,7 @@
             icon="menu_open"
           >
           </q-btn>
-        </div>
+        </div> -->
         <div
           v-if="devenv.error"
           class="row col-12 q-pa-sm q-pt-md vertical-middle text-red"
@@ -318,7 +318,7 @@
       id="component"
       class="rounded-borders q-pt-md"
       align="center"
-      v-for="deployment in $spaceData.space.deployments"
+      v-for="deployment in orderedDeployments"
       :key="deployment.id"
     >
       <q-expansion-item
@@ -383,7 +383,7 @@
             </div>
           </q-item-section>
         </template>
-        <div class="row float-right q-mr-sm">
+        <!--<div class="row float-right q-mr-sm">
           <q-btn
             unelevated
             round
@@ -394,7 +394,7 @@
             icon="menu_open"
           >
           </q-btn>
-        </div>
+        </div> -->
         <div
           v-if="deployment.error"
           class="row col-12 q-pa-sm q-pt-md vertical-middle text-red"
@@ -426,7 +426,7 @@
       id="component"
       class="rounded-borders q-pt-md"
       align="center"
-      v-for="container in $spaceData.space.containers"
+      v-for="container in orderedContainers"
       :key="container.id"
     >
       <q-expansion-item
@@ -492,7 +492,7 @@
           </q-item-section>
 
         </template>
-        <div class="row float-right q-mr-sm">
+        <!--<div class="row float-right q-mr-sm">
           <q-btn
             unelevated
             round
@@ -503,7 +503,7 @@
             icon="menu_open"
           >
           </q-btn>
-        </div>
+        </div> -->
         <div
           v-if="container.error"
           class="row col-12 q-pa-sm q-pt-md vertical-middle text-red"
@@ -534,7 +534,7 @@
       id="component"
       class="rounded-borders q-pt-md"
       align="center"
-      v-for="functionCell in $spaceData.space.functions"
+      v-for="functionCell in orderedFunctions"
       :key="functionCell.id"
     >
       <q-expansion-item
@@ -600,7 +600,7 @@
           </q-item-section>
 
         </template>
-        <div class="row float-right q-mr-sm">
+        <!--<div class="row float-right q-mr-sm">
           <q-btn
             unelevated
             round
@@ -611,7 +611,7 @@
             icon="menu_open"
           >
           </q-btn>
-        </div>
+        </div> -->
         <div
           v-if="functionCell.error"
           class="row col-12 q-pa-sm q-pt-md vertical-middle text-red"
@@ -642,7 +642,7 @@
       id="component"
       class="rounded-borders q-pt-md"
       align="center"
-      v-for="statefulset in $spaceData.space.statefulsets"
+      v-for="statefulset in orderedStatefulSets"
       :key="statefulset.id"
     >
       <q-expansion-item
@@ -708,7 +708,7 @@
           </q-item-section>
 
         </template>
-        <div class="row float-right q-mr-sm">
+        <!--<div class="row float-right q-mr-sm">
           <q-btn
             unelevated
             round
@@ -719,7 +719,7 @@
             icon="menu_open"
           >
           </q-btn>
-        </div>
+        </div> -->
         <div
           v-if="statefulset.error"
           class="row col-12 q-pa-sm q-pt-md vertical-middle text-red"
@@ -748,7 +748,7 @@
       id="component"
       class="rounded-borders q-pt-md"
       align="center"
-      v-for="volume in $spaceData.space.volumes"
+      v-for="volume in orderedVolumes"
       :key="volume.id"
     >
       <q-expansion-item
@@ -907,6 +907,35 @@ export default {
           this.errorAtReq()
           this.$router.back()
         })
+    }
+  },
+  computed: {
+    orderedDeployments: function () {
+      return this.$_.orderBy(this.$spaceData.space.deployments, 'name')
+    },
+    orderedApps: function () {
+      return this.$_.orderBy(this.$spaceData.space.apps, 'name')
+    },
+    orderedContainers: function () {
+      return this.$_.orderBy(this.$spaceData.space.containers, 'name')
+    },
+    orderedDevs: function () {
+      return this.$_.orderBy(this.$spaceData.space.devs, 'name')
+    },
+    orderedFunctions: function () {
+      return this.$_.orderBy(this.$spaceData.space.functions, 'name')
+    },
+    orderedInvited: function () {
+      return this.$_.orderBy(this.$spaceData.space.invited, 'name')
+    },
+    orderedMembers: function () {
+      return this.$_.orderBy(this.$spaceData.space.members, 'name')
+    },
+    orderedStatefulSets: function () {
+      return this.$_.orderBy(this.$spaceData.space.statefulsets, 'name')
+    },
+    orderedVolumes: function () {
+      return this.$_.orderBy(this.$spaceData.space.volumes, 'name')
     }
   },
   created () {

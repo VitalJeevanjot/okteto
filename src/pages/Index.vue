@@ -187,7 +187,7 @@ export default {
             console.log(data)
             allSpacesData.push(data.space)
             if (i === data1.spaces.length - 1) {
-              console.error(allSpacesData)
+              // console.error(allSpacesData)
               this.$q.loading.hide()
               this.$spaces.spaces = allSpacesData
               this.$q.localStorage.set('spaces', allSpacesData)
