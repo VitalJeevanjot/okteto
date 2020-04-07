@@ -21,7 +21,7 @@ export default async ({ Vue }) => {
         }
       },
       getProgressColor (percent) {
-        console.log(percent)
+        // console.log(percent)
         if (percent <= 0.75) {
           return 'positive'
         } else if (percent > 0.75 && percent <= 0.9) {

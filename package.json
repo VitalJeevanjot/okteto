@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Okteto app",
   "productName": "Okteto app",
-  "cordovaId": "org.cordova.quasar.app",
+  "cordovaId": "us.keybase.okteto",
   "capacitorId": "",
   "author": "Genievot <40867747+genievot@users.noreply.github.com>",
   "private": true,

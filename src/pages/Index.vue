@@ -147,30 +147,7 @@ export default {
               // getting all spaces ids
               console.log(data1)
               var allSpacesData = []
-              for (let i = 0; i < data1.spaces.length; i++) {
-                this.loginClient
-                  .request(this.query3(data1.spaces[i].id))
-                  .then(data => {
-                    console.log(data)
-                    allSpacesData.push(data.space)
-                    if (i === data1.spaces.length - 1) {
-                      console.log(allSpacesData)
-                      this.$q.loading.hide()
-                      this.$spaces.spaces = allSpacesData
-                      this.$q.localStorage.set('spaces', allSpacesData)
-                      if (this.$route.path !== '/dashboard') {
-                        this.$router.push('dashboard')
-                      }
-                      // and login user to dashboard
-                    }
-                    // successfully can login now.
-                  })
-                  .catch(e => {
-                    console.log(e)
-                    this.$q.loading.hide()
-                    this.errorAtReq()
-                  })
-              }
+              this.getDataForEachNameSpace(allSpacesData, data1)
               this.loginClient
                 .request(this.query4()).then(data => {
                   console.log(this.query4())
@@ -201,6 +178,32 @@ export default {
           this.$q.loading.hide()
           this.errorAtReq()
         })
+    },
+    async getDataForEachNameSpace (allSpacesData, data1) {
+      for (let i = 0; i < data1.spaces.length; i++) {
+        await this.loginClient
+          .request(this.query3(data1.spaces[i].id))
+          .then(data => {
+            console.log(data)
+            allSpacesData.push(data.space)
+            if (i === data1.spaces.length - 1) {
+              console.error(allSpacesData)
+              this.$q.loading.hide()
+              this.$spaces.spaces = allSpacesData
+              this.$q.localStorage.set('spaces', allSpacesData)
+              if (this.$route.path !== '/dashboard') {
+                this.$router.push('dashboard')
+              }
+              // and login user to dashboard
+            }
+            // successfully can login now.
+          })
+          .catch(e => {
+            console.log(e)
+            this.$q.loading.hide()
+            this.errorAtReq()
+          })
+      }
     },
     errorAtReq () {
       this.$q.notify({

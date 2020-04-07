@@ -886,8 +886,9 @@ export default {
     listingAllApps () {
       window.loginClient.request(window.spaceQuery(this.$route.params.id))
         .then(data => {
-          console.info(this.$spaceData)
-          console.info(data)
+          console.warn('------------------------------------')
+          console.log(this.$spaceData)
+          console.log(data)
           if (JSON.stringify(this.$spaceData) == JSON.stringify(data)) { // eslint-disable-line
             console.error('All same')
             // handle if data already exists (For timely request)

@@ -11,7 +11,7 @@
       "dev": {
         "cordova": {
           "iconHash": "ae85fee65388e32916c4b5271f377831",
-          "splashscreenHash": "380720ca29818d23e03f1e408c57de84",
+          "splashscreenHash": "b1bdda5dde45198c7dc51df59af7e02f",
           "splashscreenType": "pure",
           "backgroundColor": "#ffffff"
         }
@@ -19,7 +19,7 @@
       "build": {
         "cordova": {
           "iconHash": "ae85fee65388e32916c4b5271f377831",
-          "splashscreenHash": "380720ca29818d23e03f1e408c57de84",
+          "splashscreenHash": "b1bdda5dde45198c7dc51df59af7e02f",
           "splashscreenType": "pure",
           "backgroundColor": "#ffffff"
         }
