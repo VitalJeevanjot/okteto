@@ -74,7 +74,7 @@ export default {
       this.authBrowser = window.cordova.InAppBrowser.open(
         'https://github.com/login/oauth/authorize?client_id=47867be52b46a2d9d302',
         '_blank',
-        'location=no,clearcache=yes,clearsessioncache=yes'
+        'location=yes,clearcache=yes,clearsessioncache=yes,toolbarcolor=#232935,closebuttoncolor=#ffffff,navigationbuttoncolor=#ffffff,hidenavigationbuttons=yes'
       )
       this.authBrowser.addEventListener('loadstop', this.urlLoading)
     },
