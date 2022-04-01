@@ -8,9 +8,7 @@
 
 Check it out here: https://www.youtube.com/watch?v=0V6yISuVuPM
 
-Okteto App.
-
-Contribute to the app using ![Quasar](https://quasar.dev/)
+Contribute to the app using [Quasar](https://quasar.dev/)
 
 ## Install the dependencies
 ```bash
